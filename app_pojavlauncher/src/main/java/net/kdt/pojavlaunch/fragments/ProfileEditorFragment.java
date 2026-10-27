@@ -97,6 +97,10 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
         });
 
         mDeleteButton.setOnClickListener(v -> {
+            if(LauncherProfiles.BIRLIK_PROFILE_ID.equals(mProfileKey)){
+                Toast.makeText(getContext(), "BirlikCraft ana profili silinemez!", Toast.LENGTH_SHORT).show();
+                return;
+            }
             if(LauncherProfiles.mainProfileJson.profiles.size() > 1){
                 ProfileIconCache.dropIcon(mProfileKey);
                 LauncherProfiles.mainProfileJson.profiles.remove(mProfileKey);

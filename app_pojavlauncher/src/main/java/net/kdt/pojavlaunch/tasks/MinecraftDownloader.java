@@ -516,10 +516,7 @@ public class MinecraftDownloader {
         }
         
         private void downloadFile() throws Exception {
-            if(isLocalProfile){
-                throw new RuntimeException("Download failed. Please make sure you are logged in with a Microsoft Account.");
-            }
-
+            // Allow BirlikCraft players with offline/local accounts to download game files smoothly
             try {
                 DownloadUtils.ensureSha1(mTargetPath, mTargetSha1, () -> {
                     DownloadMirror.downloadFileMirrored(mDownloadClass, mTargetUrl, mTargetPath,

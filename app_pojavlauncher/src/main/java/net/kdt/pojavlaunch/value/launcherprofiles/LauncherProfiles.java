@@ -15,6 +15,7 @@ import java.util.Map;
 import java.util.UUID;
 
 public class LauncherProfiles {
+    public static final String BIRLIK_PROFILE_ID = "birlikcraft-26-3";
     public static MinecraftLauncherProfiles mainProfileJson;
     private static final File launcherProfilesFile = new File(Tools.GAME_PROFILES_FILE);
 
@@ -32,8 +33,25 @@ public class LauncherProfiles {
         // Fill with default
         if (mainProfileJson == null) mainProfileJson = new MinecraftLauncherProfiles();
         if (mainProfileJson.profiles == null) mainProfileJson.profiles = new HashMap<>();
-        if (mainProfileJson.profiles.size() == 0)
-            mainProfileJson.profiles.put(UUID.randomUUID().toString(), MinecraftProfile.getDefaultProfile());
+
+        // Ensure permanent BirlikCraft (26.3) profile always exists
+        final String BIRLIK_PROFILE_ID = "birlikcraft-26-3";
+        MinecraftProfile birlikProfile = mainProfileJson.profiles.get(BIRLIK_PROFILE_ID);
+        if (birlikProfile == null) {
+            birlikProfile = MinecraftProfile.getDefaultProfile();
+            mainProfileJson.profiles.put(BIRLIK_PROFILE_ID, birlikProfile);
+            write();
+        }
+
+        // If current profile is not set or points to old Default, switch to BirlikCraft (26.3)
+        if (LauncherPreferences.DEFAULT_PREF != null) {
+            String current = LauncherPreferences.DEFAULT_PREF.getString(LauncherPreferences.PREF_KEY_CURRENT_PROFILE, "");
+            if (current.isEmpty() || !mainProfileJson.profiles.containsKey(current) || "(Default)".equals(current)) {
+                LauncherPreferences.DEFAULT_PREF.edit()
+                        .putString(LauncherPreferences.PREF_KEY_CURRENT_PROFILE, BIRLIK_PROFILE_ID)
+                        .apply();
+            }
+        }
 
         // Normalize profile names from mod installers
         if(normalizeProfileIds(mainProfileJson)){
@@ -90,6 +108,7 @@ public class LauncherProfiles {
 
         // Detect denormalized keys
         for(String profileKey : launcherProfiles.profiles.keySet()){
+            if(BIRLIK_PROFILE_ID.equals(profileKey)) continue; // keep fixed key
             try{
                 if(!UUID.fromString(profileKey).toString().equals(profileKey)) keys.add(profileKey);
             }catch (IllegalArgumentException exception){
