@@ -4,7 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/transparent">
+    android:background="@color/background_app">
+
+    <!-- BirlikCraft Background Wallpaper -->
+    <ImageView
+        android:id="@+id/global_birlik_wallpaper"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/birlikcraft_bg"
+        android:alpha="0.30"
+        tools:ignore="ContentDescription" />
 
     <com.kdt.mcgui.mcAccountSpinner
         android:id="@+id/account_spinner"
