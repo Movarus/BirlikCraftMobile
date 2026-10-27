@@ -12,61 +12,72 @@ static def getDateSeconds() {
     }
 }
 
+def getGitCmd = {
+    def candidates = [
+        "git",
+        "C:\\Program Files\\Git\\cmd\\git.exe",
+        "C:\\Program Files\\Git\\bin\\git.exe"
+    ]
+    for (String c : candidates) {
+        if (c == "git" || new File(c).exists()) {
+            return c
+        }
+    }
+    return "git"
+}
+
 def getVersionName = {
     // Get the last version tag, as well as the short head of the last commit
     ByteArrayOutputStream TAG = new ByteArrayOutputStream()
     ByteArrayOutputStream BRANCH = new ByteArrayOutputStream()
     // Used by the fallback for github actions
     ByteArrayOutputStream TAG_PART_COMMIT = new ByteArrayOutputStream()
-    String TAG_STRING
+    String TAG_STRING = ""
+    String gitCmd = getGitCmd()
 
-    exec {
-        try {
-            commandLine 'git', 'describe', '--tags'
+    try {
+        exec {
+            commandLine gitCmd, 'describe', '--tags'
             ignoreExitValue true
             standardOutput = TAG
-        } catch (Exception e) {
-            e.printStackTrace();
         }
+    } catch (Exception e) {
     }
 
-    if (TAG.toString() == "") {
-        exec {
-            // Fallback for action builds
-            try {
-                commandLine 'git', 'describe', '--always', '--tags'
+    if (TAG.toString().trim() == "") {
+        try {
+            exec {
+                // Fallback for action builds
+                commandLine gitCmd, 'describe', '--always', '--tags'
                 ignoreExitValue true
                 standardOutput = TAG_PART_COMMIT
-            } catch (Exception e) {
             }
+        } catch (Exception e) {
         }
     }
 
-
-    if(TAG.toString() != ""){
-        TAG_STRING = TAG.toString()
+    if(TAG.toString().trim() != ""){
+        TAG_STRING = TAG.toString().trim()
     }else {
         if(TAG_PART_COMMIT.toString().trim() == ""){
              //Fallback no repo
-            return ("LOCAL-" + "${getDate()}")
+            return ("BirlikCraft-" + "${getDate()}")
         }else {
             // Used by github actions
-            TAG_STRING =  'gladiolus-' + "${getDate()}" + "-" + TAG_PART_COMMIT.toString().trim()
+            TAG_STRING =  'birlikcraft-' + "${getDate()}" + "-" + TAG_PART_COMMIT.toString().trim()
         }
-
     }
 
-    exec {
-        try {
-            commandLine 'git', 'branch', '--show-current'
+    try {
+        exec {
+            commandLine gitCmd, 'branch', '--show-current'
             ignoreExitValue true
             standardOutput = BRANCH
-        } catch (Exception e) {
-            e.printStackTrace();
         }
+    } catch (Exception e) {
     }
 
-    return TAG_STRING.trim().replace("-g", "-") + "-" + BRANCH.toString().trim()
+    return TAG_STRING.trim().replace("-g", "-") + (BRANCH.toString().trim().isEmpty() ? "" : "-" + BRANCH.toString().trim())
 }
 
 def getCFApiKey = {
@@ -112,7 +123,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "net.kdt.pojavlaunch"
+        applicationId "com.taisla.birlikcraft"
         minSdkVersion 21
         targetSdkVersion 34
         versionCode getDateSeconds()
@@ -128,9 +139,9 @@ android {
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.customDebug
-            resValue 'string', 'application_package', 'net.kdt.pojavlaunch.debug'
-            resValue 'string', 'storageProviderAuthorities', 'net.kdt.pojavlaunch.scoped.gamefolder.debug'
-            resValue 'string', 'shareProviderAuthority', 'net.kdt.pojavlaunch.scoped.controlfolder.debug'
+            resValue 'string', 'application_package', 'com.taisla.birlikcraft.debug'
+            resValue 'string', 'storageProviderAuthorities', 'com.taisla.birlikcraft.scoped.gamefolder.debug'
+            resValue 'string', 'shareProviderAuthority', 'com.taisla.birlikcraft.scoped.controlfolder.debug'
         }
         proguard {
             initWith debug
@@ -149,8 +160,8 @@ android {
             // defaultConfig already set
             // multiDexEnabled = true
             // debuggable = true
-            resValue 'string', 'storageProviderAuthorities', 'net.kdt.pojavlaunch.scoped.gamefolder'
-            resValue 'string', 'application_package', 'net.kdt.pojavlaunch'
+            resValue 'string', 'storageProviderAuthorities', 'com.taisla.birlikcraft.scoped.gamefolder'
+            resValue 'string', 'application_package', 'com.taisla.birlikcraft'
         }
         gplay {
             initWith release

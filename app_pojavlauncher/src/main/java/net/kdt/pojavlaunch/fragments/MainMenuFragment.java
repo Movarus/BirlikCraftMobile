@@ -45,6 +45,7 @@ public class MainMenuFragment extends Fragment {
         Button mInstallJarButton = view.findViewById(R.id.install_jar_button);
         Button mShareLogsButton = view.findViewById(R.id.share_logs_button);
         Button mOpenDirectoryButton = view.findViewById(R.id.open_files_button);
+        Button mServerIpButton = view.findViewById(R.id.server_ip_button);
 
         ImageButton mEditProfileButton = view.findViewById(R.id.edit_profile_button);
         Button mPlayButton = view.findViewById(R.id.play_button);
@@ -73,6 +74,16 @@ public class MainMenuFragment extends Fragment {
 
             openPath(v.getContext(), getCurrentProfileDirectory(), false);
         });
+
+        if (mServerIpButton != null) {
+            mServerIpButton.setOnClickListener(v -> {
+                android.content.ClipboardManager clipboard = (android.content.ClipboardManager) requireContext().getSystemService(android.content.Context.CLIPBOARD_SERVICE);
+                String ip = getString(R.string.server_ip);
+                android.content.ClipData clip = android.content.ClipData.newPlainText("BirlikCraft", ip);
+                if (clipboard != null) clipboard.setPrimaryClip(clip);
+                Toast.makeText(requireContext(), ip + " kopyalandı!", Toast.LENGTH_SHORT).show();
+            });
+        }
 
 
         mNewsButton.setOnLongClickListener((v)->{

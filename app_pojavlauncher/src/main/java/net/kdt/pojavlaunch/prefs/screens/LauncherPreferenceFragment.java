@@ -13,6 +13,7 @@ import androidx.preference.PreferenceFragmentCompat;
 
 import net.kdt.pojavlaunch.LauncherActivity;
 import net.kdt.pojavlaunch.R;
+import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 
 /**
@@ -31,6 +32,35 @@ public class LauncherPreferenceFragment extends PreferenceFragmentCompat impleme
     public void onCreatePreferences(Bundle b, String str) {
         addPreferencesFromResource(R.xml.pref_main);
         setupNotificationRequestPreference();
+        setupAboutPreferences();
+    }
+
+    private void setupAboutPreferences() {
+        Preference webPref = findPreference("pref_about_website");
+        if (webPref != null) {
+            webPref.setOnPreferenceClickListener(p -> {
+                Tools.openURL(requireActivity(), "https://movarus.info");
+                return true;
+            });
+        }
+        Preference discordPref = findPreference("pref_about_discord");
+        if (discordPref != null) {
+            discordPref.setOnPreferenceClickListener(p -> {
+                Tools.openURL(requireActivity(), getString(R.string.discord_invite));
+                return true;
+            });
+        }
+        Preference serverPref = findPreference("pref_about_server");
+        if (serverPref != null) {
+            serverPref.setOnPreferenceClickListener(p -> {
+                android.content.ClipboardManager clipboard = (android.content.ClipboardManager) requireContext().getSystemService(android.content.Context.CLIPBOARD_SERVICE);
+                String ip = getString(R.string.server_ip);
+                android.content.ClipData clip = android.content.ClipData.newPlainText("BirlikCraft", ip);
+                if (clipboard != null) clipboard.setPrimaryClip(clip);
+                android.widget.Toast.makeText(requireContext(), ip + " kopyalandı!", android.widget.Toast.LENGTH_SHORT).show();
+                return true;
+            });
+        }
     }
 
     private void setupNotificationRequestPreference() {

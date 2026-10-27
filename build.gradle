@@ -4,30 +4,40 @@ plugins{
     id 'com.android.library' version '8.7.2' apply false
 }
 
-String getGitHash(String project) {
-    def command = Runtime.getRuntime().exec("git rev-list -1 HEAD " + project)
-    def returnCode = command.waitFor()
-    if (returnCode != 0) {
-        throw new IOException("Command 'getGitHash()' exited with " + returnCode)
+String resolveGitPath() {
+    def candidates = [
+        "git",
+        "C:\\Program Files\\Git\\cmd\\git.exe",
+        "C:\\Program Files\\Git\\bin\\git.exe"
+    ]
+    for (String c : candidates) {
+        if (c == "git" || new File(c).exists()) {
+            return c
+        }
     }
-    String gitCommitHash = command.inputStream.text.trim()
-    return gitCommitHash
+    return "git"
+}
+
+String getGitHash(String project) {
+    try {
+        def gitCmd = resolveGitPath()
+        def command = Runtime.getRuntime().exec([gitCmd, "rev-list", "-1", "HEAD", project] as String[])
+        def returnCode = command.waitFor()
+        if (returnCode != 0) {
+            return "birlikcraft-local"
+        }
+        return command.inputStream.text.trim()
+    } catch (Exception e) {
+        return "birlikcraft-local"
+    }
 }
 
 Boolean gitUsed() {
-    def returnCode = Runtime.getRuntime().exec("git rev-parse --is-inside-work-tree").waitFor()
-    switch(returnCode){
-        case 127:
-          println("git not found");
-          return false;
-          break;
-        case 128:
-          println("not inside a git repository");
-          return false;
-          break;
-        case 0:
-          return true;
-        default:
-          throw new IOException("Command 'gitUsed()' exited with " + returnCode)
-  }
+    try {
+        def gitCmd = resolveGitPath()
+        def returnCode = Runtime.getRuntime().exec([gitCmd, "rev-parse", "--is-inside-work-tree"] as String[]).waitFor()
+        return returnCode == 0
+    } catch (Exception e) {
+        return false
+    }
 }

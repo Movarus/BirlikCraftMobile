@@ -66,8 +66,32 @@
         android:key="notification_permission_request"
         />
 
-
-
-
+    <PreferenceCategory
+        android:title="@string/pref_category_about">
+        <Preference
+            android:key="pref_about_author"
+            android:title="@string/pref_about_author_title"
+            android:summary="@string/pref_about_author_summary"
+            android:icon="@drawable/ic_edit_profile"
+            />
+        <Preference
+            android:key="pref_about_website"
+            android:title="@string/pref_about_website_title"
+            android:summary="@string/pref_about_website_summary"
+            android:icon="@drawable/ic_menu_news"
+            />
+        <Preference
+            android:key="pref_about_server"
+            android:title="@string/pref_about_server_title"
+            android:summary="@string/server_ip"
+            android:icon="@drawable/ic_search"
+            />
+        <Preference
+            android:key="pref_about_discord"
+            android:title="@string/pref_about_discord_title"
+            android:summary="@string/discord_invite"
+            android:icon="@drawable/ic_discord"
+            />
+    </PreferenceCategory>
 
 </PreferenceScreen>
