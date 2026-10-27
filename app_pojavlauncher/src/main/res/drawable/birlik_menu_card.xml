@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Pressed state -->
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <corners android:radius="@dimen/_6sdp" />
+            <solid android:color="#2A2B3D" />
+            <stroke android:width="@dimen/_1sdp" android:color="@color/birlik_gold_face" />
+        </shape>
+    </item>
+    <!-- Normal state: glass card with subtle border -->
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="@dimen/_6sdp" />
+            <solid android:color="#991A1B26" />
+            <stroke android:width="@dimen/_1sdp" android:color="#33FDDC3F" />
+        </shape>
+    </item>
+</selector>
