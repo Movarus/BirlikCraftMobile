@@ -22,6 +22,7 @@ public class MineButton extends androidx.appcompat.widget.AppCompatButton {
 	public void init() {
 		setTypeface(ResourcesCompat.getFont(getContext(), R.font.noto_sans_bold));
 		setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.mine_button_background, null));
+		setTextColor(0xFF3B1A00); // Dark contrast text on 3D gold button
 		setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen._13ssp));
 	}
 

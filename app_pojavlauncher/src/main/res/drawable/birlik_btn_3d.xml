@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Pressed state (3D pushed down effect, darker gold with dark border) -->
+    <item android:state_pressed="true">
+        <layer-list>
+            <item>
+                <shape android:shape="rectangle">
+                    <corners android:radius="@dimen/_6sdp" />
+                    <solid android:color="@color/birlik_gold_border" />
+                </shape>
+            </item>
+            <item android:bottom="@dimen/_2sdp">
+                <shape android:shape="rectangle">
+                    <corners android:radius="@dimen/_6sdp" />
+                    <solid android:color="@color/birlik_gold_depth" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+
+    <!-- Disabled state -->
+    <item android:state_enabled="false">
+        <shape android:shape="rectangle">
+            <corners android:radius="@dimen/_6sdp" />
+            <solid android:color="#444444" />
+        </shape>
+    </item>
+
+    <!-- Normal 3D BirlikCraft state (Gold face, 3D bottom depth and border) -->
+    <item>
+        <layer-list>
+            <!-- 3D bottom border/shadow -->
+            <item>
+                <shape android:shape="rectangle">
+                    <corners android:radius="@dimen/_6sdp" />
+                    <solid android:color="@color/birlik_gold_border" />
+                </shape>
+            </item>
+            <!-- 3D bottom depth layer -->
+            <item android:bottom="@dimen/_4sdp">
+                <shape android:shape="rectangle">
+                    <corners android:radius="@dimen/_6sdp" />
+                    <solid android:color="@color/birlik_gold_depth" />
+                </shape>
+            </item>
+            <!-- Top button face with rich gradient -->
+            <item android:bottom="@dimen/_6sdp">
+                <shape android:shape="rectangle">
+                    <corners android:radius="@dimen/_6sdp" />
+                    <gradient
+                        android:angle="270"
+                        android:startColor="#FFE566"
+                        android:endColor="@color/birlik_gold_face" />
+                    <stroke android:width="@dimen/_1sdp" android:color="#FFF8B0" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+</selector>
