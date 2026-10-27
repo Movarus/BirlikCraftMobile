@@ -34,38 +34,28 @@ jobs:
           cd app_pojavlauncher/libs
           wget https://github.com/PojavLauncherTeam/LTW/releases/latest/download/ltw-release.aar
 
-      - name: Get JRE 8
-        continue-on-error: true
-        uses: dawidd6/action-download-artifact@v9
-        with:
-          workflow: build.yml
-          path: app_pojavlauncher/src/main/assets/components/jre
-          workflow_conclusion: success
-          repo: PojavLauncherTeam/android-openjdk-build-multiarch
-          branch: buildjre8
-          name: jre8-pojav
-
-      - name: Get JRE17
-        continue-on-error: true
-        uses: dawidd6/action-download-artifact@v9
-        with:
-          workflow: build.yml
-          path: app_pojavlauncher/src/main/assets/components/jre-new
-          workflow_conclusion: success
-          repo: PojavLauncherTeam/android-openjdk-build-multiarch
-          branch: buildjre17-21
-          name: jre17-pojav
-
-      - name: Get JRE21
-        continue-on-error: true
-        uses: dawidd6/action-download-artifact@v9
-        with:
-          workflow: build.yml
-          path: app_pojavlauncher/src/main/assets/components/jre-21
-          workflow_conclusion: success
-          repo: PojavLauncherTeam/android-openjdk-build-multiarch
-          branch: buildjre17-21
-          name: jre21-pojav
+      - name: Fetch and Bundle Official JRE Runtimes (JRE 8, 17, 21)
+        run: |
+          echo "Downloading official Pojav release APK to extract precompiled JRE runtimes..."
+          wget -q https://github.com/PojavLauncherTeam/PojavLauncher/releases/download/gladiolus/PojavLauncher.apk -O /tmp/official_pojav.apk
+          mkdir -p /tmp/apk_extracted
+          unzip -q /tmp/official_pojav.apk -d /tmp/apk_extracted
+          
+          echo "Copying extracted JRE components into assets..."
+          mkdir -p app_pojavlauncher/src/main/assets/components
+          if [ -d "/tmp/apk_extracted/assets/components/jre" ]; then
+            cp -r /tmp/apk_extracted/assets/components/jre app_pojavlauncher/src/main/assets/components/
+            echo "Bundled JRE 8: $(ls -l app_pojavlauncher/src/main/assets/components/jre)"
+          fi
+          if [ -d "/tmp/apk_extracted/assets/components/jre-new" ]; then
+            cp -r /tmp/apk_extracted/assets/components/jre-new app_pojavlauncher/src/main/assets/components/
+            echo "Bundled JRE 17 (jre-new): $(ls -l app_pojavlauncher/src/main/assets/components/jre-new)"
+          fi
+          if [ -d "/tmp/apk_extracted/assets/components/jre-21" ]; then
+            cp -r /tmp/apk_extracted/assets/components/jre-21 app_pojavlauncher/src/main/assets/components/
+            echo "Bundled JRE 21: $(ls -l app_pojavlauncher/src/main/assets/components/jre-21)"
+          fi
+          rm -rf /tmp/official_pojav.apk /tmp/apk_extracted
 
       - uses: gradle/actions/setup-gradle@v4
         with:
