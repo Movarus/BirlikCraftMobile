@@ -84,7 +84,7 @@
             android:key="pref_about_server"
             android:title="@string/pref_about_server_title"
             android:summary="@string/server_ip"
-            android:icon="@drawable/ic_search"
+            android:icon="@drawable/ic_menu_home"
             />
         <Preference
             android:key="pref_about_discord"
