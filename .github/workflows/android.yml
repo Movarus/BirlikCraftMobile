@@ -35,6 +35,7 @@ jobs:
           wget https://github.com/PojavLauncherTeam/LTW/releases/latest/download/ltw-release.aar
 
       - name: Get JRE 8
+        continue-on-error: true
         uses: dawidd6/action-download-artifact@v9
         with:
           workflow: build.yml
@@ -45,6 +46,7 @@ jobs:
           name: jre8-pojav
 
       - name: Get JRE17
+        continue-on-error: true
         uses: dawidd6/action-download-artifact@v9
         with:
           workflow: build.yml
@@ -55,6 +57,7 @@ jobs:
           name: jre17-pojav
 
       - name: Get JRE21
+        continue-on-error: true
         uses: dawidd6/action-download-artifact@v9
         with:
           workflow: build.yml
@@ -72,7 +75,7 @@ jobs:
         run: |
           ./scripts/languagelist_updater.sh
 
-          mkdir out
+          mkdir -p out
           # Build JRE JAR files (security manager, etc...)
           gradle :jre_lwjgl3glfw:build --no-daemon
 
@@ -96,10 +99,10 @@ jobs:
 
       - name: Build APK without runtime
         run: |
-          rm -r app_pojavlauncher/src/main/assets/components/jre
-          rm -r app_pojavlauncher/src/main/assets/components/jre-new
-          rm -r app_pojavlauncher/src/main/assets/components/jre-21
-          gradle assembleDebug
+          rm -rf app_pojavlauncher/src/main/assets/components/jre
+          rm -rf app_pojavlauncher/src/main/assets/components/jre-new
+          rm -rf app_pojavlauncher/src/main/assets/components/jre-21
+          gradle :app_pojavlauncher:assembleDebug
           mv app_pojavlauncher/build/outputs/apk/debug/app_pojavlauncher-debug.apk out/app-debug-noruntime.apk
       - name: Gen md5sums
         run: |
