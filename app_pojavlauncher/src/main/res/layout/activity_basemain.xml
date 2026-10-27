@@ -70,6 +70,82 @@
 			android:visibility="gone"
 			/>
 
+		<!-- BirlikCraft Custom Cinematic Startup / Splash Overlay -->
+		<FrameLayout
+			android:id="@+id/birlik_splash_overlay"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:background="#0D0E15"
+			android:clickable="true"
+			android:focusable="true">
+
+			<ImageView
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:scaleType="centerCrop"
+				android:src="@drawable/birlik_splash_bg"
+				android:alpha="0.85"
+				tools:ignore="ContentDescription" />
+
+			<View
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:background="#660D0E15" />
+
+			<LinearLayout
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center"
+				android:gravity="center"
+				android:orientation="vertical">
+
+				<ImageView
+					android:layout_width="@dimen/_180sdp"
+					android:layout_height="@dimen/_70sdp"
+					android:scaleType="fitCenter"
+					android:src="@drawable/birlikcraft_logo"
+					tools:ignore="ContentDescription" />
+
+				<ProgressBar
+					android:layout_width="@dimen/_28sdp"
+					android:layout_height="@dimen/_28sdp"
+					android:layout_marginTop="@dimen/_14sdp"
+					android:indeterminateTint="@color/birlik_gold_face" />
+
+				<TextView
+					android:id="@+id/birlik_splash_status"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="@dimen/_8sdp"
+					android:fontFamily="sans-serif-medium"
+					android:text="BirlikCraft Başlatılıyor..."
+					android:textColor="@color/birlik_gold_face"
+					android:textSize="@dimen/_11ssp"
+					android:shadowColor="#000000"
+					android:shadowDx="0"
+					android:shadowDy="2"
+					android:shadowRadius="4" />
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="@dimen/_3sdp"
+					android:fontFamily="sans-serif"
+					android:text="@string/server_ip"
+					android:textColor="#B3FFFFFF"
+					android:textSize="@dimen/_9ssp" />
+			</LinearLayout>
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="bottom|center_horizontal"
+				android:layout_marginBottom="@dimen/_10sdp"
+				android:text="@string/author_name"
+				android:textColor="#80FFFFFF"
+				android:textSize="@dimen/_8ssp" />
+		</FrameLayout>
+
 	</FrameLayout>
 
 	<ListView

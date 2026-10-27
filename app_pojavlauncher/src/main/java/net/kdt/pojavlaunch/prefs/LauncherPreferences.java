@@ -24,7 +24,7 @@ public class LauncherPreferences {
     public static final String PREF_KEY_SKIP_NOTIFICATION_CHECK = "skipNotificationPermissionCheck";
 
     public static SharedPreferences DEFAULT_PREF;
-    public static String PREF_RENDERER = "opengles2";
+    public static String PREF_RENDERER = "vulkan_zink";
 
 	public static boolean PREF_IGNORE_NOTCH = false;
 	public static int PREF_NOTCH_SIZE = 0;
@@ -74,7 +74,7 @@ public class LauncherPreferences {
         Tools.initStorageConstants(ctx);
         boolean isDevicePowerful = isDevicePowerful(ctx);
 
-        PREF_RENDERER = DEFAULT_PREF.getString("renderer", "opengles2");
+        PREF_RENDERER = DEFAULT_PREF.getString("renderer", "vulkan_zink");
         PREF_BUTTONSIZE = DEFAULT_PREF.getInt("buttonscale", 100);
         PREF_MOUSESCALE = DEFAULT_PREF.getInt("mousescale", 100)/100f;
         PREF_MOUSESPEED = ((float)DEFAULT_PREF.getInt("mousespeed",100))/100f;
@@ -147,10 +147,10 @@ public class LauncherPreferences {
         // Limit the max for 32 bits devices more harshly
         if (is32BitsDevice()) return 696;
 
-        if (deviceRam < 3064) return 936;
-        if (deviceRam < 4096) return 1144;
-        if (deviceRam < 6144) return 1536;
-        return 2048; //Default RAM allocation for 64 bits
+        if (deviceRam < 3064) return 1536;
+        if (deviceRam < 4096) return 2048;
+        // 2048 MB - 2560 MB is optimal for mobile GC balance & BirlikCraft
+        return 2304; 
     }
 
     /// Find a correct resolution for the device
@@ -158,15 +158,8 @@ public class LauncherPreferences {
     /// Some devices are shipped with a ridiculously high resolution, which can cause performance issues
     /// This function will try to find a resolution that is good enough for the device
     private static int findBestResolution(Context context, boolean isDevicePowerful) {
-        DisplayMetrics metrics = context.getResources().getDisplayMetrics();
-        int minSide = Math.min(metrics.widthPixels, metrics.heightPixels);
-        int targetSide = isDevicePowerful ? 1080 : 720;
-        if (minSide <= targetSide) return 100; // No need to scale down
-
-        float ratio = (100f * targetSide / minSide);
-        // The value must match the seekbar values
-        int increment = context.getResources().getInteger(R.integer.resolution_seekbar_increment);
-        return (int) (Math.ceil(ratio / increment) * increment);
+        // Ideal recommended resolution scale on mobile screens is 60%-70% to cut GPU load while retaining crispness
+        return 70;
     }
 
     /// Check if the device is considered powerful.

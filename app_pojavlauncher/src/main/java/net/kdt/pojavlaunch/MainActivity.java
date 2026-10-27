@@ -88,6 +88,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
     private GyroControl mGyroControl = null;
     private ControlLayout mControlLayout;
     private HotbarView mHotbarView;
+    private View mBirlikSplashOverlay;
 
     MinecraftProfile minecraftProfile;
 
@@ -264,6 +265,32 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         touchCharInput = findViewById(R.id.mainTouchCharInput);
         mDrawerPullButton = findViewById(R.id.drawer_button);
         mHotbarView = findViewById(R.id.hotbar_view);
+        mBirlikSplashOverlay = findViewById(R.id.birlik_splash_overlay);
+        if (mBirlikSplashOverlay != null) {
+            // Dismiss overlay after game window appears or user taps when ready
+            CallbackBridge.addGrabListener(isGrabbing -> {
+                if (isGrabbing && mBirlikSplashOverlay != null) {
+                    Tools.runOnUiThread(() -> dismissSplashOverlay());
+                }
+            });
+            mBirlikSplashOverlay.setOnClickListener(v -> {
+                // If game has loaded and rendered, tap allows quick dismiss
+                dismissSplashOverlay();
+            });
+        }
+    }
+
+    private void dismissSplashOverlay() {
+        if (mBirlikSplashOverlay != null && mBirlikSplashOverlay.getVisibility() == View.VISIBLE) {
+            mBirlikSplashOverlay.animate()
+                    .alpha(0f)
+                    .setDuration(400)
+                    .withEndAction(() -> {
+                        if (mBirlikSplashOverlay != null) {
+                            mBirlikSplashOverlay.setVisibility(View.GONE);
+                        }
+                    });
+        }
     }
 
     @Override
