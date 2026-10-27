@@ -57,12 +57,27 @@ public class NewJREUtil {
 
     private static MathUtils.RankedValue<Runtime> getNearestInstalledRuntime(int targetVersion) {
         List<Runtime> runtimes = MultiRTUtils.getRuntimes();
-        return MathUtils.findNearestPositive(targetVersion, runtimes, (runtime)->runtime.javaVersion);
+        MathUtils.RankedValue<Runtime> ranked = MathUtils.findNearestPositive(targetVersion, runtimes, (runtime)->runtime.javaVersion);
+        if (ranked == null && !runtimes.isEmpty()) {
+            // Fallback to highest installed runtime
+            Runtime highest = null;
+            for(Runtime r : runtimes) {
+                if(highest == null || r.javaVersion > highest.javaVersion) highest = r;
+            }
+            if(highest != null) return new MathUtils.RankedValue<>(highest, 100);
+        }
+        return ranked;
     }
 
     private static MathUtils.RankedValue<InternalRuntime> getNearestInternalRuntime(int targetVersion) {
         List<InternalRuntime> runtimeList = Arrays.asList(InternalRuntime.values());
-        return MathUtils.findNearestPositive(targetVersion, runtimeList, (runtime)->runtime.majorVersion);
+        MathUtils.RankedValue<InternalRuntime> ranked = MathUtils.findNearestPositive(targetVersion, runtimeList, (runtime)->runtime.majorVersion);
+        if (ranked == null && !runtimeList.isEmpty()) {
+            // Fallback to highest available internal runtime (JRE_21)
+            InternalRuntime highest = InternalRuntime.JRE_21;
+            return new MathUtils.RankedValue<>(highest, 50);
+        }
+        return ranked;
     }
 
 
