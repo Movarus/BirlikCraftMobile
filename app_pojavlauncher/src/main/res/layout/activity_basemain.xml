@@ -80,6 +80,7 @@
 			android:focusable="true">
 
 			<ImageView
+				android:id="@+id/birlik_splash_static_bg"
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
 				android:scaleType="centerCrop"
@@ -87,12 +88,21 @@
 				android:alpha="0.85"
 				tools:ignore="ContentDescription" />
 
+			<VideoView
+				android:id="@+id/birlik_splash_video"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_gravity="center"
+				android:visibility="gone" />
+
 			<View
+				android:id="@+id/birlik_splash_tint"
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
 				android:background="#660D0E15" />
 
 			<LinearLayout
+				android:id="@+id/birlik_splash_content"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_gravity="center"

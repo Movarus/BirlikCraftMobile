@@ -68,8 +68,14 @@ public class AsyncAssetManager {
 
                 Tools.copyAssetFile(ctx, "launcher_profiles.json", Tools.DIR_GAME_NEW, false);
                 Tools.copyAssetFile(ctx,"resolv.conf",Tools.DIR_DATA, false);
+
+                // Copy BirlikCraft default resource pack
+                File resourcePacksDir = new File(Tools.DIR_GAME_NEW, "resourcepacks");
+                if (!resourcePacksDir.exists()) resourcePacksDir.mkdirs();
+                Tools.copyAssetFile(ctx, "BirlikCraft.zip", resourcePacksDir.getAbsolutePath(), true);
+                Tools.copyAssetFile(ctx, "birlik_intro.mp4", Tools.DIR_GAME_NEW, false);
             } catch (IOException e) {
-                Log.e("AsyncAssetManager", "Failed to unpack critical components !");
+                Log.e("AsyncAssetManager", "Failed to unpack critical components !", e);
             }
             ProgressLayout.clearProgress(ProgressLayout.EXTRACT_SINGLE_FILES);
         });

@@ -302,6 +302,22 @@ public final class Tools {
             }
         }
 
+        // Apply BirlikCraft defaults: Turkish language, music=0, and BirlikCraft resource pack
+        try {
+            MCOptionUtils.load(gamedir.getAbsolutePath());
+            MCOptionUtils.set("lang", "tr_tr");
+            MCOptionUtils.set("soundCategory_music", "0.0");
+            String packs = MCOptionUtils.get("resourcePacks");
+            if (packs == null || packs.isEmpty() || packs.equals("[]")) {
+                MCOptionUtils.set("resourcePacks", "[\"BirlikCraft.zip\"]");
+            } else if (!packs.contains("BirlikCraft.zip")) {
+                MCOptionUtils.set("resourcePacks", "[\"BirlikCraft.zip\"," + packs.substring(1));
+            }
+            MCOptionUtils.save();
+        } catch (Exception e) {
+            Log.w("Tools", "Failed to apply BirlikCraft options", e);
+        }
+
 
         Runtime runtime = MultiRTUtils.forceReread(Tools.pickRuntime(minecraftProfile, versionJavaRequirement));
         JMinecraftVersionList.Version versionInfo = Tools.getVersionInfo(versionId);

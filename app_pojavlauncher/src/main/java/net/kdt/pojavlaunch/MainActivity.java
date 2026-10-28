@@ -267,16 +267,72 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         mHotbarView = findViewById(R.id.hotbar_view);
         mBirlikSplashOverlay = findViewById(R.id.birlik_splash_overlay);
         if (mBirlikSplashOverlay != null) {
-            // Dismiss overlay after game window appears or user taps when ready
-            CallbackBridge.addGrabListener(isGrabbing -> {
-                if (isGrabbing && mBirlikSplashOverlay != null) {
-                    Tools.runOnUiThread(() -> dismissSplashOverlay());
-                }
-            });
-            mBirlikSplashOverlay.setOnClickListener(v -> {
-                // If game has loaded and rendered, tap allows quick dismiss
-                dismissSplashOverlay();
-            });
+            setupBirlikIntro();
+        }
+    }
+
+    private android.widget.VideoView mBirlikSplashVideo;
+    private View mBirlikSplashContent;
+    private View mBirlikSplashTint;
+    private boolean mGameLoaded = false;
+    private boolean mIntroFinished = false;
+
+    private void setupBirlikIntro() {
+        mBirlikSplashVideo = findViewById(R.id.birlik_splash_video);
+        mBirlikSplashContent = findViewById(R.id.birlik_splash_content);
+        mBirlikSplashTint = findViewById(R.id.birlik_splash_tint);
+
+        // Start video playback from assets if available
+        try {
+            File introFile = new File(Tools.DIR_GAME_NEW, "birlik_intro.mp4");
+            if (introFile.exists() && mBirlikSplashVideo != null) {
+                mBirlikSplashVideo.setVisibility(View.VISIBLE);
+                if (mBirlikSplashContent != null) mBirlikSplashContent.setVisibility(View.GONE);
+                if (mBirlikSplashTint != null) mBirlikSplashTint.setVisibility(View.GONE);
+                mBirlikSplashVideo.setVideoPath(introFile.getAbsolutePath());
+                mBirlikSplashVideo.setOnCompletionListener(mp -> {
+                    mIntroFinished = true;
+                    if (mGameLoaded) {
+                        dismissSplashOverlay();
+                    }
+                });
+                mBirlikSplashVideo.setOnErrorListener((mp, what, extra) -> {
+                    mIntroFinished = true;
+                    if (mGameLoaded) dismissSplashOverlay();
+                    return true;
+                });
+                mBirlikSplashVideo.start();
+            } else {
+                mIntroFinished = true;
+            }
+        } catch (Exception e) {
+            Log.e("BirlikSplash", "Failed to start intro video", e);
+            mIntroFinished = true;
+        }
+
+        // Automatic dismiss when game finishes loading (listening to log events)
+        Logger.setLogListener(text -> {
+            if (text != null && (text.contains("Reloading ResourceManager") || text.contains("OpenLTW") || text.contains("Sound engine started") || text.contains("Setting user:"))) {
+                Tools.runOnUiThread(() -> onGameReady());
+            }
+        });
+
+        // Also add grab listener as a backup
+        CallbackBridge.addGrabListener(isGrabbing -> {
+            if (isGrabbing) {
+                Tools.runOnUiThread(() -> onGameReady());
+            }
+        });
+
+        // Fallback: If intro finishes, and after a timeout game is still loading, allow tap or auto dismiss
+        mBirlikSplashOverlay.setOnClickListener(v -> dismissSplashOverlay());
+    }
+
+    private void onGameReady() {
+        mGameLoaded = true;
+        // If intro finished or not playing, dismiss immediately
+        if (mIntroFinished || mBirlikSplashVideo == null || !mBirlikSplashVideo.isPlaying()) {
+            dismissSplashOverlay();
         }
     }
 
@@ -284,10 +340,13 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         if (mBirlikSplashOverlay != null && mBirlikSplashOverlay.getVisibility() == View.VISIBLE) {
             mBirlikSplashOverlay.animate()
                     .alpha(0f)
-                    .setDuration(400)
+                    .setDuration(600)
                     .withEndAction(() -> {
                         if (mBirlikSplashOverlay != null) {
                             mBirlikSplashOverlay.setVisibility(View.GONE);
+                        }
+                        if (mBirlikSplashVideo != null) {
+                            try { mBirlikSplashVideo.stopPlayback(); } catch (Exception ignored) {}
                         }
                     });
         }
