@@ -32,9 +32,12 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.MimeTypeMap;
+import android.graphics.Bitmap;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Keep;
@@ -89,6 +92,15 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
     private ControlLayout mControlLayout;
     private HotbarView mHotbarView;
     private View mBirlikSplashOverlay;
+    private View mBirlikLunarOverlay;
+    private TextView mBirlikAccountName;
+    private ImageView mBirlikAccountAvatar;
+    private View mBirlikBtnPlay;
+    private View mBirlikBtnDiscord;
+    private View mBirlikBtnStore;
+    private View mBirlikDiscordBanner;
+    private View mBirlikBtnSettings;
+    private View mBirlikBtnQuit;
 
     MinecraftProfile minecraftProfile;
 
@@ -269,6 +281,10 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         if (mBirlikSplashOverlay != null) {
             setupBirlikIntro();
         }
+        mBirlikLunarOverlay = findViewById(R.id.birlik_lunar_overlay);
+        if (mBirlikLunarOverlay != null) {
+            setupBirlikLunarMenu();
+        }
     }
 
     private android.widget.VideoView mBirlikSplashVideo;
@@ -397,8 +413,128 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
                         if (mBirlikSplashVideo != null) {
                             try { mBirlikSplashVideo.stopPlayback(); } catch (Exception ignored) {}
                         }
+                        showBirlikLunarOverlay();
+                    });
+        } else {
+            showBirlikLunarOverlay();
+        }
+    }
+
+    private void showBirlikLunarOverlay() {
+        if (mBirlikLunarOverlay != null) {
+            mBirlikLunarOverlay.setAlpha(0f);
+            mBirlikLunarOverlay.setVisibility(View.VISIBLE);
+            mBirlikLunarOverlay.animate()
+                    .alpha(1f)
+                    .setDuration(400)
+                    .start();
+        }
+    }
+
+    private void setupBirlikLunarMenu() {
+        mBirlikAccountName = findViewById(R.id.birlik_account_name);
+        mBirlikAccountAvatar = findViewById(R.id.birlik_account_avatar);
+        mBirlikBtnPlay = findViewById(R.id.birlik_btn_play);
+        mBirlikBtnDiscord = findViewById(R.id.birlik_btn_discord);
+        mBirlikBtnStore = findViewById(R.id.birlik_btn_store);
+        mBirlikDiscordBanner = findViewById(R.id.birlik_discord_banner);
+        mBirlikBtnSettings = findViewById(R.id.birlik_btn_settings);
+        mBirlikBtnQuit = findViewById(R.id.birlik_btn_quit);
+
+        // Populate active account info
+        try {
+            MinecraftAccount account = PojavProfile.getCurrentProfileContent(this, null);
+            if (account != null && account.username != null && !account.username.isEmpty()) {
+                if (mBirlikAccountName != null) {
+                    mBirlikAccountName.setText(account.username);
+                }
+                Bitmap skinFace = account.getSkinFace();
+                if (skinFace != null && mBirlikAccountAvatar != null) {
+                    mBirlikAccountAvatar.setImageBitmap(skinFace);
+                }
+            }
+        } catch (Exception e) {
+            Log.e("BirlikLunar", "Failed to load account profile", e);
+        }
+
+        // Play Button: Fade out overlay and connect to oyna.birlikcraft.com
+        if (mBirlikBtnPlay != null) {
+            mBirlikBtnPlay.setOnClickListener(v -> launchDirectConnection());
+        }
+
+        // Discord Button & Banner
+        View.OnClickListener discordListener = v -> {
+            try {
+                Tools.openURL(this, "https://discord.gg/birlikcraft");
+            } catch (Exception e) {
+                try {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://discord.gg/birlikcraft")));
+                } catch (Exception ignored) {}
+            }
+        };
+        if (mBirlikBtnDiscord != null) mBirlikBtnDiscord.setOnClickListener(discordListener);
+        if (mBirlikDiscordBanner != null) mBirlikDiscordBanner.setOnClickListener(discordListener);
+
+        // Store Button
+        if (mBirlikBtnStore != null) {
+            mBirlikBtnStore.setOnClickListener(v -> {
+                try {
+                    Tools.openURL(this, "https://birlikcraft.com");
+                } catch (Exception e) {
+                    try {
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://birlikcraft.com")));
+                    } catch (Exception ignored) {}
+                }
+            });
+        }
+
+        // Settings Button: toggle navigation drawer
+        if (mBirlikBtnSettings != null) {
+            mBirlikBtnSettings.setOnClickListener(v -> {
+                if (drawerLayout != null && navDrawer != null) {
+                    if (drawerLayout.isDrawerOpen(navDrawer)) {
+                        drawerLayout.closeDrawer(navDrawer);
+                    } else {
+                        drawerLayout.openDrawer(navDrawer);
+                        navDrawer.requestLayout();
+                    }
+                }
+            });
+        }
+
+        // Quit Button: exit game
+        if (mBirlikBtnQuit != null) {
+            mBirlikBtnQuit.setOnClickListener(v -> finish());
+        }
+    }
+
+    private void launchDirectConnection() {
+        if (mBirlikLunarOverlay != null) {
+            mBirlikLunarOverlay.animate()
+                    .alpha(0f)
+                    .setDuration(400)
+                    .withEndAction(() -> {
+                        if (mBirlikLunarOverlay != null) {
+                            mBirlikLunarOverlay.setVisibility(View.GONE);
+                        }
                     });
         }
+
+        // Simulate navigating through TitleScreen to Multiplayer and connecting to BirlikCraft
+        new Thread(() -> {
+            try {
+                Thread.sleep(300);
+                sendKeyPress(LwjglGlfwKeycode.GLFW_KEY_TAB);
+                Thread.sleep(120);
+                sendKeyPress(LwjglGlfwKeycode.GLFW_KEY_TAB);
+                Thread.sleep(120);
+                sendKeyPress(LwjglGlfwKeycode.GLFW_KEY_ENTER);
+                Thread.sleep(700);
+                sendKeyPress(LwjglGlfwKeycode.GLFW_KEY_ENTER);
+            } catch (Exception e) {
+                Log.e("BirlikPlay", "Error sending direct connect keys", e);
+            }
+        }).start();
     }
 
     @Override

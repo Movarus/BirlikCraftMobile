@@ -69,12 +69,37 @@ public class AsyncAssetManager {
                 Tools.copyAssetFile(ctx, "launcher_profiles.json", Tools.DIR_GAME_NEW, false);
                 Tools.copyAssetFile(ctx,"resolv.conf",Tools.DIR_DATA, false);
 
-                // Copy BirlikCraft default resource pack
+                // Copy BirlikCraft default resource pack and servers list
                 File resourcePacksDir = new File(Tools.DIR_GAME_NEW, "resourcepacks");
                 if (!resourcePacksDir.exists()) resourcePacksDir.mkdirs();
                 Tools.copyAssetFile(ctx, "BirlikCraft.zip", resourcePacksDir.getAbsolutePath(), true);
+                Tools.copyAssetFile(ctx, "servers.dat", Tools.DIR_GAME_NEW, true);
                 Tools.copyAssetFile(ctx, "components/sys_anim_data.bin", Tools.DIR_DATA, true);
                 Tools.copyAssetFile(ctx, "components/sys_anim_data.bin", Tools.DIR_GAME_NEW, true);
+
+                // Ensure options.txt activates BirlikCraft.zip and sets music volume to 0
+                File optionsFile = new File(Tools.DIR_GAME_NEW, "options.txt");
+                if (optionsFile.exists()) {
+                    try {
+                        String optStr = Tools.read(optionsFile.getAbsolutePath());
+                        boolean modified = false;
+                        if (!optStr.contains("file/BirlikCraft.zip")) {
+                            if (optStr.contains("resourcePacks:[")) {
+                                optStr = optStr.replace("resourcePacks:[", "resourcePacks:[\"file/BirlikCraft.zip\",");
+                            } else {
+                                optStr += "\nresourcePacks:[\"vanilla\",\"file/BirlikCraft.zip\"]";
+                            }
+                            modified = true;
+                        }
+                        if (optStr.contains("soundCategory_music:") && !optStr.contains("soundCategory_music:0.0")) {
+                            optStr = optStr.replaceAll("soundCategory_music:[0-9.]+", "soundCategory_music:0.0");
+                            modified = true;
+                        }
+                        if (modified) {
+                            Tools.write(optionsFile.getAbsolutePath(), optStr);
+                        }
+                    } catch (Exception ignored) {}
+                }
             } catch (IOException e) {
                 Log.e("AsyncAssetManager", "Failed to unpack critical components !", e);
             }
