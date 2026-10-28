@@ -8,7 +8,7 @@
         <androidx.preference.ListPreference
             android:title="@string/mcl_setting_category_renderer"
             android:key="renderer"
-            android:defaultValue="vulkan_zink"
+            android:defaultValue="opengles2"
             android:icon="@drawable/ic_setting_engine"
             app2:useSimpleSummaryProvider="true"/>
 
