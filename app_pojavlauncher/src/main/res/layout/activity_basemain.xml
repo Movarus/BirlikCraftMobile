@@ -85,7 +85,7 @@
 				android:layout_height="match_parent"
 				android:scaleType="centerCrop"
 				android:src="@drawable/birlik_splash_bg"
-				android:alpha="0.85"
+				android:alpha="1.0"
 				tools:ignore="ContentDescription" />
 
 			<VideoView
@@ -99,7 +99,7 @@
 				android:id="@+id/birlik_splash_tint"
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
-				android:background="#660D0E15" />
+				android:background="#33000000" />
 
 			<LinearLayout
 				android:id="@+id/birlik_splash_content"

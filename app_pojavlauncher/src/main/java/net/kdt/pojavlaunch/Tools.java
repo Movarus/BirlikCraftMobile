@@ -309,9 +309,9 @@ public final class Tools {
             MCOptionUtils.set("soundCategory_music", "0.0");
             String packs = MCOptionUtils.get("resourcePacks");
             if (packs == null || packs.isEmpty() || packs.equals("[]")) {
-                MCOptionUtils.set("resourcePacks", "[\"BirlikCraft.zip\"]");
-            } else if (!packs.contains("BirlikCraft.zip")) {
-                MCOptionUtils.set("resourcePacks", "[\"BirlikCraft.zip\"," + packs.substring(1));
+                MCOptionUtils.set("resourcePacks", "[\"vanilla\",\"file/BirlikCraft.zip\"]");
+            } else if (!packs.contains("file/BirlikCraft.zip")) {
+                MCOptionUtils.set("resourcePacks", "[\"vanilla\",\"file/BirlikCraft.zip\"," + (packs.startsWith("[\"vanilla\",") ? packs.substring(11) : packs.substring(1)));
             }
             MCOptionUtils.save();
         } catch (Exception e) {

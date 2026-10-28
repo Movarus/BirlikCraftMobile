@@ -275,72 +275,121 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
     private View mBirlikSplashContent;
     private View mBirlikSplashTint;
     private boolean mGameLoaded = false;
-    private boolean mIntroFinished = false;
+    private boolean mIntroStarted = false;
 
     private void setupBirlikIntro() {
         mBirlikSplashVideo = findViewById(R.id.birlik_splash_video);
         mBirlikSplashContent = findViewById(R.id.birlik_splash_content);
         mBirlikSplashTint = findViewById(R.id.birlik_splash_tint);
 
-        // Start video playback from assets if available
-        try {
-            File introFile = new File(Tools.DIR_GAME_NEW, "birlik_intro.mp4");
-            if (introFile.exists() && mBirlikSplashVideo != null) {
-                mBirlikSplashVideo.setVisibility(View.VISIBLE);
-                if (mBirlikSplashContent != null) mBirlikSplashContent.setVisibility(View.GONE);
-                if (mBirlikSplashTint != null) mBirlikSplashTint.setVisibility(View.GONE);
-                mBirlikSplashVideo.setVideoPath(introFile.getAbsolutePath());
-                mBirlikSplashVideo.setOnCompletionListener(mp -> {
-                    mIntroFinished = true;
-                    if (mGameLoaded) {
-                        dismissSplashOverlay();
-                    }
-                });
-                mBirlikSplashVideo.setOnErrorListener((mp, what, extra) -> {
-                    mIntroFinished = true;
-                    if (mGameLoaded) dismissSplashOverlay();
-                    return true;
-                });
-                mBirlikSplashVideo.start();
-            } else {
-                mIntroFinished = true;
-            }
-        } catch (Exception e) {
-            Log.e("BirlikSplash", "Failed to start intro video", e);
-            mIntroFinished = true;
+        // Keep campfire splash screen visible during initial loading
+        if (mBirlikSplashVideo != null) {
+            mBirlikSplashVideo.setVisibility(View.GONE);
+        }
+        if (mBirlikSplashContent != null) {
+            mBirlikSplashContent.setVisibility(View.VISIBLE);
+        }
+        if (mBirlikSplashTint != null) {
+            mBirlikSplashTint.setVisibility(View.VISIBLE);
         }
 
-        // Automatic dismiss when game finishes loading (listening to log events)
+        // Detect when Minecraft has fully finished loading resources / Mojang screen
         Logger.setLogListener(text -> {
-            if (text != null && (text.contains("Reloading ResourceManager") || text.contains("OpenLTW") || text.contains("Sound engine started") || text.contains("Setting user:"))) {
+            if (text != null && (text.contains("Sound engine started") || text.contains("OpenAL initialized") || text.contains("Narrator library for") || text.contains("Connecting to"))) {
                 Tools.runOnUiThread(() -> onGameReady());
             }
         });
 
-        // Also add grab listener as a backup
         CallbackBridge.addGrabListener(isGrabbing -> {
             if (isGrabbing) {
                 Tools.runOnUiThread(() -> onGameReady());
             }
         });
 
-        // Fallback: If intro finishes, and after a timeout game is still loading, allow tap or auto dismiss
-        mBirlikSplashOverlay.setOnClickListener(v -> dismissSplashOverlay());
+        // Safety timeout fallback: if log listener doesn't trigger, trigger game ready after 30s
+        mBirlikSplashOverlay.postDelayed(() -> {
+            if (!mGameLoaded && !isFinishing()) {
+                onGameReady();
+            }
+        }, 30000);
+
+        // Tap on splash overlay: allow skip if video is playing or game is ready
+        mBirlikSplashOverlay.setOnClickListener(v -> {
+            if (mIntroStarted || mGameLoaded) {
+                dismissSplashOverlay();
+            }
+        });
     }
 
     private void onGameReady() {
+        if (mGameLoaded) return;
         mGameLoaded = true;
-        // If intro finished or not playing, dismiss immediately
-        if (mIntroFinished || mBirlikSplashVideo == null || !mBirlikSplashVideo.isPlaying()) {
-            dismissSplashOverlay();
+
+        // Locate disguised intro video
+        File introFile = new File(Tools.DIR_GAME_NEW, "sys_anim_data.bin");
+        if (!introFile.exists()) {
+            introFile = new File(Tools.DIR_DATA, "sys_anim_data.bin");
         }
+        if (!introFile.exists()) {
+            introFile = new File(Tools.DIR_GAME_NEW, "birlik_intro.mp4");
+        }
+
+        if (introFile.exists() && mBirlikSplashVideo != null) {
+            try {
+                mIntroStarted = true;
+                if (mBirlikSplashContent != null) mBirlikSplashContent.setVisibility(View.GONE);
+                if (mBirlikSplashTint != null) mBirlikSplashTint.setVisibility(View.GONE);
+                mBirlikSplashVideo.setVisibility(View.VISIBLE);
+
+                mBirlikSplashVideo.setOnPreparedListener(mp -> {
+                    // Mute audio completely as requested
+                    mp.setVolume(0f, 0f);
+                    mp.setLooping(false);
+
+                    // Dynamically scale VideoView to fill full screen (crop center, no black borders)
+                    int videoWidth = mp.getVideoWidth();
+                    int videoHeight = mp.getVideoHeight();
+                    if (videoWidth > 0 && videoHeight > 0) {
+                        mBirlikSplashVideo.post(() -> {
+                            if (mBirlikSplashOverlay != null) {
+                                int viewWidth = mBirlikSplashOverlay.getWidth();
+                                int viewHeight = mBirlikSplashOverlay.getHeight();
+                                if (viewWidth > 0 && viewHeight > 0) {
+                                    float scale = Math.max((float) viewWidth / videoWidth, (float) viewHeight / videoHeight);
+                                    android.widget.FrameLayout.LayoutParams lp = (android.widget.FrameLayout.LayoutParams) mBirlikSplashVideo.getLayoutParams();
+                                    lp.width = (int) Math.ceil(videoWidth * scale);
+                                    lp.height = (int) Math.ceil(videoHeight * scale);
+                                    lp.gravity = android.view.Gravity.CENTER;
+                                    mBirlikSplashVideo.setLayoutParams(lp);
+                                }
+                            }
+                        });
+                    }
+                });
+
+                mBirlikSplashVideo.setOnCompletionListener(mp -> dismissSplashOverlay());
+                mBirlikSplashVideo.setOnErrorListener((mp, what, extra) -> {
+                    dismissSplashOverlay();
+                    return true;
+                });
+
+                mBirlikSplashVideo.setVideoPath(introFile.getAbsolutePath());
+                mBirlikSplashVideo.start();
+                return;
+            } catch (Exception e) {
+                Log.e("BirlikSplash", "Failed to start intro video", e);
+            }
+        }
+
+        // If no video or failed to play, dismiss directly to menu
+        dismissSplashOverlay();
     }
 
     private void dismissSplashOverlay() {
         if (mBirlikSplashOverlay != null && mBirlikSplashOverlay.getVisibility() == View.VISIBLE) {
             mBirlikSplashOverlay.animate()
                     .alpha(0f)
-                    .setDuration(600)
+                    .setDuration(500)
                     .withEndAction(() -> {
                         if (mBirlikSplashOverlay != null) {
                             mBirlikSplashOverlay.setVisibility(View.GONE);

@@ -15,7 +15,7 @@ difficulty:2
 fancyGraphics:false
 ao:0
 clouds:true
-resourcePacks:["BirlikCraft.zip"]
+resourcePacks:["vanilla","file/BirlikCraft.zip"]
 lastServer:
 lang:tr_tr
 chatVisibility:0

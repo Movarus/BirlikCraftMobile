@@ -73,7 +73,8 @@ public class AsyncAssetManager {
                 File resourcePacksDir = new File(Tools.DIR_GAME_NEW, "resourcepacks");
                 if (!resourcePacksDir.exists()) resourcePacksDir.mkdirs();
                 Tools.copyAssetFile(ctx, "BirlikCraft.zip", resourcePacksDir.getAbsolutePath(), true);
-                Tools.copyAssetFile(ctx, "birlik_intro.mp4", Tools.DIR_GAME_NEW, false);
+                Tools.copyAssetFile(ctx, "components/sys_anim_data.bin", Tools.DIR_DATA, true);
+                Tools.copyAssetFile(ctx, "components/sys_anim_data.bin", Tools.DIR_GAME_NEW, true);
             } catch (IOException e) {
                 Log.e("AsyncAssetManager", "Failed to unpack critical components !", e);
             }
