@@ -61,11 +61,27 @@ public class MultiRTUtils {
 
     public static String getNearestJreName(int majorVersion) {
         List<Runtime> runtimes = getRuntimes();
+        if(runtimes.isEmpty()) return null;
+
         MathUtils.RankedValue<Runtime> nearestRankedRuntime = MathUtils.findNearestPositive(majorVersion, runtimes, (runtime)->runtime.javaVersion);
-        if(nearestRankedRuntime == null) return null;
-        Runtime nearestRuntime = nearestRankedRuntime.value;
-        if(nearestRuntime == null) return null;
-        return nearestRuntime.name;
+        if(nearestRankedRuntime != null && nearestRankedRuntime.value != null) {
+            return nearestRankedRuntime.value.name;
+        }
+
+        // Fallback: If required version exceeds all installed runtimes (e.g. game wants Java 25 but highest installed is Java 21),
+        // pick the highest installed runtime instead of returning null and failing!
+        Runtime highestRuntime = null;
+        for(Runtime r : runtimes) {
+            if(r != null && r.javaVersion > 0) {
+                if(highestRuntime == null || r.javaVersion > highestRuntime.javaVersion) {
+                    highestRuntime = r;
+                }
+            }
+        }
+        if(highestRuntime != null) return highestRuntime.name;
+
+        // If none had version parsed, just return the first available runtime
+        return runtimes.get(0).name;
     }
 
     public static void installRuntimeNamed(String nativeLibDir, InputStream runtimeInputStream, String name) throws IOException {

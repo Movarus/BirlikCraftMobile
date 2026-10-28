@@ -17,7 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class NewJREUtil {
-    private static boolean checkInternalRuntime(AssetManager assetManager, InternalRuntime internalRuntime) {
+    public static boolean checkInternalRuntime(AssetManager assetManager, InternalRuntime internalRuntime) {
         String launcher_runtime_version;
         String installed_runtime_version = MultiRTUtils.readInternalRuntimeVersion(internalRuntime.name);
         try {
@@ -156,7 +156,8 @@ public class NewJREUtil {
                 activity.getString(R.string.multirt_nocompatiblert, verInfo.javaVersion.majorVersion));
     }
 
-    private enum InternalRuntime {
+    public enum InternalRuntime {
+        JRE_8(8, "Internal", "components/jre"),
         JRE_17(17, "Internal-17", "components/jre-new"),
         JRE_21(21, "Internal-21", "components/jre-21");
         public final int majorVersion;
