@@ -34,7 +34,7 @@ public class MinecraftProfile {
 	public static MinecraftProfile getDefaultProfile(){
 		MinecraftProfile defaultProfile = new MinecraftProfile();
 		defaultProfile.name = "BirlikCraft";
-		defaultProfile.lastVersionId = "26.3";
+		defaultProfile.lastVersionId = "1.21.11";
 		return defaultProfile;
 	}
 

@@ -1,8 +1,8 @@
 {
   "profiles": {
     "(Default)": {
-      "name": "BirlikCraft (26.3)",
-      "lastVersionId": "26.3"
+      "name": "BirlikCraft (1.21.11)",
+      "lastVersionId": "1.21.11"
     }
   },
   "selectedProfile": "(Default)"
