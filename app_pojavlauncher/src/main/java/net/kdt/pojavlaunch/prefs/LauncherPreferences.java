@@ -24,7 +24,7 @@ public class LauncherPreferences {
     public static final String PREF_KEY_SKIP_NOTIFICATION_CHECK = "skipNotificationPermissionCheck";
 
     public static SharedPreferences DEFAULT_PREF;
-    public static String PREF_RENDERER = "opengles2";
+    public static String PREF_RENDERER = "opengles3_ltw";
 
 	public static boolean PREF_IGNORE_NOTCH = false;
 	public static int PREF_NOTCH_SIZE = 0;
@@ -74,10 +74,10 @@ public class LauncherPreferences {
         Tools.initStorageConstants(ctx);
         boolean isDevicePowerful = isDevicePowerful(ctx);
 
-        PREF_RENDERER = DEFAULT_PREF.getString("renderer", "opengles2");
-        if ("vulkan_zink".equals(PREF_RENDERER)) {
-            PREF_RENDERER = "opengles2";
-            DEFAULT_PREF.edit().putString("renderer", "opengles2").apply();
+        PREF_RENDERER = DEFAULT_PREF.getString("renderer", "opengles3_ltw");
+        if ("vulkan_zink".equals(PREF_RENDERER) || "opengles2".equals(PREF_RENDERER)) {
+            PREF_RENDERER = "opengles3_ltw";
+            DEFAULT_PREF.edit().putString("renderer", "opengles3_ltw").apply();
         }
         PREF_BUTTONSIZE = DEFAULT_PREF.getInt("buttonscale", 100);
         PREF_MOUSESCALE = DEFAULT_PREF.getInt("mousescale", 100)/100f;
