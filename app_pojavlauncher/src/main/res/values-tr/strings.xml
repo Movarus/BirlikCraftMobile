@@ -342,4 +342,11 @@
     <string name="pref_about_website_summary">https://movarus.info</string>
     <string name="pref_about_server_title">Minecraft Sunucu Adresi</string>
     <string name="pref_about_discord_title">Discord Topluluğu</string>
+    <string name="birlik_menu_resourcepacks">Kaynak Paketleri</string>
+    <string name="birlik_menu_shaderpacks">Shader Paketleri</string>
+    <string name="birlik_search_resourcepacks_hint">Kaynak paketi ara</string>
+    <string name="birlik_search_shaders_hint">Shader paketi ara</string>
+    <string name="birlik_pack_downloading">Paket indiriliyor</string>
+    <string name="birlik_resourcepack_installed">Kaynak paketi yüklendi: %s. Oyunda Seçenekler → Kaynak Paketleri menüsünden etkinleştirin.</string>
+    <string name="birlik_shader_installed">Shader paketi yüklendi: %s. Kullanmak için bir shader modu (Iris veya OptiFine) gerekir.</string>
 </resources>

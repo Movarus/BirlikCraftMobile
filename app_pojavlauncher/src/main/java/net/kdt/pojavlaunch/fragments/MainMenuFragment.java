@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 
 import com.kdt.mcgui.mcVersionSpinner;
 
+import net.kdt.pojavlaunch.modloaders.modpacks.api.ModrinthApi;
 import net.kdt.pojavlaunch.CustomControlsActivity;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
@@ -46,6 +47,8 @@ public class MainMenuFragment extends Fragment {
         Button mShareLogsButton = view.findViewById(R.id.share_logs_button);
         Button mOpenDirectoryButton = view.findViewById(R.id.open_files_button);
         Button mServerIpButton = view.findViewById(R.id.server_ip_button);
+        Button mResourcePacksButton = view.findViewById(R.id.resource_packs_button);
+        Button mShaderPacksButton = view.findViewById(R.id.shader_packs_button);
 
         ImageButton mEditProfileButton = view.findViewById(R.id.edit_profile_button);
         Button mPlayButton = view.findViewById(R.id.play_button);
@@ -86,10 +89,25 @@ public class MainMenuFragment extends Fragment {
         }
 
 
+        if (mResourcePacksButton != null)
+            mResourcePacksButton.setOnClickListener(v -> openPackSearch(ModrinthApi.TYPE_RESOURCE_PACK));
+        if (mShaderPacksButton != null)
+            mShaderPacksButton.setOnClickListener(v -> openPackSearch(ModrinthApi.TYPE_SHADER));
+
         mNewsButton.setOnLongClickListener((v)->{
             Tools.swapFragment(requireActivity(), GamepadMapperFragment.class, GamepadMapperFragment.TAG, null);
             return true;
         });
+    }
+
+    private void openPackSearch(String projectType) {
+        if (Tools.isDemoProfile(requireContext())) {
+            Toast.makeText(requireContext(), R.string.toast_not_available_demo, Toast.LENGTH_LONG).show();
+            return;
+        }
+        Bundle args = new Bundle();
+        args.putString(SearchModFragment.ARG_PROJECT_TYPE, projectType);
+        Tools.swapFragment(requireActivity(), SearchModFragment.class, SearchModFragment.TAG, args);
     }
 
     private File getCurrentProfileDirectory() {

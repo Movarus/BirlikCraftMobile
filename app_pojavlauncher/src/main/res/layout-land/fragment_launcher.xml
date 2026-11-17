@@ -110,6 +110,22 @@
                 android:drawableStart="@drawable/ic_menu_home"
                 android:text="@string/server_ip"
                 app:layout_constraintTop_toBottomOf="@id/open_files_button" />
+
+            <com.kdt.mcgui.LauncherMenuButton
+                android:id="@+id/resource_packs_button"
+                style="@style/LauncherMenuButton.Universal"
+                android:layout_width="match_parent"
+                android:drawableStart="@drawable/ic_menu_resourcepacks"
+                android:text="@string/birlik_menu_resourcepacks"
+                app:layout_constraintTop_toBottomOf="@id/server_ip_button" />
+
+            <com.kdt.mcgui.LauncherMenuButton
+                android:id="@+id/shader_packs_button"
+                style="@style/LauncherMenuButton.Universal"
+                android:layout_width="match_parent"
+                android:drawableStart="@drawable/ic_menu_shaderpacks"
+                android:text="@string/birlik_menu_shaderpacks"
+                app:layout_constraintTop_toBottomOf="@id/resource_packs_button" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

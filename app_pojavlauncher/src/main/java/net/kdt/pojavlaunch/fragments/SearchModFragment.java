@@ -23,13 +23,17 @@ import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.modloaders.modpacks.ModItemAdapter;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.CommonApi;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.ModpackApi;
+import net.kdt.pojavlaunch.modloaders.modpacks.api.ModrinthApi;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.SearchFilters;
 import net.kdt.pojavlaunch.profiles.VersionSelectorDialog;
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
+import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles;
 
 public class SearchModFragment extends Fragment implements ModItemAdapter.SearchResultCallback {
 
     public static final String TAG = "SearchModFragment";
+    /** Bundle key: Modrinth project type to search ("resourcepack", "shader"). Absent = modpacks. */
+    public static final String ARG_PROJECT_TYPE = "project_type";
     private View mOverlay;
     private float mOverlayTopCache; // Padding cache reduce resource lookup
 
@@ -61,7 +65,27 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        modpackApi = new CommonApi(context.getString(R.string.curseforge_api_key));
+        Bundle args = getArguments();
+        String projectType = args == null ? null : args.getString(ARG_PROJECT_TYPE);
+        if (projectType != null && !ModrinthApi.TYPE_MODPACK.equals(projectType)) {
+            // Resource packs and shaders are fetched from Modrinth only
+            mSearchFilters.isModpack = false;
+            mSearchFilters.projectType = projectType;
+            mSearchFilters.mcVersion = getCurrentProfileMcVersion();
+            modpackApi = new ModrinthApi();
+        } else {
+            modpackApi = new CommonApi(context.getString(R.string.curseforge_api_key));
+        }
+    }
+
+    /** Pre-filter packs by the selected profile's Minecraft version (e.g. "1.21.1"), if it is a plain release. */
+    @Nullable
+    private static String getCurrentProfileMcVersion() {
+        try {
+            String versionId = LauncherProfiles.getCurrentProfile().lastVersionId;
+            if (versionId != null && versionId.matches("\\d+\\.\\d+(\\.\\d+)?")) return versionId;
+        } catch (RuntimeException ignored) {}
+        return null;
     }
 
     @Override
@@ -79,6 +103,12 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
         mFilterButton = view.findViewById(R.id.search_mod_filter);
 
         mDefaultTextColor = mStatusTextView.getTextColors();
+
+        if (ModrinthApi.TYPE_SHADER.equals(mSearchFilters.projectType)) {
+            mSearchEditText.setHint(R.string.birlik_search_shaders_hint);
+        } else if (ModrinthApi.TYPE_RESOURCE_PACK.equals(mSearchFilters.projectType)) {
+            mSearchEditText.setHint(R.string.birlik_search_resourcepacks_hint);
+        }
 
         mRecyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerview.setAdapter(mModItemAdapter);

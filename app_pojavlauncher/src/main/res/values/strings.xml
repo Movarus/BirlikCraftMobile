@@ -442,4 +442,11 @@
     <string name="pref_about_website_summary">https://movarus.info</string>
     <string name="pref_about_server_title">Minecraft Server Address</string>
     <string name="pref_about_discord_title">Discord Community</string>
+    <string name="birlik_menu_resourcepacks">Resource Packs</string>
+    <string name="birlik_menu_shaderpacks">Shader Packs</string>
+    <string name="birlik_search_resourcepacks_hint">Search resource packs</string>
+    <string name="birlik_search_shaders_hint">Search shader packs</string>
+    <string name="birlik_pack_downloading">Downloading pack</string>
+    <string name="birlik_resourcepack_installed">Resource pack installed: %s. Enable it from Options → Resource Packs in game.</string>
+    <string name="birlik_shader_installed">Shader pack installed: %s. A shader mod (Iris or OptiFine) is required to use it.</string>
 </resources>
