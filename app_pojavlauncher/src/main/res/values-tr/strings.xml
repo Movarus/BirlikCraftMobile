@@ -451,4 +451,11 @@
     <string name="birlik_mod_guard_title">İzin verilmeyen mod</string>
     <string name="birlik_mod_guard_message">Sadece BirlikCraft\'ın kurduğu performans modları kullanılabilir. Oynamak için şu dosyaları mods klasöründen kaldırın:%s</string>
     <string name="birlik_version_label">Sürüm</string>
+    <string name="birlik_brand_title">BIRLIKCRAFT</string>
+    <string name="birlik_brand_subtitle">MOBILE · SUNUCU BAŞLATICISI</string>
+    <string name="birlik_menu_website">Web Sitesi</string>
+    <string name="birlik_section_tools">ARAÇLAR</string>
+    <string name="birlik_splash_status_preparing">Oyun dosyaları hazırlanıyor…</string>
+    <string name="birlik_splash_status_ready">Hazır!</string>
+    <string name="birlik_splash_tagline">BirlikCraft deneyimi yükleniyor</string>
 </resources>

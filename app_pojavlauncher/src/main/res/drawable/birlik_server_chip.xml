@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Server address pill: dark glass with a solid gold border -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <corners android:radius="@dimen/_18sdp" />
+            <solid android:color="@color/birlik_panel_pressed" />
+            <stroke android:width="@dimen/_1sdp" android:color="@color/birlik_gold_light" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="@dimen/_18sdp" />
+            <solid android:color="@color/birlik_panel" />
+            <stroke android:width="@dimen/_1sdp" android:color="@color/birlik_gold_face" />
+        </shape>
+    </item>
+</selector>

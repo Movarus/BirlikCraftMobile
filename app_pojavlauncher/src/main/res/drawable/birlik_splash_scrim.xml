@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Darkens the splash wallpaper towards the edges so the logo stands out -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <gradient
+        android:type="radial"
+        android:gradientRadius="80%p"
+        android:centerColor="#66000000"
+        android:startColor="#4D000000"
+        android:endColor="#E6000000" />
+</shape>

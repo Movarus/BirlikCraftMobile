@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- BirlikCraft loading screen shown while the launcher prepares itself (BirlikSplashController) -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/birlik_launch_splash"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_app"
+    android:clickable="true"
+    android:elevation="@dimen/_20sdp"
+    android:focusable="true"
+    android:visibility="gone">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/birlik_splash_bg"
+        tools:ignore="ContentDescription" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/birlik_splash_scrim" />
+
+    <LinearLayout
+        android:id="@+id/birlik_launch_splash_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="@dimen/_84sdp"
+            android:layout_height="@dimen/_84sdp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/birlikcraft_logo"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:fontFamily="@font/minecraft_ten"
+            android:letterSpacing="0.06"
+            android:shadowColor="#E6000000"
+            android:shadowDy="4"
+            android:shadowRadius="8"
+            android:text="@string/birlik_brand_title"
+            android:textColor="@color/birlik_gold_light"
+            android:textSize="@dimen/_30ssp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:letterSpacing="0.3"
+            android:text="@string/birlik_brand_subtitle"
+            android:textColor="#D9FFFFFF"
+            android:textSize="@dimen/_8ssp" />
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="@dimen/_180sdp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/birlik_gold_face"
+            android:progressBackgroundTint="#33FFFFFF" />
+
+        <TextView
+            android:id="@+id/birlik_launch_splash_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:text="@string/birlik_splash_tagline"
+            android:textColor="#CCFFFFFF"
+            android:textSize="@dimen/_9ssp" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:text="@string/author_name"
+        android:textColor="#80FFFFFF"
+        android:textSize="@dimen/_7ssp" />
+</FrameLayout>

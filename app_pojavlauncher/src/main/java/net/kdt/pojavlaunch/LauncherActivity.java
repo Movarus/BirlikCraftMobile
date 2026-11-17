@@ -300,6 +300,8 @@ public class LauncherActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pojav_launcher);
+        // BirlikCraft loading screen while the launcher prepares its components
+        net.kdt.pojavlaunch.birlik.BirlikSplashController.attach(this);
         FragmentManager fragmentManager = getSupportFragmentManager();
         // If we don't have a back stack root yet...
         if(fragmentManager.getBackStackEntryCount() < 1) {

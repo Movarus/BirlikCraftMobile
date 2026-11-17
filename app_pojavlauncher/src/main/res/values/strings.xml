@@ -545,4 +545,11 @@
     <string name="birlik_mod_guard_title">Mods not allowed</string>
     <string name="birlik_mod_guard_message">Only the performance mods installed by BirlikCraft can be used. Remove these files from the mods folder to play:%s</string>
     <string name="birlik_version_label">Version</string>
+    <string name="birlik_brand_title">BIRLIKCRAFT</string>
+    <string name="birlik_brand_subtitle">MOBILE · SERVER LAUNCHER</string>
+    <string name="birlik_menu_website">Website</string>
+    <string name="birlik_section_tools">TOOLS</string>
+    <string name="birlik_splash_status_preparing">Preparing game files…</string>
+    <string name="birlik_splash_status_ready">Ready!</string>
+    <string name="birlik_splash_tagline">Loading the BirlikCraft experience</string>
 </resources>
