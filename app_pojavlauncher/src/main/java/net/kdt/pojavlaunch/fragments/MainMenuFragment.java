@@ -73,7 +73,9 @@ public class MainMenuFragment extends Fragment {
                 return true;
             });
         } else mInstallJarButton.setOnClickListener(v -> hasNoOnlineProfileDialog(requireActivity()));
-        mEditProfileButton.setOnClickListener(v -> mVersionSpinner.openProfileEditor(requireActivity()));
+        // BirlikCraft: versions are fixed, so profile editing and custom installers are hidden
+        mEditProfileButton.setVisibility(View.GONE);
+        mInstallJarButton.setVisibility(View.GONE);
 
         mPlayButton.setOnClickListener(v -> {
             if (Tools.hasMods("sodium") && !(LauncherPreferences.DEFAULT_PREF.getBoolean("sodium_override", false))) {

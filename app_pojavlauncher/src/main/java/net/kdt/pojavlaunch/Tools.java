@@ -430,6 +430,9 @@ public final class Tools {
         }
         LauncherProfiles.load();
         File gamedir = Tools.getGameDirPath(minecraftProfile);
+        // BirlikCraft: never start the game with mods that BirlikCraft did not install
+        net.kdt.pojavlaunch.birlik.BirlikSetup.verifyModsBeforeLaunch(
+                LauncherPreferences.DEFAULT_PREF.getString(LauncherPreferences.PREF_KEY_CURRENT_PROFILE, ""), gamedir);
         startControllableMitigation(activity, gamedir);
         startOldLegacy4JMitigation(activity, gamedir);
         if(affectedByLTWRenderDistanceIssue()) {

@@ -534,4 +534,15 @@
     <string name="angelica_found_sfpew_notice">Angelica mod found, Simple FPE Wrapper not needed</string>
     <string name="use_angle_checkbox">Use ANGLE (might help FPS)</string>
 
+    <string name="birlik_setup_progress">BirlikCraft: %s</string>
+    <string name="birlik_setup_step_start">Preparing the game</string>
+    <string name="birlik_setup_step_fabric">Installing Fabric</string>
+    <string name="birlik_setup_step_options">Applying FPS settings</string>
+    <string name="birlik_setup_step_mods">Checking performance mods</string>
+    <string name="birlik_setup_step_mod_file">Downloading %s</string>
+    <string name="birlik_setup_step_check">Checking the mods folder</string>
+    <string name="birlik_setup_failed">BirlikCraft could not prepare the game. Check your internet connection and try again.</string>
+    <string name="birlik_mod_guard_title">Mods not allowed</string>
+    <string name="birlik_mod_guard_message">Only the performance mods installed by BirlikCraft can be used. Remove these files from the mods folder to play:%s</string>
+    <string name="birlik_version_label">Version</string>
 </resources>

@@ -32,6 +32,7 @@ import androidx.fragment.app.FragmentManager;
 import com.kdt.mcgui.ProgressLayout;
 import com.kdt.mcgui.mcAccountSpinner;
 
+import net.kdt.pojavlaunch.birlik.BirlikSetup;
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension;
 import net.kdt.pojavlaunch.extra.ExtraConstants;
 import net.kdt.pojavlaunch.extra.ExtraCore;
@@ -192,6 +193,15 @@ public class LauncherActivity extends BaseActivity {
             ExtraCore.setValue(ExtraConstants.SELECT_AUTH_METHOD, true);
             return false;
         }
+
+        // BirlikCraft: install Fabric + performance mods and check the mods folder before
+        // every launch. prepareAsync() triggers LAUNCH_GAME again once it is done.
+        if (BirlikSetup.isBirlikProfile(selectedProfile) && !BirlikSetup.consumeReady(selectedProfile)) {
+            BirlikSetup.prepareAsync(this, selectedProfile);
+            return false;
+        }
+        LauncherProfiles.load();
+        prof = LauncherProfiles.mainProfileJson.profiles.get(selectedProfile);
 
         // Override whatever version is in use and replace it with lwjgl3ify if needed
         List<File> lwjgl3ifyJars = getMods("lwjgl3ify-3");

@@ -5,6 +5,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import net.kdt.pojavlaunch.Tools;
+import net.kdt.pojavlaunch.birlik.BirlikSetup;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 
 import java.io.File;
@@ -15,7 +16,6 @@ import java.util.Map;
 import java.util.UUID;
 
 public class LauncherProfiles {
-    public static final String BIRLIK_PROFILE_ID = "birlikcraft-1-21-1";
     public static MinecraftLauncherProfiles mainProfileJson;
     private static final File launcherProfilesFile = new File(Tools.GAME_PROFILES_FILE);
 
@@ -34,20 +34,15 @@ public class LauncherProfiles {
         if (mainProfileJson == null) mainProfileJson = new MinecraftLauncherProfiles();
         if (mainProfileJson.profiles == null) mainProfileJson.profiles = new HashMap<>();
 
-        // Ensure permanent BirlikCraft (1.21.1) profile always exists
-        MinecraftProfile birlikProfile = mainProfileJson.profiles.get(BIRLIK_PROFILE_ID);
-        if (birlikProfile == null) {
-            birlikProfile = MinecraftProfile.getDefaultProfile();
-            mainProfileJson.profiles.put(BIRLIK_PROFILE_ID, birlikProfile);
-            write();
-        }
+        // BirlikCraft: only the fixed Fabric 26.2 / 26.3 profiles exist
+        if (BirlikSetup.enforceProfiles(mainProfileJson)) write();
 
-        // If current profile is not set or points to old Default, switch to BirlikCraft (1.21.1)
+        // Always select one of the BirlikCraft profiles
         if (LauncherPreferences.DEFAULT_PREF != null) {
             String current = LauncherPreferences.DEFAULT_PREF.getString(LauncherPreferences.PREF_KEY_CURRENT_PROFILE, "");
-            if (current.isEmpty() || !mainProfileJson.profiles.containsKey(current) || "(Default)".equals(current) || "birlikcraft-26-3".equals(current) || "birlikcraft-1-21-11".equals(current)) {
+            if (!BirlikSetup.isBirlikProfile(current)) {
                 LauncherPreferences.DEFAULT_PREF.edit()
-                        .putString(LauncherPreferences.PREF_KEY_CURRENT_PROFILE, BIRLIK_PROFILE_ID)
+                        .putString(LauncherPreferences.PREF_KEY_CURRENT_PROFILE, BirlikSetup.DEFAULT_PROFILE)
                         .apply();
             }
         }
@@ -107,7 +102,7 @@ public class LauncherProfiles {
 
         // Detect denormalized keys
         for(String profileKey : launcherProfiles.profiles.keySet()){
-            if(BIRLIK_PROFILE_ID.equals(profileKey)) continue; // keep fixed key
+            if(BirlikSetup.isBirlikProfile(profileKey)) continue; // keep fixed BirlikCraft keys
             try{
                 if(!UUID.fromString(profileKey).toString().equals(profileKey)) keys.add(profileKey);
             }catch (IllegalArgumentException exception){

@@ -80,6 +80,8 @@ public class LauncherPreferences {
         //Required for CTRLDEF_FILE and MultiRT
         Tools.initStorageConstants(ctx);
         boolean isDevicePowerful = isDevicePowerful(ctx);
+        // BirlikCraft: tune launcher settings for the highest FPS on first run
+        net.kdt.pojavlaunch.birlik.BirlikSetup.applyLauncherDefaults(DEFAULT_PREF);
 
         PREF_BUTTONSIZE = DEFAULT_PREF.getInt("buttonscale", 100);
         PREF_MOUSESCALE = DEFAULT_PREF.getInt("mousescale", 100)/100f;

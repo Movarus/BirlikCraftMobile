@@ -440,4 +440,15 @@
     <string name="preference_touchcontroller_vibrate_length_description">DokunmatikKontrolcü kullanılır iken oluşan titreşim uzunluğunu ayarla.</string>
     <string name="error_vanilla_json_corrupt">Vanila json dosyaları görünüşe göre bozulmuş veya deforme halde. Lütfen Github veya discord\'a bir Hata raporu yollayınız.</string>
     <string name="preference_ask_for_microphone_title">Mikrofona izin ver</string>
+    <string name="birlik_setup_progress">BirlikCraft: %s</string>
+    <string name="birlik_setup_step_start">Oyun hazırlanıyor</string>
+    <string name="birlik_setup_step_fabric">Fabric kuruluyor</string>
+    <string name="birlik_setup_step_options">FPS ayarları uygulanıyor</string>
+    <string name="birlik_setup_step_mods">Performans modları kontrol ediliyor</string>
+    <string name="birlik_setup_step_mod_file">%s indiriliyor</string>
+    <string name="birlik_setup_step_check">Mod klasörü kontrol ediliyor</string>
+    <string name="birlik_setup_failed">BirlikCraft oyunu hazırlayamadı. İnternet bağlantınızı kontrol edip tekrar deneyin.</string>
+    <string name="birlik_mod_guard_title">İzin verilmeyen mod</string>
+    <string name="birlik_mod_guard_message">Sadece BirlikCraft\'ın kurduğu performans modları kullanılabilir. Oynamak için şu dosyaları mods klasöründen kaldırın:%s</string>
+    <string name="birlik_version_label">Sürüm</string>
 </resources>

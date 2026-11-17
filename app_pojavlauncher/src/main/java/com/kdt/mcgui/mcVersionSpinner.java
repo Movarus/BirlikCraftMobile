@@ -58,11 +58,8 @@ public class mcVersionSpinner extends ExtendedTextView {
     private Object mPopupAnimation;
     private int mSelectedIndex;
 
-    private final ProfileAdapter mProfileAdapter = new ProfileAdapter(new ProfileAdapterExtra[]{
-            new ProfileAdapterExtra(VERSION_SPINNER_PROFILE_CREATE,
-                    R.string.create_profile,
-                    ResourcesCompat.getDrawable(getResources(), R.drawable.ic_add, null)),
-    });
+    // BirlikCraft: only the two fixed BirlikCraft versions are listed, no "create profile" entry
+    private final ProfileAdapter mProfileAdapter = new ProfileAdapter(new ProfileAdapterExtra[0]);
 
 
     /** Set the selection AND saves it as a shared preference */
@@ -81,6 +78,8 @@ public class mcVersionSpinner extends ExtendedTextView {
     }
 
     public void openProfileEditor(FragmentActivity fragmentActivity) {
+        // BirlikCraft: the fixed profiles cannot be edited
+        if (true) return;
         Object currentSelection = mProfileAdapter.getItem(mSelectedIndex);
         if(currentSelection instanceof ProfileAdapterExtra) {
             performExtraAction((ProfileAdapterExtra) currentSelection);

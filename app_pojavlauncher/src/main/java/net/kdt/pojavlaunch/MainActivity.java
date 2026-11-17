@@ -370,6 +370,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
     private View mBirlikSplashTint;
     private boolean mGameLoaded = false;
     private boolean mIntroStarted = false;
+    private Logger.eventLogListener mBirlikReadyLogListener;
 
     private void setupBirlikIntro() {
         mBirlikSplashVideo = findViewById(R.id.birlik_splash_video);
@@ -388,11 +389,12 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         }
 
         // Detect when Minecraft has fully finished loading resources / Mojang screen
-        Logger.setLogListener(text -> {
+        mBirlikReadyLogListener = text -> {
             if (text != null && (text.contains("Sound engine started") || text.contains("OpenAL initialized") || text.contains("Narrator library for") || text.contains("Connecting to"))) {
                 Tools.runOnUiThread(() -> onGameReady());
             }
-        });
+        };
+        Logger.addLogListener(mBirlikReadyLogListener);
 
         CallbackBridge.addGrabListener(isGrabbing -> {
             if (isGrabbing) {
@@ -418,6 +420,10 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
     private void onGameReady() {
         if (mGameLoaded) return;
         mGameLoaded = true;
+        if (mBirlikReadyLogListener != null) {
+            Logger.removeLogListener(mBirlikReadyLogListener);
+            mBirlikReadyLogListener = null;
+        }
 
         // Locate disguised intro video
         File introFile = new File(Tools.DIR_GAME_NEW, "sys_anim_data.bin");
