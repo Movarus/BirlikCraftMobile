@@ -4,7 +4,7 @@
     <item android:state_pressed="true">
         <shape android:shape="rectangle">
             <corners android:radius="@dimen/_6sdp" />
-            <solid android:color="#2A2B3D" />
+            <solid android:color="@color/birlik_panel_pressed" />
             <stroke android:width="@dimen/_1sdp" android:color="@color/birlik_gold_face" />
         </shape>
     </item>
@@ -12,8 +12,8 @@
     <item>
         <shape android:shape="rectangle">
             <corners android:radius="@dimen/_6sdp" />
-            <solid android:color="#991A1B26" />
-            <stroke android:width="@dimen/_1sdp" android:color="#33FDDC3F" />
+            <solid android:color="@color/birlik_panel" />
+            <stroke android:width="@dimen/_1sdp" android:color="#80D4A33B" />
         </shape>
     </item>
 </selector>

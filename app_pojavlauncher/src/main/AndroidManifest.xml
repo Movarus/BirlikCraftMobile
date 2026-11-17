@@ -36,6 +36,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MissingStorageActivity"
+            android:screenOrientation="sensorLandscape"
             android:exported="false" />
 
         <meta-data
@@ -44,6 +45,7 @@
 
         <activity
             android:name=".TestStorageActivity"
+            android:screenOrientation="sensorLandscape"
             android:exported="true"
             android:label="@string/app_short_name"
             android:launchMode="singleTop">
@@ -55,6 +57,7 @@
         </activity>
         <activity
             android:name=".LauncherActivity"
+            android:screenOrientation="sensorLandscape"
             android:label="@string/app_short_name"
             android:windowSoftInputMode="adjustResize"/>
         <activity

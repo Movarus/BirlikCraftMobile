@@ -13,8 +13,14 @@
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
         android:src="@drawable/birlikcraft_bg"
-        android:alpha="0.30"
+        android:alpha="1.0"
         tools:ignore="ContentDescription" />
+
+    <View
+        android:id="@+id/global_birlik_scrim"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/birlik_bg_scrim" />
 
     <com.kdt.mcgui.mcAccountSpinner
         android:id="@+id/account_spinner"

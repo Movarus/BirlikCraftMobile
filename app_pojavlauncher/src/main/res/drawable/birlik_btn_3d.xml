@@ -49,9 +49,9 @@
                     <corners android:radius="@dimen/_6sdp" />
                     <gradient
                         android:angle="270"
-                        android:startColor="#FFE566"
+                        android:startColor="@color/birlik_gold_light"
                         android:endColor="@color/birlik_gold_face" />
-                    <stroke android:width="@dimen/_1sdp" android:color="#FFF8B0" />
+                    <stroke android:width="@dimen/_1sdp" android:color="#FFE7A3" />
                 </shape>
             </item>
         </layer-list>
