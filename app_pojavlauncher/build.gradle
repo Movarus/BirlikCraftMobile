@@ -1,89 +1,63 @@
 plugins {
-    id 'com.android.application' version '8.7.2'
+    id 'com.android.application' version '9.3.1'
 }
 
 static def getDate() { return new Date().format('yyyyMMdd') }
 
-static def getDateSeconds() {
-    if (System.getenv("GITHUB_ACTIONS") == "true") {
-        return 9934841 + Integer.parseInt(System.getenv("GITHUB_RUN_NUMBER"))
-    } else {
-        return 172005
-    }
-}
-
-def getGitCmd = {
-    def candidates = [
-        "git",
-        "C:\\Program Files\\Git\\cmd\\git.exe",
-        "C:\\Program Files\\Git\\bin\\git.exe"
-    ]
-    for (String c : candidates) {
-        if (c == "git" || new File(c).exists()) {
-            return c
-        }
-    }
-    return "git"
-}
-
 def getVersionName = {
     // Get the last version tag, as well as the short head of the last commit
-    ByteArrayOutputStream TAG = new ByteArrayOutputStream()
-    ByteArrayOutputStream BRANCH = new ByteArrayOutputStream()
+    String TAG = ""
+    String semVer = "1.1.7"
     // Used by the fallback for github actions
-    ByteArrayOutputStream TAG_PART_COMMIT = new ByteArrayOutputStream()
-    String TAG_STRING = ""
-    String gitCmd = getGitCmd()
+    String TAG_PART_COMMIT = ""
+    String TAG_STRING
 
     try {
-        exec {
-            commandLine gitCmd, 'describe', '--tags'
-            ignoreExitValue true
-            standardOutput = TAG
-        }
+        TAG = providers.exec {
+            commandLine 'git', 'describe', '--tags'
+            ignoreExitValue = true
+        }.getStandardOutput().asText.get()
     } catch (Exception e) {
+        e.printStackTrace()
     }
 
-    if (TAG.toString().trim() == "") {
+    // Fallback for action builds
+    if (TAG.toString().trim().isEmpty()) {
         try {
-            exec {
-                // Fallback for action builds
-                commandLine gitCmd, 'describe', '--always', '--tags'
-                ignoreExitValue true
-                standardOutput = TAG_PART_COMMIT
-            }
-        } catch (Exception e) {
+            TAG_PART_COMMIT = providers.exec {
+                commandLine 'git', 'describe', '--always', '--tags'
+                ignoreExitValue = true
+            }.getStandardOutput().asText.get()
+        } catch (Exception ignored) {
         }
     }
 
-    if(TAG.toString().trim() != ""){
-        TAG_STRING = TAG.toString().trim()
+
+    if(!TAG.isBlank()){
+        TAG_STRING = TAG
     }else {
-        if(TAG_PART_COMMIT.toString().trim() == ""){
+        if(TAG_PART_COMMIT.isBlank()){
              //Fallback no repo
-            return ("BirlikCraft-" + "${getDate()}")
+            return ("LOCAL-" + "${getDate()}")
         }else {
             // Used by github actions
             TAG_STRING =  'birlikcraft-' + "${getDate()}" + "-" + TAG_PART_COMMIT.toString().trim()
         }
+
     }
 
-    try {
-        exec {
-            commandLine gitCmd, 'branch', '--show-current'
-            ignoreExitValue true
-            standardOutput = BRANCH
-        }
-    } catch (Exception e) {
+    def isRelease = project.gradle.startParameter.taskNames.any { it.toLowerCase().contains('release') }
+    if(!isRelease){
+        return TAG_STRING.trim().replace("-g", "-") + "-" + "debug-" + semVer
+    }else {
+        return TAG_STRING.trim().replace("-g", "-") + "-" + "release-" + semVer
     }
-
-    return TAG_STRING.trim().replace("-g", "-") + (BRANCH.toString().trim().isEmpty() ? "" : "-" + BRANCH.toString().trim())
 }
 
 def getCFApiKey = {
     String key = System.getenv("CURSEFORGE_API_KEY");
     if(key != null) return key;
-    File curseforgeKeyFile = new File("./curseforge_key.txt");
+    File curseforgeKeyFile = new File("$projectDir/curseforge_key.txt");
     if(curseforgeKeyFile.canRead() && curseforgeKeyFile.isFile()) {
         return curseforgeKeyFile.text;
     }
@@ -101,11 +75,8 @@ configurations {
 android {
     namespace 'net.kdt.pojavlaunch'
 
-    compileSdk = 34
+    compileSdk = 37
 
-    lintOptions {
-        abortOnError false
-    }
 
     signingConfigs {
         customDebug {
@@ -113,6 +84,13 @@ android {
             storePassword "android"
             keyAlias "androiddebugkey"
             keyPassword "android"
+        }
+        customRelease {
+            // BirlikCraft release key. Password comes from the STORE_PASSWORD / KEY_PASSWORD GitHub secrets.
+            storeFile file("birlikcraft_release.jks")
+            storePassword System.getenv("STORE_PASSWORD")
+            keyAlias "birlikcraft"
+            keyPassword System.getenv("KEY_PASSWORD")
         }
         googlePlayBuild {
             storeFile file("upload.jks")
@@ -126,10 +104,16 @@ android {
         applicationId "com.taisla.birlikcraft"
         minSdkVersion 21
         targetSdkVersion 34
-        versionCode getDateSeconds()
+        versionCode 10000000
         versionName getVersionName()
         multiDexEnabled true //important
         resValue 'string', 'curseforge_api_key', getCFApiKey()
+        externalNativeBuild {
+            ndkBuild {
+                // Fix for Windows command line length limit
+                arguments "APP_SHORT_COMMANDS=true"
+            }
+        }
     }
 
     buildTypes {
@@ -139,6 +123,8 @@ android {
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.customDebug
+            resValue "string", "app_name", "BirlikCraft Mobile (Debug)"
+            resValue "string", "app_short_name", "BirlikCraft Mobile (Debug)"
             resValue 'string', 'application_package', 'com.taisla.birlikcraft.debug'
             resValue 'string', 'storageProviderAuthorities', 'com.taisla.birlikcraft.scoped.gamefolder.debug'
             resValue 'string', 'shareProviderAuthority', 'com.taisla.birlikcraft.scoped.controlfolder.debug'
@@ -156,20 +142,24 @@ android {
         release {
             // Don't set to true or java.awt will be a.a or something similar.
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.customRelease
             // defaultConfig already set
             // multiDexEnabled = true
             // debuggable = true
+            resValue "string", "app_name", "BirlikCraft Mobile"
+            resValue "string", "app_short_name", "BirlikCraft"
             resValue 'string', 'storageProviderAuthorities', 'com.taisla.birlikcraft.scoped.gamefolder'
             resValue 'string', 'application_package', 'com.taisla.birlikcraft'
         }
         gplay {
             initWith release
             signingConfig signingConfigs.googlePlayBuild
+            matchingFallbacks = [ 'release' ]
         }
     }
 
-    ndkVersion = "25.2.9519653"
+    ndkVersion = "27.3.13750724"
 
     externalNativeBuild {
         ndkBuild {
@@ -191,8 +181,11 @@ android {
     packagingOptions {
         jniLibs {
             useLegacyPackaging = true
+            // If you're debugging mesa libs, put them here, android will strip them
+            // and not properly link to source files, very smart android studio.
+            keepDebugSymbols += ['**/libcutils.so']
+            pickFirsts += ['**/libbytehook.so']
         }
-        pickFirst '**/libbytehook.so'
     }
 
     buildFeatures {
@@ -200,12 +193,27 @@ android {
         buildConfig true
     }
 
-    buildToolsVersion = '34.0.0'
+    lint {
+        abortOnError false
+    }
 }
 
 afterEvaluate {
-    // Explicit dependencies for which the apk relies on
-    tasks.mergeDebugAssets.dependsOn(":forge_installer:jar", ":arc_dns_injector:jar", ":jre_lwjgl3glfw:jar")
+    def componentJars = [
+            ":forge_installer:jar",
+            ":arc_dns_injector:jar",
+            ":MioLibPatcher:jar",
+            ":jre_lwjgl3glfw:jar"
+    ]
+
+    tasks.withType(com.android.build.gradle.tasks.MergeSourceSetFolders).configureEach { t ->
+        t.dependsOn(componentJars)
+    }
+
+    // Needed or else the release builds complain about undeclared dependencies
+    tasks.matching { it.name.toLowerCase().contains("lint") }.configureEach { t ->
+        t.dependsOn(componentJars)
+    }
 }
 
 dependencies {
@@ -234,9 +242,17 @@ dependencies {
     // Our version of exp4j can be built from source at
     // https://github.com/PojavLauncherTeam/exp4j
     implementation 'net.sourceforge.htmlcleaner:htmlcleaner:2.6.1'
-    implementation 'com.bytedance:bytehook:1.0.9'
+    implementation 'com.bytedance:bytehook:1.0.10'
 
     // implementation 'net.sourceforge.streamsupport:streamsupport-cfuture:1.7.0'
 
+    implementation 'top.fifthlight.touchcontroller:proxy-client-android:0.0.4'
+
     implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
+
+    implementation "net.java.dev.jna:jna:5.14.0@aar"
+
+    implementation project(":androidnsbypass")
+
 }
+apply from: rootProject.file('gradle/prefab_bypass.gradle')

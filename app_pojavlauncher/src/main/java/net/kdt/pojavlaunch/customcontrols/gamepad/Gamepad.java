@@ -90,6 +90,7 @@ public class Gamepad implements GrabListener, GamepadHandler {
     private boolean mRemoved = false;
 
     public Gamepad(View contextView, InputDevice inputDevice, GamepadDataProvider mapProvider, boolean showCursor){
+
         Settings.setDeadzoneScale(PREF_DEADZONE_SCALE);
 
         mScreenChoreographer = Choreographer.getInstance();
@@ -223,6 +224,9 @@ public class Gamepad implements GrabListener, GamepadHandler {
 
             CallbackBridge.mouseX += deltaX;
             CallbackBridge.mouseY -= deltaY;
+            // Captured SDL input reads relative motion separately from cursor position.
+            CallbackBridge.deltaX = deltaX;
+            CallbackBridge.deltaY = -deltaY;
 
             if(!isGrabbing){
                 CallbackBridge.mouseX = MathUtils.clamp(CallbackBridge.mouseX, 0, CallbackBridge.windowWidth);

@@ -1,43 +1,45 @@
-import java.io.IOException
+import java.security.MessageDigest
+
 plugins{
-    id 'com.android.application' version '8.7.2' apply false
-    id 'com.android.library' version '8.7.2' apply false
+    id 'com.android.application' version '9.3.1' apply false
+    id 'com.android.library' version '9.3.1' apply false
 }
 
-String resolveGitPath() {
-    def candidates = [
-        "git",
-        "C:\\Program Files\\Git\\cmd\\git.exe",
-        "C:\\Program Files\\Git\\bin\\git.exe"
-    ]
-    for (String c : candidates) {
-        if (c == "git" || new File(c).exists()) {
-            return c
+static void hashFileWithDigest(File fileToHash, MessageDigest digest){
+    fileToHash.withInputStream { is ->
+        byte[] buffer = new byte[8192]
+        int read
+        while ((read = is.read(buffer)) != -1) {
+            digest.update(buffer, 0, read)
         }
     }
-    return "git"
 }
 
-String getGitHash(String project) {
-    try {
-        def gitCmd = resolveGitPath()
-        def command = Runtime.getRuntime().exec([gitCmd, "rev-list", "-1", "HEAD", project] as String[])
-        def returnCode = command.waitFor()
-        if (returnCode != 0) {
-            return "birlikcraft-local"
-        }
-        return command.inputStream.text.trim()
-    } catch (Exception e) {
-        return "birlikcraft-local"
+static void writeVersionFile(File jarFile, File versionFile){
+    def sha1 = MessageDigest.getInstance("SHA-1")
+    hashFileWithDigest(jarFile, sha1)
+    versionFile.write(sha1.digest().collect { String.format("%02x", it) }.join())
+}
+
+static void writeVersionFile(File[] jarFileArray, File versionFile){
+    def sha1 = MessageDigest.getInstance("SHA-1")
+    jarFileArray.each {jarFile ->
+        hashFileWithDigest(jarFile, sha1)
     }
+    versionFile.write(sha1.digest().collect { String.format("%02x", it) }.join())
 }
 
-Boolean gitUsed() {
-    try {
-        def gitCmd = resolveGitPath()
-        def returnCode = Runtime.getRuntime().exec([gitCmd, "rev-parse", "--is-inside-work-tree"] as String[]).waitFor()
-        return returnCode == 0
-    } catch (Exception e) {
-        return false
+subprojects {subproject ->
+    if (subproject.name.contains("lwjgl")) return
+    tasks.withType(Jar).configureEach {jar ->
+        System.out.println("Subproject $subproject configuring jar task destination to app_pojavlauncher/src/main/assets/components/$subproject.name/")
+        destinationDirectory.set(
+                file("../app_pojavlauncher/src/main/assets/components/$subproject.name")
+        )
+        doLast {
+            def versionFile  = new File(project(":app_pojavlauncher").projectDir, "src/main/assets/components/$subproject.name/version")
+            def jarFile = archiveFile.get().asFile
+            writeVersionFile(jarFile, versionFile)
+        }
     }
 }
