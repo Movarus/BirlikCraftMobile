@@ -48,7 +48,7 @@ Debug sürümleri, şifresi `ZalithLauncher/gradle.properties` içinde açık ol
 Bu proje **[GPL-3.0](LICENSE)** lisansı altındadır. Zalith Launcher 2'nin GPLv3 7. maddesi kapsamındaki ek şartları da geçerlidir:
 
 1. Değiştirilmiş sürümler, adlarında "ZalithLauncher", "ZL" veya bunlara karışabilecek benzer bir ad kullanamaz.
-2. Değiştirilmiş sürümler, açılış ekranında veya ana arayüzde **"Resmi Olmayan Değiştirilmiş Sürüm"** olduklarını açıkça belirtmelidir. BirlikCraft Mobile bunu ana ekrandaki bilgi kartıyla gösterir.
+2. Değiştirilmiş sürümler, ana arayüzde **resmi olmayan sürüm** olduklarını açıkça belirtmelidir. BirlikCraft Mobile bunu ana ekranda küçük bir teşekkür satırıyla gösterir.
 3. Programın gösterdiği telif hakkı bildirimleri kaldırılamaz.
 
 Ayrıntılar ve kullanılan açık kaynak kütüphanelerin listesi için Zalith Launcher 2'nin orijinal README dosyasına bakın: [ZALITH_README_EN.md](ZALITH_README_EN.md).

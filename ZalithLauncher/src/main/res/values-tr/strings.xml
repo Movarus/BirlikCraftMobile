@@ -56,8 +56,7 @@
     <string name="months_ago">%d ay önce</string>
     <string name="years_ago">%d yıl önce</string>
     <string name="launcher_version_debug_warning">%s\'nin test sürümünü kullanıyorsunuz! Bu sürüm kararsız olabilir ve öncelikli olarak özellik testi ve erken erişim amaçlıdır. Uzun süreli kullanım için önerilmez! Herhangi bir sorunla karşılaşırsanız, Lütfen bunları GitHub üzerinden bize bildirin, en kısa sürede yanıtlayalım.</string>
-    <string name="launcher_unofficial_notice_title">Resmi Olmayan Değiştirilmiş Sürüm</string>
-    <string name="launcher_unofficial_notice">%s, BirlikCraft topluluğu için hazırlanmış, Zalith Launcher 2\'nin resmi olmayan değiştirilmiş bir sürümüdür. Zalith Launcher ekibiyle bağlantılı değildir ve onlar tarafından desteklenmez.</string>
+    <string name="launcher_unofficial_notice">%s, açık kaynaklı Zalith Launcher 2 projesi temel alınarak hazırlanmış resmi olmayan bir sürümdür. Zalith Launcher ekibine teşekkürler!</string>
     <string name="launcher_version_debug_warning_cant_close">Bu uyarı kapatılamaz</string>
     <string name="theme_color_dynamic">Dinamik (Android 12+)</string>
     <string name="theme_color_embermire">Embermire Rengi</string>

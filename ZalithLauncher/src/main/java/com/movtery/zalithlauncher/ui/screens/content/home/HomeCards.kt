@@ -108,24 +108,14 @@ object HomeCards {
      * bu sürümün resmi olmayan değiştirilmiş bir sürüm olduğunu ana arayüzde belirtir.
      */
     private fun unofficialNoticeCard() = SystemCard(id = "system_unofficial_notice") {
-        BackgroundCard(
-            modifier = Modifier.fillMaxWidth(),
-            shape = MaterialTheme.shapes.extraLarge
-        ) {
-            Column(
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                Text(
-                    text = stringResource(R.string.launcher_unofficial_notice_title),
-                    style = MaterialTheme.typography.titleMedium
-                )
-                Text(
-                    text = stringResource(R.string.launcher_unofficial_notice, BuildKeys.LAUNCHER_NAME),
-                    style = MaterialTheme.typography.bodyMedium
-                )
-            }
-        }
+        Text(
+            modifier = Modifier
+                .fillMaxWidth()
+                .alpha(0.7f)
+                .padding(horizontal = 8.dp, vertical = 4.dp),
+            text = stringResource(R.string.launcher_unofficial_notice, BuildKeys.LAUNCHER_NAME),
+            style = MaterialTheme.typography.bodySmall
+        )
     }
 
     /**
