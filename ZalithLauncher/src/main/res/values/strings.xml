@@ -126,6 +126,8 @@
     <!-- Warning card shown on the home screen in test builds; %s is the launcher name -->
     <string name="launcher_version_debug_warning">You are using a test version of %s! This version may be unstable and is primarily intended for feature testing and early access. It is not recommended for long-term use! If you encounter any issues during testing, please report them to us via GitHub and we will address them as soon as possible.</string>
     <!-- Caption on the test build warning card explaining it cannot be dismissed -->
+    <string name="launcher_unofficial_notice_short">Unofficial version · Based on Zalith Launcher 2 ▾</string>
+    <string name="launcher_unofficial_notice_short_open">Unofficial version · Based on Zalith Launcher 2 ▴</string>
     <string name="launcher_unofficial_notice">%s is an unofficial version built on Zalith Launcher 2, an open-source project. Thanks to the Zalith Launcher team!</string>
     <string name="launcher_version_debug_warning_cant_close">This warning cannot be dismissed</string>
     <!-- Option of the theme color setting in launcher settings -->

@@ -18,6 +18,8 @@
 
 package com.movtery.zalithlauncher.ui.screens.content.home
 
+import androidx.compose.animation.animateContentSize
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -26,6 +28,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -108,14 +114,30 @@ object HomeCards {
      * bu sürümün resmi olmayan değiştirilmiş bir sürüm olduğunu ana arayüzde belirtir.
      */
     private fun unofficialNoticeCard() = SystemCard(id = "system_unofficial_notice") {
-        Text(
+        var expanded by rememberSaveable { mutableStateOf(false) }
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
+                .clickable { expanded = !expanded }
                 .alpha(0.7f)
-                .padding(horizontal = 8.dp, vertical = 4.dp),
-            text = stringResource(R.string.launcher_unofficial_notice, BuildKeys.LAUNCHER_NAME),
-            style = MaterialTheme.typography.bodySmall
-        )
+                .padding(horizontal = 8.dp, vertical = 4.dp)
+                .animateContentSize()
+        ) {
+            Text(
+                text = stringResource(
+                    if (expanded) R.string.launcher_unofficial_notice_short_open
+                    else R.string.launcher_unofficial_notice_short
+                ),
+                style = MaterialTheme.typography.labelMedium
+            )
+            if (expanded) {
+                Text(
+                    modifier = Modifier.padding(top = 4.dp),
+                    text = stringResource(R.string.launcher_unofficial_notice, BuildKeys.LAUNCHER_NAME),
+                    style = MaterialTheme.typography.bodySmall
+                )
+            }
+        }
     }
 
     /**
