@@ -39,7 +39,9 @@ GitHub Actions, her push'ta debug APK'ları otomatik olarak derler (`.github/wor
 * Paket adı (`applicationId`): `com.taisla.birlikcraft` ([`ZalithLauncher/build.gradle.kts`](ZalithLauncher/build.gradle.kts))
 
 ### İmzalama
-Release sürümleri `ZalithLauncher/zalith_launcher.jks` dosyasıyla, `STORE_PASSWORD` ve `KEY_PASSWORD` ortam değişkenlerindeki şifrelerle imzalanır. Bu anahtar Zalith Launcher ekibine ait. BirlikCraft release'leri için kendi keystore dosyanızı oluşturup bu ayarları güncellemeniz gerekir.
+Release sürümleri `ZalithLauncher/birlikcraft_release.jks` anahtarıyla (alias: `birlikcraft`) imzalanır. Şifre repoda yok. GitHub Actions şifreyi `STORE_PASSWORD` ve `KEY_PASSWORD` adlı GitHub Secrets'tan okur (ikisine de aynı şifre girilir). Yerelde derlerken şifreyi `.store_password.txt` ve `.key_password.txt` dosyalarına yazabilirsiniz; bu dosyalar `.gitignore` ile dışarıda tutulur.
+
+Debug sürümleri, şifresi `ZalithLauncher/gradle.properties` içinde açık olan `zalith_launcher_debug.jks` ile imzalanır.
 
 ## Lisans
 
