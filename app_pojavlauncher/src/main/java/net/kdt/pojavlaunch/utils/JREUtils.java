@@ -424,6 +424,8 @@ public class JREUtils {
 
             LifecycleAwareAlertDialog.haltOnDialog(activity.getLifecycle(), activity, dialogCreator);
         }
+        // BirlikCraft: go back to the launcher home instead of leaving the app
+        net.kdt.pojavlaunch.ExitActivity.returnToLauncher(activity);
         Tools.fullyExit();
     }
 

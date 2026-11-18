@@ -36,7 +36,26 @@ public class ExitActivity extends AppCompatActivity {
                 .show();
     }
 
+    /**
+     * BirlikCraft: reopen the launcher (as if its icon was tapped). The launcher process ends
+     * when the game starts, so without this closing the game would leave the app entirely.
+     */
+    public static void returnToLauncher(Context ctx) {
+        try {
+            Intent i = new Intent(ctx, TestStorageActivity.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            ctx.startActivity(i);
+        } catch (RuntimeException e) {
+            android.util.Log.w("ExitActivity", "Could not reopen the launcher", e);
+        }
+    }
+
     public static void showExitMessage(Context ctx, int code, boolean isSignal) {
+        // A normal exit (code 0) goes straight back to the launcher
+        if (code == 0 && !isSignal) {
+            returnToLauncher(ctx);
+            return;
+        }
         Intent i = new Intent(ctx,ExitActivity.class);
         i.putExtra("code",code);
         i.putExtra("isSignal", isSignal);

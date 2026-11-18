@@ -114,6 +114,8 @@ public class BirlikSettingsFragment extends Fragment {
                     // The picker writes the profile; refresh the summary when coming back
                     v.postDelayed(() -> { if (isAdded() && mCategory == 0) showCategory(0); }, 800);
                 });
+        toggle(R.string.birlik_settings_shaders_title, R.string.birlik_settings_shaders_summary,
+                BirlikSetup.PREF_SHADERS_ENABLED, true);
         action(R.drawable.ic_menu_custom_controls, getString(R.string.birlik_edit_controls_title),
                 getString(R.string.birlik_edit_controls_summary),
                 v -> startActivity(new Intent(requireContext(), CustomControlsActivity.class)));

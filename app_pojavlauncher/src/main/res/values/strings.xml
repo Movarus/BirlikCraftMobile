@@ -458,7 +458,7 @@
     <string name="birlik_search_shaders_hint">Search shader packs</string>
     <string name="birlik_pack_downloading">Downloading pack</string>
     <string name="birlik_resourcepack_installed">Resource pack installed: %s. Enable it from Options → Resource Packs in game.</string>
-    <string name="birlik_shader_installed">Shader pack installed: %s. A shader mod (Iris or OptiFine) is required to use it.</string>
+    <string name="birlik_shader_installed">Shader pack installed: %s. Pick it in game from Options → Video → Shader Packs.</string>
     <string name="preference_renderer_mobileglues_settings">MobileGlues Renderer Settings</string>
     <string name="mg_renderer_glsl_cache">Max GLSL cache size</string>
     <string name="mg_renderer_angle">Use ANGLE as driver</string>
@@ -594,7 +594,7 @@
     <string name="birlik_about_version_title">Launcher version</string>
     <string name="birlik_section_content">CONTENT</string>
     <string name="birlik_resourcepacks_card_summary">Browse and install texture packs</string>
-    <string name="birlik_shaderpacks_card_summary">Lighting and shadow packs (needs a shader mod)</string>
+    <string name="birlik_shaderpacks_card_summary">Lighting and shadow packs (runs with Iris)</string>
     <string name="birlik_play_coming_soon">Coming soon</string>
     <string name="birlik_version_coming_soon">26.3 is coming soon! For now you can play with 26.2.</string>
     <string name="birlik_packs_categories">CATEGORIES</string>
@@ -614,5 +614,7 @@
     <string name="birlik_settings_logout_summary">Sign out of your BirlikCraft account on this device</string>
     <string name="birlik_permission_granted">Allowed</string>
     <string name="birlik_settings_renderer_summary">%1$s: %2$s</string>
-    <string name="birlik_connection_closed">Connection to the BirlikCraft server ended. Closing the game…</string>
+    <string name="birlik_connection_closed">Could not connect to the BirlikCraft server. Returning to the launcher…</string>
+    <string name="birlik_settings_shaders_title">Shader support (Sodium + Iris)</string>
+    <string name="birlik_settings_shaders_summary">Faster rendering and shader packs. Turn off if the game crashes on your device.</string>
 </resources>

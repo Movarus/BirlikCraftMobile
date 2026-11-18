@@ -766,7 +766,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
 
         MinecraftAccount minecraftAccount = PojavProfile.getCurrentProfileContent(this, null);
         if (hasMods("sodium"))
-            Logger.appendToLog("WARNING: Sodium is being used, BirlikCraft does NOT support this mod");
+            Logger.appendToLog("BirlikCraft: Sodium is enabled (shader support)");
         Logger.appendToLog("--------- Starting game with Launcher Debug!");
         Tools.printLauncherInfo(versionId, Tools.isValidString(minecraftProfile.javaArgs) ? minecraftProfile.javaArgs : LauncherPreferences.PREF_CUSTOM_JAVA_ARGS, Tools.getTotalDeviceMemory(this));
         if(Tools.LOCAL_RENDERER.equals("opengles_mobileglues")) {

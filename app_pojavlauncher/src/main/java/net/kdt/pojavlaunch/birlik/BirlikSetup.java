@@ -69,8 +69,8 @@ public final class BirlikSetup {
 
     /**
      * Modrinth slugs of the FPS mods BirlikCraft installs. Required dependencies (such as
-     * Fabric API) are resolved automatically. Sodium is deliberately left out: Amethyst does
-     * not support it and it causes graphical issues and crashes on Android renderers.
+     * Fabric API) are resolved automatically. Sodium and Iris are added separately (see
+     * {@link #SHADER_MODS}) because they can be switched off in the settings.
      */
     private static final String[] PERFORMANCE_MODS = {
             "lithium",        // game logic / tick optimisations
@@ -87,6 +87,19 @@ public final class BirlikSetup {
      */
     public static final String RECOMMENDED_RENDERER = "opengles3_desktopgl_zink_kopper";
     private static final String RENDERER_DEFAULT_FLAG = "birlik_renderer_default_v1_";
+
+    /**
+     * Sodium (fast renderer) and Iris (shader packs). Amethyst flags Sodium as unsupported on
+     * its GLES renderers, but with Kopper Zink the game gets full desktop OpenGL; BirlikCraft
+     * enables them by default and players can turn them off in Settings > Game.
+     */
+    private static final String[] SHADER_MODS = {"sodium", "iris"};
+    public static final String PREF_SHADERS_ENABLED = "birlik_shaders_enabled";
+
+    public static boolean isShaderSupportEnabled() {
+        return LauncherPreferences.DEFAULT_PREF == null
+                || LauncherPreferences.DEFAULT_PREF.getBoolean(PREF_SHADERS_ENABLED, true);
+    }
 
     private static final String MODRINTH_API = "https://api.modrinth.com/v2";
     private static final String FABRIC_META = "https://meta.fabricmc.net/v2";
@@ -414,6 +427,7 @@ public final class BirlikSetup {
         Set<String> seenProjects = new HashSet<>();
         List<String> queue = new ArrayList<>();
         for (String slug : PERFORMANCE_MODS) queue.add(slug);
+        if (isShaderSupportEnabled()) for (String slug : SHADER_MODS) queue.add(slug);
         while (!queue.isEmpty()) {
             String project = queue.remove(0);
             JsonObject version = findLatestVersion(project, mcVersion);

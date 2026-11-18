@@ -11,17 +11,18 @@ import net.kdt.pojavlaunch.Tools;
 
 /**
  * BirlikCraft is a server-only client: the game joins oyna.birlikcraft.com directly and must
- * never fall back to Minecraft's title screen. This watches the game log and closes the game
- * when joining the server fails or the connection ends (kick, timeout, server stop, quitting).
+ * never fall back to Minecraft's title screen. This watches the game log and, when joining the
+ * server fails, closes the game and reopens the launcher.
  */
 public final class BirlikConnectionWatcher {
-    /** Log lines Minecraft writes when a server connection fails or ends. */
+    /**
+     * Log lines Minecraft writes when joining the server fails. Disconnects after joining are
+     * left alone (the disconnect screen stays visible, useful for testing); the BirlikCraft mod
+     * closes the game when the player then reaches the title screen.
+     */
     private static final String[] FAILURE_MARKERS = {
             "Couldn't connect to server",
             "Failed to connect to server",
-            "Client disconnected with reason",
-            "Disconnected from server",
-            "Lost connection",
     };
     private static final long EXIT_DELAY_MS = 1500;
 
@@ -37,7 +38,10 @@ public final class BirlikConnectionWatcher {
                     sExiting = true;
                     Tools.runOnUiThread(() -> {
                         Toast.makeText(activity, R.string.birlik_connection_closed, Toast.LENGTH_LONG).show();
-                        Tools.MAIN_HANDLER.postDelayed(Tools::fullyExit, EXIT_DELAY_MS);
+                        Tools.MAIN_HANDLER.postDelayed(() -> {
+                            net.kdt.pojavlaunch.ExitActivity.returnToLauncher(activity);
+                            Tools.fullyExit();
+                        }, EXIT_DELAY_MS);
                     });
                     return;
                 }

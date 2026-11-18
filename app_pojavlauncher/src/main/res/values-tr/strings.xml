@@ -386,7 +386,7 @@
     <string name="birlik_search_shaders_hint">Shader paketi ara</string>
     <string name="birlik_pack_downloading">Paket indiriliyor</string>
     <string name="birlik_resourcepack_installed">Kaynak paketi yüklendi: %s. Oyunda Seçenekler → Kaynak Paketleri menüsünden etkinleştirin.</string>
-    <string name="birlik_shader_installed">Shader paketi yüklendi: %s. Kullanmak için bir shader modu (Iris veya OptiFine) gerekir.</string>
+    <string name="birlik_shader_installed">Shader paketi yüklendi: %s. Oyunda Seçenekler → Video → Shader Paketleri menüsünden seç.</string>
     <string name="customctrl_visibility_ingame">Oyun İçi</string>
     <string name="customctrl_visibility_in_menus">Menülerde</string>
     <string name="controller_remapper_expand_entry">Tuș kodlarını değiștirmek için genişlet</string>
@@ -544,7 +544,7 @@
     <string name="birlik_about_version_title">Başlatıcı sürümü</string>
     <string name="birlik_section_content">İÇERİK</string>
     <string name="birlik_resourcepacks_card_summary">Doku paketlerine göz at ve yükle</string>
-    <string name="birlik_shaderpacks_card_summary">Işık ve gölge paketleri (shader modu gerekir)</string>
+    <string name="birlik_shaderpacks_card_summary">Işık ve gölge paketleri (Iris ile çalışır)</string>
     <string name="birlik_play_coming_soon">Yakında</string>
     <string name="birlik_version_coming_soon">26.3 yakında geliyor! Şimdilik 26.2 ile oynayabilirsin.</string>
     <string name="birlik_packs_categories">KATEGORİLER</string>
@@ -564,5 +564,7 @@
     <string name="birlik_settings_logout_summary">Bu cihazda BirlikCraft hesabından çıkış yap</string>
     <string name="birlik_permission_granted">İzin verildi</string>
     <string name="birlik_settings_renderer_summary">%1$s: %2$s</string>
-    <string name="birlik_connection_closed">BirlikCraft sunucusuyla bağlantı kesildi. Oyun kapatılıyor…</string>
+    <string name="birlik_connection_closed">BirlikCraft sunucusuna bağlanılamadı. Ana menüye dönülüyor…</string>
+    <string name="birlik_settings_shaders_title">Shader desteği (Sodium + Iris)</string>
+    <string name="birlik_settings_shaders_summary">Daha hızlı görüntü ve shader paketleri. Cihazında oyun çökerse kapat.</string>
 </resources>
