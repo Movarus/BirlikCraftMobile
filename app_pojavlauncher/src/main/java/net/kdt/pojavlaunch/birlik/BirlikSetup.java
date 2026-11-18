@@ -504,7 +504,8 @@ public final class BirlikSetup {
             }
             File pack = new File(gameDir, "resourcepacks/BirlikCraft.zip");
             File defaultPack = new File(Tools.DIR_GAME_NEW, "resourcepacks/BirlikCraft.zip");
-            if (!pack.exists() && defaultPack.isFile()) {
+            // Copy again when the launcher ships an updated BirlikCraft pack
+            if (defaultPack.isFile() && (!pack.exists() || pack.length() != defaultPack.length())) {
                 org.apache.commons.io.FileUtils.copyFile(defaultPack, pack);
             }
         } catch (IOException e) {

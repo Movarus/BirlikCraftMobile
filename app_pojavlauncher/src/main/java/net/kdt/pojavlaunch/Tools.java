@@ -466,6 +466,13 @@ public final class Tools {
             } else if (!packs.contains("file/BirlikCraft.zip")) {
                 MCOptionUtils.set("resourcePacks", "[\"vanilla\",\"file/BirlikCraft.zip\"," + (packs.startsWith("[\"vanilla\",") ? packs.substring(11) : packs.substring(1)));
             }
+            // Keep the BirlikCraft pack enabled even if Minecraft flags its format as old
+            String incompatible = MCOptionUtils.get("incompatibleResourcePacks");
+            if (incompatible == null || incompatible.isEmpty() || incompatible.equals("[]")) {
+                MCOptionUtils.set("incompatibleResourcePacks", "[\"file/BirlikCraft.zip\"]");
+            } else if (!incompatible.contains("file/BirlikCraft.zip")) {
+                MCOptionUtils.set("incompatibleResourcePacks", "[\"file/BirlikCraft.zip\"," + incompatible.substring(1));
+            }
             MCOptionUtils.save();
         } catch (Exception e) {
             Log.w("Tools", "Failed to apply BirlikCraft options", e);
