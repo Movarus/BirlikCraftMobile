@@ -12,6 +12,7 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
 import net.kdt.pojavlaunch.Architecture;
+import net.kdt.pojavlaunch.birlik.BirlikHome;
 import net.kdt.pojavlaunch.LauncherActivity;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
@@ -26,7 +27,8 @@ public class LauncherPreferenceFragment extends PreferenceFragmentCompat impleme
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        view.setBackgroundColor(getResources().getColor(R.color.background_app));
+        // BirlikCraft: dark glass over the launcher wallpaper
+        view.setBackgroundColor(0xE6141518);
         super.onViewCreated(view, savedInstanceState);
     }
 
@@ -34,7 +36,6 @@ public class LauncherPreferenceFragment extends PreferenceFragmentCompat impleme
     public void onCreatePreferences(Bundle b, String str) {
         addPreferencesFromResource(R.xml.pref_main);
         setupNotificationRequestPreference();
-        setupAboutPreferences();
         setupBirlikPreferences();
     }
 
@@ -58,16 +59,24 @@ public class LauncherPreferenceFragment extends PreferenceFragmentCompat impleme
             memory.setSuffix(" MB");
         }
 
-        Preference shareLogs = findPreference("birlik_share_logs");
-        if (shareLogs != null) {
-            shareLogs.setOnPreferenceClickListener(p -> {
-                Tools.shareLog(requireContext());
+        Preference graphics = findPreference("birlik_graphics");
+        if (graphics != null) {
+            graphics.setOnPreferenceClickListener(p -> {
+                BirlikHome.showRendererPicker(requireActivity());
+                return true;
+            });
+        }
+
+        Preference editControls = findPreference("birlik_edit_controls");
+        if (editControls != null) {
+            editControls.setOnPreferenceClickListener(p -> {
+                startActivity(new android.content.Intent(requireContext(), net.kdt.pojavlaunch.CustomControlsActivity.class));
                 return true;
             });
         }
     }
 
-    private void setupAboutPreferences() {
+    protected void setupAboutPreferences() {
         Preference webPref = findPreference("pref_about_website");
         if (webPref != null) {
             webPref.setOnPreferenceClickListener(p -> {

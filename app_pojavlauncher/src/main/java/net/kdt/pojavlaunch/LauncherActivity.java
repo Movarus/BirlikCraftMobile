@@ -141,8 +141,9 @@ public class LauncherActivity extends BaseActivity {
     private final FragmentManager.FragmentLifecycleCallbacks mFragmentCallbackListener = new FragmentManager.FragmentLifecycleCallbacks() {
         @Override
         public void onFragmentResumed(@NonNull FragmentManager fm, @NonNull Fragment f) {
-            mSettingsButton.setImageDrawable(ContextCompat.getDrawable(getBaseContext(), f instanceof MainMenuFragment
-                    ? R.drawable.ic_menu_settings : R.drawable.ic_menu_home));
+            // BirlikCraft: only pages of the main container drive the top bar
+            if (f.getId() != R.id.container_fragment) return;
+            net.kdt.pojavlaunch.birlik.BirlikHome.updateTopBar(LauncherActivity.this, f);
         }
     };
 

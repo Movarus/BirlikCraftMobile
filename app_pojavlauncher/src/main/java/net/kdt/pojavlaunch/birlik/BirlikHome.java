@@ -41,6 +41,54 @@ public final class BirlikHome {
         if (credit != null) credit.setText(activity.getString(R.string.birlik_credit, session.credit));
     }
 
+    /**
+     * Switch the top bar between the home look (logo, player, settings, sign out) and the page
+     * look used by settings and other inner pages (back button and page title).
+     */
+    public static void updateTopBar(@NonNull Activity activity, @NonNull androidx.fragment.app.Fragment page) {
+        boolean home = page instanceof net.kdt.pojavlaunch.fragments.MainMenuFragment;
+        View back = activity.findViewById(R.id.birlik_back_button);
+        View logo = activity.findViewById(R.id.birlik_top_logo);
+        TextView title = activity.findViewById(R.id.birlik_top_title);
+        View chip = activity.findViewById(R.id.birlik_player_chip);
+        View settings = activity.findViewById(R.id.setting_button);
+        View logout = activity.findViewById(R.id.birlik_logout_button);
+        if (back == null || title == null) return;
+
+        back.setVisibility(home ? View.GONE : View.VISIBLE);
+        back.setOnClickListener(v -> activity.onBackPressed());
+        if (logo != null) logo.setVisibility(home ? View.VISIBLE : View.GONE);
+        if (settings != null) settings.setVisibility(home ? View.VISIBLE : View.GONE);
+        if (home) {
+            title.setText(R.string.birlik_brand_title);
+            title.setTypeface(androidx.core.content.res.ResourcesCompat.getFont(activity, R.font.minecraft_ten));
+            bindTopBar(activity);
+        } else {
+            title.setText(getPageTitle(page));
+            title.setTypeface(android.graphics.Typeface.DEFAULT_BOLD);
+            if (chip != null) chip.setVisibility(View.GONE);
+            if (logout != null) logout.setVisibility(View.GONE);
+        }
+    }
+
+    private static int getPageTitle(androidx.fragment.app.Fragment page) {
+        if (page instanceof net.kdt.pojavlaunch.prefs.screens.BirlikDeveloperPreferenceFragment)
+            return R.string.birlik_pref_category_developer;
+        if (page instanceof net.kdt.pojavlaunch.prefs.screens.BirlikAboutPreferenceFragment)
+            return R.string.pref_category_about;
+        if (page instanceof net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceControlFragment)
+            return R.string.birlik_touch_settings_title;
+        if (page instanceof net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceFragment)
+            return R.string.birlik_settings;
+        if (page instanceof net.kdt.pojavlaunch.fragments.SearchModFragment) {
+            android.os.Bundle args = page.getArguments();
+            String type = args == null ? null : args.getString(net.kdt.pojavlaunch.fragments.SearchModFragment.ARG_PROJECT_TYPE);
+            return net.kdt.pojavlaunch.modloaders.modpacks.api.ModrinthApi.TYPE_SHADER.equals(type)
+                    ? R.string.birlik_menu_shaderpacks : R.string.birlik_menu_resourcepacks;
+        }
+        return R.string.app_short_name;
+    }
+
     /** Home page: welcome name and the 26.3 / 26.2 version switch. */
     public static void bindHome(@NonNull View root) {
         BirlikAuth.Session session = BirlikAuth.getSession(root.getContext());

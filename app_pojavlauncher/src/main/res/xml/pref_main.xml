@@ -1,22 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- BirlikCraft settings: deliberately limited. Advanced Amethyst screens (Java, renderer,
-     experimental, misc) are not reachable; the game engine is managed by BirlikCraft. -->
+<!-- BirlikCraft settings home. Deliberately limited: the game engine is managed by BirlikCraft. -->
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:key="">
 
-    <net.kdt.pojavlaunch.prefs.BackButtonPreference/>
-
     <PreferenceCategory android:title="@string/birlik_pref_category_game">
-
+        <Preference
+            android:key="birlik_graphics"
+            android:title="@string/birlik_menu_graphics"
+            android:summary="@string/birlik_graphics_summary"
+            android:icon="@drawable/ic_birlik_graphics" />
+        <Preference
+            android:key="birlik_edit_controls"
+            android:title="@string/birlik_edit_controls_title"
+            android:summary="@string/birlik_edit_controls_summary"
+            android:icon="@drawable/ic_menu_custom_controls" />
         <Preference
             android:key="control_screen_setting"
-            android:title="@string/preference_control_title"
-            android:summary="@string/preference_control_description"
+            android:title="@string/birlik_touch_settings_title"
+            android:summary="@string/birlik_touch_settings_summary"
             android:fragment="net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceControlFragment"
-            android:icon="@drawable/ic_menu_custom_controls" />
+            android:icon="@drawable/ic_setting_gesture_time" />
+    </PreferenceCategory>
 
+    <PreferenceCategory android:title="@string/birlik_pref_category_performance">
         <net.kdt.pojavlaunch.prefs.CustomSeekBarPreference
             android:key="resolutionRatio"
             android:title="@string/mcl_setting_title_resolution_scaler"
@@ -26,7 +34,6 @@
             app:selectable="false"
             app:min="@integer/resolution_seekbar_min"
             app:seekBarIncrement="@integer/resolution_seekbar_increment" />
-
         <net.kdt.pojavlaunch.prefs.CustomSeekBarPreference
             android:key="allocation"
             android:title="@string/mcl_memory_allocation"
@@ -49,35 +56,18 @@
             android:summary="@string/preference_ask_for_microphone_description" />
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/birlik_pref_category_developer">
+    <PreferenceCategory android:title="@string/birlik_pref_category_other">
         <Preference
-            android:key="birlik_share_logs"
-            android:title="@string/main_share_logs"
-            android:summary="@string/birlik_share_logs_summary"
-            android:icon="@android:drawable/ic_menu_share" />
-    </PreferenceCategory>
-
-    <PreferenceCategory android:title="@string/pref_category_about">
+            android:key="birlik_developer_screen"
+            android:title="@string/birlik_pref_category_developer"
+            android:summary="@string/birlik_developer_summary"
+            android:fragment="net.kdt.pojavlaunch.prefs.screens.BirlikDeveloperPreferenceFragment"
+            android:icon="@drawable/ic_setting_misc" />
         <Preference
-            android:key="pref_about_author"
-            android:title="@string/pref_about_author_title"
-            android:summary="@string/pref_about_author_summary"
+            android:key="birlik_about_screen"
+            android:title="@string/pref_category_about"
+            android:summary="@string/birlik_about_summary"
+            android:fragment="net.kdt.pojavlaunch.prefs.screens.BirlikAboutPreferenceFragment"
             android:icon="@drawable/ic_edit_profile" />
-        <Preference
-            android:key="pref_about_website"
-            android:title="@string/pref_about_website_title"
-            android:summary="@string/pref_about_website_summary"
-            android:icon="@drawable/ic_menu_news" />
-        <Preference
-            android:key="pref_about_server"
-            android:title="@string/pref_about_server_title"
-            android:summary="@string/server_ip"
-            android:icon="@drawable/ic_menu_home" />
-        <Preference
-            android:key="pref_about_discord"
-            android:title="@string/pref_about_discord_title"
-            android:summary="@string/discord_invite"
-            android:icon="@drawable/ic_discord" />
     </PreferenceCategory>
-
 </PreferenceScreen>

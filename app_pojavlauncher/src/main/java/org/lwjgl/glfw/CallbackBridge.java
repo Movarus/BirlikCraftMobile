@@ -250,10 +250,10 @@ public class CallbackBridge {
                             // Notifies SDL of native surface res which is needed for proper input handling
                             SDLActivity.getSDLSurface().nativeResize(windowWidth, windowHeight);
                         }
-                        Logger.appendToLog("Amethyst-Android: SDL support enabled!");
+                        Logger.appendToLog("BirlikCraft: SDL support enabled!");
                         return true;
                     } catch (Exception e){
-                        Logger.appendToLog("Amethyst-Android: Failed to initialize SDL launcher-side integration! We will likely crash");
+                        Logger.appendToLog("BirlikCraft: Failed to initialize SDL launcher-side integration! We will likely crash");
                     }
                 }
                 if (action[0] == ACTION_SEND_TEXTBOX_RECT) {

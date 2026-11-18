@@ -53,19 +53,14 @@ public class MainMenuFragment extends Fragment {
         // BirlikCraft home: tiles and pills are plain Views (not Pojav buttons)
         View mNewsButton = view.findViewById(R.id.news_button);
         View mDiscordButton = view.findViewById(R.id.discord_button);
-        View mCustomControlButton = view.findViewById(R.id.custom_control_button);
-        View mOpenDirectoryButton = view.findViewById(R.id.open_files_button);
         View mServerIpButton = view.findViewById(R.id.server_ip_button);
         View mResourcePacksButton = view.findViewById(R.id.resource_packs_button);
         View mShaderPacksButton = view.findViewById(R.id.shader_packs_button);
-        View mGraphicsButton = view.findViewById(R.id.birlik_graphics_button);
         View mPlayButton = view.findViewById(R.id.play_button);
         mVersionSpinner = view.findViewById(R.id.mc_version_spinner);
 
         mNewsButton.setOnClickListener(v -> Tools.openURL(requireActivity(), Tools.URL_HOME));
         mDiscordButton.setOnClickListener(v -> Tools.openURL(requireActivity(), getString(R.string.discord_invite)));
-        mCustomControlButton.setOnClickListener(v -> startActivity(new Intent(requireContext(), CustomControlsActivity.class)));
-        mOpenDirectoryButton.setOnClickListener((v) -> openPath(v.getContext(), getCurrentProfileDirectory(), false));
 
         mServerIpButton.setOnClickListener(v -> {
             android.content.ClipboardManager clipboard = (android.content.ClipboardManager) requireContext().getSystemService(android.content.Context.CLIPBOARD_SERVICE);
@@ -76,7 +71,6 @@ public class MainMenuFragment extends Fragment {
 
         mResourcePacksButton.setOnClickListener(v -> openPackSearch(ModrinthApi.TYPE_RESOURCE_PACK));
         mShaderPacksButton.setOnClickListener(v -> openPackSearch(ModrinthApi.TYPE_SHADER));
-        mGraphicsButton.setOnClickListener(v -> BirlikHome.showRendererPicker(requireActivity()));
 
         mPlayButton.setOnClickListener(v -> ExtraCore.setValue(ExtraConstants.LAUNCH_GAME, true));
 

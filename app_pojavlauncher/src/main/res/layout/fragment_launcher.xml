@@ -136,83 +136,53 @@
         </LinearLayout>
     </LinearLayout>
 
-    <!-- ============ Right: tool tiles ============ -->
+    <!-- ============ Right: content cards ============ -->
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:gravity="center_vertical"
         android:orientation="vertical"
         android:paddingStart="@dimen/_6sdp"
-        android:paddingEnd="@dimen/_14sdp"
+        android:paddingEnd="@dimen/_16sdp"
         app:layout_constraintBottom_toTopOf="@id/birlik_bottom_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/birlik_home_split"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <LinearLayout
-                android:id="@+id/resource_packs_button"
-                style="@style/BirlikHomeTile">
-                <ImageView
-                    style="@style/BirlikHomeTileIcon"
-                    android:src="@drawable/ic_menu_resourcepacks"
-                    tools:ignore="ContentDescription" />
-                <TextView
-                    style="@style/BirlikHomeTileLabel"
-                    android:text="@string/birlik_menu_resourcepacks" />
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/shader_packs_button"
-                style="@style/BirlikHomeTile">
-                <ImageView
-                    style="@style/BirlikHomeTileIcon"
-                    android:src="@drawable/ic_menu_shaderpacks"
-                    tools:ignore="ContentDescription" />
-                <TextView
-                    style="@style/BirlikHomeTileLabel"
-                    android:text="@string/birlik_menu_shaderpacks" />
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/birlik_graphics_button"
-                style="@style/BirlikHomeTile">
-                <ImageView
-                    style="@style/BirlikHomeTileIcon"
-                    android:src="@drawable/ic_birlik_graphics"
-                    tools:ignore="ContentDescription" />
-                <TextView
-                    style="@style/BirlikHomeTileLabel"
-                    android:text="@string/birlik_menu_graphics" />
+            android:layout_marginStart="@dimen/_4sdp"
+            android:layout_marginBottom="@dimen/_2sdp"
+            android:letterSpacing="0.2"
+            android:text="@string/birlik_section_content"
+            android:textColor="@color/birlik_gold_light"
+            android:textSize="@dimen/_8ssp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/resource_packs_button"
+            style="@style/BirlikContentCard">
+            <ImageView
+                style="@style/BirlikContentCardIcon"
+                android:src="@drawable/ic_menu_resourcepacks"
+                tools:ignore="ContentDescription" />
+            <LinearLayout style="@style/BirlikContentCardText">
+                <TextView style="@style/BirlikContentCardTitle" android:text="@string/birlik_menu_resourcepacks" />
+                <TextView style="@style/BirlikContentCardSubtitle" android:text="@string/birlik_resourcepacks_card_summary" />
             </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <LinearLayout
-                android:id="@+id/custom_control_button"
-                style="@style/BirlikHomeTile">
-                <ImageView
-                    style="@style/BirlikHomeTileIcon"
-                    android:src="@drawable/ic_menu_custom_controls"
-                    tools:ignore="ContentDescription" />
-                <TextView
-                    style="@style/BirlikHomeTileLabel"
-                    android:text="@string/mcl_option_customcontrol" />
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/open_files_button"
-                style="@style/BirlikHomeTile">
-                <ImageView
-                    style="@style/BirlikHomeTileIcon"
-                    android:src="@drawable/ic_folder"
-                    tools:ignore="ContentDescription" />
-                <TextView
-                    style="@style/BirlikHomeTileLabel"
-                    android:text="@string/mcl_button_open_directory" />
+            android:id="@+id/shader_packs_button"
+            style="@style/BirlikContentCard">
+            <ImageView
+                style="@style/BirlikContentCardIcon"
+                android:src="@drawable/ic_menu_shaderpacks"
+                tools:ignore="ContentDescription" />
+            <LinearLayout style="@style/BirlikContentCardText">
+                <TextView style="@style/BirlikContentCardTitle" android:text="@string/birlik_menu_shaderpacks" />
+                <TextView style="@style/BirlikContentCardSubtitle" android:text="@string/birlik_shaderpacks_card_summary" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

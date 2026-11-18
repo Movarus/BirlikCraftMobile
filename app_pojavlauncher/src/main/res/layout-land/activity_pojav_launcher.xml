@@ -44,7 +44,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <!-- Shown on inner pages (settings...) instead of the player info -->
+        <ImageButton
+            android:id="@+id/birlik_back_button"
+            android:layout_width="@dimen/_32sdp"
+            android:layout_height="@dimen/_32sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:background="@drawable/birlik_round_button"
+            android:contentDescription="@string/birlik_back"
+            android:padding="@dimen/_8sdp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_arrow_back_white"
+            android:visibility="gone" />
+
         <ImageView
+            android:id="@+id/birlik_top_logo"
             android:layout_width="@dimen/_28sdp"
             android:layout_height="@dimen/_28sdp"
             android:scaleType="fitCenter"
@@ -52,6 +66,7 @@
             tools:ignore="ContentDescription" />
 
         <TextView
+            android:id="@+id/birlik_top_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_6sdp"

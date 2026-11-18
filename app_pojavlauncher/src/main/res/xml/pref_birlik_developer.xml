@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- BirlikCraft settings > Developer options -->
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="@string/birlik_pref_category_developer">
+        <Preference
+            android:key="birlik_share_logs"
+            android:title="@string/main_share_logs"
+            android:summary="@string/birlik_share_logs_summary"
+            android:icon="@android:drawable/ic_menu_share" />
+        <Preference
+            android:key="birlik_open_game_folder"
+            android:title="@string/mcl_button_open_directory"
+            android:summary="@string/birlik_open_game_folder_summary"
+            android:icon="@drawable/ic_folder" />
+    </PreferenceCategory>
+</PreferenceScreen>

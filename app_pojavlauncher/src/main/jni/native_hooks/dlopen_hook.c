@@ -133,7 +133,7 @@ void *custom_dlsym(void *handle, const char *symbol) {
         if (strstr(redirect->library_name, "libSDL3")) {
             redirect->jni_onload = (JNI_OnLoad_t) result;
             // This outputs in the minecraft logs
-            LOGI("Amethyst-Android: Intercepted dlsym on SDL3 JNI_OnLoad: %p", result);
+            LOGI("BirlikCraft: Intercepted dlsym on SDL3 JNI_OnLoad: %p", result);
             BYTEHOOK_POP_STACK();
             return get_jni_onload_wrapper(redirect);
         }

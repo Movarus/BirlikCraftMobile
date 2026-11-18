@@ -248,7 +248,7 @@
     <string name="color_default_hex" translatable="false">FFFF0000</string>
     <string name="notif_channel_name">General</string>
     <string name="notif_channel_id" translatable="false">channel_id</string>
-    <string name="lazy_service_default_title">Amethyst Foreground Service</string>
+    <string name="lazy_service_default_title">BirlikCraft Foreground Service</string>
     <string name="mcl_setting_veroption_installed">Installed</string>
     <string name="use_global_default">(Use global default)</string>
     <string name="default_control">Default controlmap</string>
@@ -278,7 +278,7 @@
     <string name="preference_gyro_sample_rate_title">Gyroscope sampling rate</string>
     <string name="preference_gyro_sample_rate_description">If you have performance issues with gyroscope controls, increase this.</string>
     <string name="microsoft_login_retry_later">Too many requests, please try again later.</string>
-    <string name="storage_required">PojavLauncher requires external storage to be attached. Please reconnect it and restart the app.</string>
+    <string name="storage_required">BirlikCraft requires external storage to be attached. Please reconnect it and restart the app.</string>
     <string name="mcl_setting_title_buttonallcaps">Only use capital letters in button labels</string>
     <string name="mcl_setting_subtitle_buttonallcaps">Disable this if you want to use lowercase letters in your controls.</string>
     <string name="create_profile">Create new profile</string>
@@ -345,7 +345,7 @@
     <string name="modpack_download_downloading_mods">Downloading mods (%.2f MB / %.2f MB)</string>
     <string name="modpack_download_downloading_mods_fc">Downloading mods (File %d out of %d)</string>
     <string name="modpack_download_applying_overrides">Applying overrides (%d/%d)</string>
-    <string name="modpack_install_notification_title">Pojav Modpack Installer</string>
+    <string name="modpack_install_notification_title">BirlikCraft Modpack Installer</string>
     <string name="modpack_install_notification_success">Click here to finish modpack installation</string>
     <string name="modpack_install_notification_data_not_available">Failed to download mod loader information</string>
     <string name="modpack_install_modloader_download_failed">Failed to download the mod loader files</string>
@@ -377,7 +377,7 @@
     <string name="preference_category_miscellaneous">Miscellaneous settings</string>
     <string name="preference_category_video">Video settings</string>
     <string name="notification_permission_dialog_title">Permission request</string>
-    <string name="notification_permission_dialog_text">PojavLauncher requires a permission to post notifications to prevent game/modpack downloads from stopping when you leave the app. Without this permission, Android may shut down your downloads when you put PojavLauncher in background mode.</string>
+    <string name="notification_permission_dialog_text">BirlikCraft requires a permission to post notifications to prevent game/modpack downloads from stopping when you leave the app. Without this permission, Android may shut down your downloads when you put BirlikCraft in background mode.</string>
     <string name="notification_permission_toast">You can always change your mind later by going into Settings</string>
     <string name="preference_ask_for_notification_title">Allow notifications</string>
     <string name="preference_ask_for_notification_description">Click to re-request the notification permission, required for game/modpack background downloads to work properly.</string>
@@ -580,4 +580,19 @@
     <string name="birlik_pref_category_developer">Developer options</string>
     <string name="birlik_share_logs_summary">Share the latest game log when reporting a problem</string>
     <string name="birlik_renderer_recommended">Recommended (%s)</string>
+    <string name="birlik_back">Back</string>
+    <string name="birlik_graphics_summary">Choose the renderer for the selected version</string>
+    <string name="birlik_edit_controls_title">Edit control layout</string>
+    <string name="birlik_edit_controls_summary">Move, resize and add on-screen buttons</string>
+    <string name="birlik_touch_settings_title">Touch and controller</string>
+    <string name="birlik_touch_settings_summary">Sensitivity, gestures, gyroscope and gamepad</string>
+    <string name="birlik_pref_category_performance">Performance</string>
+    <string name="birlik_pref_category_other">Other</string>
+    <string name="birlik_developer_summary">Logs and game folder</string>
+    <string name="birlik_about_summary">Developer, website and server</string>
+    <string name="birlik_open_game_folder_summary">Open the folder of the selected version</string>
+    <string name="birlik_about_version_title">Launcher version</string>
+    <string name="birlik_section_content">CONTENT</string>
+    <string name="birlik_resourcepacks_card_summary">Browse and install texture packs</string>
+    <string name="birlik_shaderpacks_card_summary">Lighting and shadow packs (needs a shader mod)</string>
 </resources>
