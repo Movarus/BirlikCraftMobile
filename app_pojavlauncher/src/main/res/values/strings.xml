@@ -614,4 +614,5 @@
     <string name="birlik_settings_logout_summary">Sign out of your BirlikCraft account on this device</string>
     <string name="birlik_permission_granted">Allowed</string>
     <string name="birlik_settings_renderer_summary">%1$s: %2$s</string>
+    <string name="birlik_connection_closed">Connection to the BirlikCraft server ended. Closing the game…</string>
 </resources>

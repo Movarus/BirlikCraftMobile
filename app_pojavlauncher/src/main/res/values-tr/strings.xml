@@ -564,4 +564,5 @@
     <string name="birlik_settings_logout_summary">Bu cihazda BirlikCraft hesabından çıkış yap</string>
     <string name="birlik_permission_granted">İzin verildi</string>
     <string name="birlik_settings_renderer_summary">%1$s: %2$s</string>
+    <string name="birlik_connection_closed">BirlikCraft sunucusuyla bağlantı kesildi. Oyun kapatılıyor…</string>
 </resources>
