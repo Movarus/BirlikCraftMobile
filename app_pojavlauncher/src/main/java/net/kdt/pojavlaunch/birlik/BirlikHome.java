@@ -80,6 +80,7 @@ public final class BirlikHome {
             return R.string.birlik_touch_settings_title;
         if (page instanceof net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceFragment)
             return R.string.birlik_settings;
+        if (page instanceof BirlikSettingsFragment) return R.string.birlik_settings;
         if (page instanceof BirlikPackBrowserFragment) {
             return BirlikPackBrowserFragment.TYPE_SHADER.equals(((BirlikPackBrowserFragment) page).getProjectType())
                     ? R.string.birlik_menu_shaderpacks : R.string.birlik_menu_resourcepacks;

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Gold slider track -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@android:id/background" android:gravity="center_vertical" android:height="@dimen/_3sdp">
+        <shape android:shape="rectangle">
+            <corners android:radius="@dimen/_2sdp" />
+            <solid android:color="#33FFFFFF" />
+        </shape>
+    </item>
+    <item android:id="@android:id/progress" android:gravity="center_vertical" android:height="@dimen/_3sdp">
+        <clip>
+            <shape android:shape="rectangle">
+                <corners android:radius="@dimen/_2sdp" />
+                <gradient android:startColor="@color/birlik_gold_depth" android:endColor="@color/birlik_gold_light" />
+            </shape>
+        </clip>
+    </item>
+</layer-list>

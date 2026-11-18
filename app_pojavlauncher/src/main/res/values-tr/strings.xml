@@ -557,4 +557,11 @@
     <string name="birlik_packs_no_versions">Bu filtreye uygun indirilebilir sürüm yok</string>
     <string name="birlik_packs_loading_versions">Sürümler yükleniyor…</string>
     <string name="birlik_packs_installing">%s yükleniyor…</string>
+    <string name="birlik_settings_controls">Kontroller</string>
+    <string name="birlik_settings_account">Hesap</string>
+    <string name="birlik_settings_advanced_controls">Gelişmiş dokunmatik ayarları</string>
+    <string name="birlik_settings_performance_note">Düşük çözünürlük daha fazla FPS verir. Telefonlarda fazla RAM takılmaya yol açabilir; genelde 2-3 GB en iyisidir.</string>
+    <string name="birlik_settings_logout_summary">Bu cihazda BirlikCraft hesabından çıkış yap</string>
+    <string name="birlik_permission_granted">İzin verildi</string>
+    <string name="birlik_settings_renderer_summary">%1$s: %2$s</string>
 </resources>

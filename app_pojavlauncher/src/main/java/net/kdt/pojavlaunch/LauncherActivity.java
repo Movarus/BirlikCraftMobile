@@ -170,7 +170,8 @@ public class LauncherActivity extends BaseActivity {
     private final View.OnClickListener mSettingButtonListener = v -> {
         Fragment fragment = getSupportFragmentManager().findFragmentById(mFragmentView.getId());
         if(fragment instanceof MainMenuFragment){
-            Tools.swapFragment(this, LauncherPreferenceFragment.class, SETTING_FRAGMENT_TAG, null);
+            // BirlikCraft's own settings screen
+            Tools.swapFragment(this, net.kdt.pojavlaunch.birlik.BirlikSettingsFragment.class, SETTING_FRAGMENT_TAG, null);
         } else{
             // The setting button doubles as a home button now
             Tools.backToMainMenu(this);

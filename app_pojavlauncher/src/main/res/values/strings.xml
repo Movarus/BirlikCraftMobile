@@ -607,4 +607,11 @@
     <string name="birlik_packs_no_versions">No downloadable version for this filter</string>
     <string name="birlik_packs_loading_versions">Loading versions…</string>
     <string name="birlik_packs_installing">Installing %s…</string>
+    <string name="birlik_settings_controls">Controls</string>
+    <string name="birlik_settings_account">Account</string>
+    <string name="birlik_settings_advanced_controls">Advanced touch settings</string>
+    <string name="birlik_settings_performance_note">Lower resolution gives more FPS. Too much RAM can cause stutter on phones; 2-3 GB is usually best.</string>
+    <string name="birlik_settings_logout_summary">Sign out of your BirlikCraft account on this device</string>
+    <string name="birlik_permission_granted">Allowed</string>
+    <string name="birlik_settings_renderer_summary">%1$s: %2$s</string>
 </resources>

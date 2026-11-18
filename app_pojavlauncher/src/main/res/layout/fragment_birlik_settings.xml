@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- BirlikCraft settings: category sidebar | content -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#CC0E0F12"
+    android:orientation="horizontal">
+
+    <ScrollView
+        android:layout_width="@dimen/_140sdp"
+        android:layout_height="match_parent"
+        android:background="#E6141518"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:id="@+id/birlik_settings_categories"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/_8sdp" />
+    </ScrollView>
+
+    <ScrollView
+        android:id="@+id/birlik_settings_scroll"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:id="@+id/birlik_settings_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/_14sdp"
+            android:paddingVertical="@dimen/_10sdp" />
+    </ScrollView>
+</LinearLayout>
