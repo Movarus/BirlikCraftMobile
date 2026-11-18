@@ -547,4 +547,14 @@
     <string name="birlik_shaderpacks_card_summary">Işık ve gölge paketleri (shader modu gerekir)</string>
     <string name="birlik_play_coming_soon">Yakında</string>
     <string name="birlik_version_coming_soon">26.3 yakında geliyor! Şimdilik 26.2 ile oynayabilirsin.</string>
+    <string name="birlik_packs_categories">KATEGORİLER</string>
+    <string name="birlik_packs_install">Yükle</string>
+    <string name="birlik_packs_only_version">Sadece %s uyumlular</string>
+    <string name="birlik_packs_all_versions">Tüm sürümler</string>
+    <string name="birlik_packs_empty">Bu filtreye uygun paket bulunamadı.</string>
+    <string name="birlik_packs_error">Liste yüklenemedi. İnternet bağlantını kontrol et.</string>
+    <string name="birlik_packs_meta">%1$s · %2$s indirme</string>
+    <string name="birlik_packs_no_versions">Bu filtreye uygun indirilebilir sürüm yok</string>
+    <string name="birlik_packs_loading_versions">Sürümler yükleniyor…</string>
+    <string name="birlik_packs_installing">%s yükleniyor…</string>
 </resources>

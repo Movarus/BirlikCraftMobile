@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- BirlikCraft typing preview: the focused text field, magnified just above the keyboard -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/birlik_typing_preview"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:background="@drawable/birlik_typing_preview_bg"
+    android:elevation="@dimen/_24sdp"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/_14sdp"
+    android:paddingVertical="@dimen/_6sdp"
+    android:visibility="gone">
+
+    <TextView
+        android:id="@+id/birlik_typing_preview_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:letterSpacing="0.1"
+        android:textAllCaps="true"
+        android:textColor="@color/birlik_gold_light"
+        android:textSize="@dimen/_8ssp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/birlik_typing_preview_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="start"
+        android:singleLine="true"
+        android:textColor="@color/primary_text"
+        android:textSize="@dimen/_18ssp" />
+</LinearLayout>

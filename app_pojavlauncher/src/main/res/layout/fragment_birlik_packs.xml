@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- BirlikCraft resource pack / shader browser: categories | results | detail panel -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#CC0E0F12">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <!-- ============ Left: search + categories ============ -->
+        <LinearLayout
+            android:layout_width="@dimen/_130sdp"
+            android:layout_height="match_parent"
+            android:background="#E6141518"
+            android:orientation="vertical"
+            android:padding="@dimen/_8sdp">
+
+            <EditText
+                android:id="@+id/birlik_packs_search"
+                style="@style/BirlikLoginField"
+                android:layout_height="@dimen/_30sdp"
+                android:hint="@string/birlik_search_resourcepacks_hint"
+                android:imeOptions="actionSearch|flagNoExtractUi"
+                android:inputType="text"
+                android:textSize="@dimen/_10ssp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginBottom="@dimen/_2sdp"
+                android:letterSpacing="0.2"
+                android:text="@string/birlik_packs_categories"
+                android:textColor="@color/birlik_gold_light"
+                android:textSize="@dimen/_7ssp"
+                android:textStyle="bold" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:id="@+id/birlik_packs_categories"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+            </ScrollView>
+
+            <TextView
+                android:id="@+id/birlik_packs_version_filter"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:background="@drawable/birlik_segment_bg"
+                android:gravity="center"
+                android:textColor="@color/birlik_segment_text"
+                android:textSize="@dimen/_9ssp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- ============ Center: results ============ -->
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/birlik_packs_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:padding="@dimen/_6sdp" />
+
+            <ProgressBar
+                android:id="@+id/birlik_packs_loading"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_gravity="center"
+                android:indeterminateTint="@color/birlik_gold_face" />
+
+            <TextView
+                android:id="@+id/birlik_packs_empty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:padding="@dimen/_16sdp"
+                android:textColor="#B3FFFFFF"
+                android:textSize="@dimen/_10ssp"
+                android:visibility="gone" />
+        </FrameLayout>
+    </LinearLayout>
+
+    <!-- ============ Right: detail panel (slides in) ============ -->
+    <LinearLayout
+        android:id="@+id/birlik_pack_detail"
+        android:layout_width="@dimen/_230sdp"
+        android:layout_height="match_parent"
+        android:layout_gravity="end"
+        android:background="@drawable/birlik_detail_panel_bg"
+        android:clickable="true"
+        android:elevation="@dimen/_8sdp"
+        android:focusable="true"
+        android:orientation="vertical"
+        android:padding="@dimen/_12sdp"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/birlik_pack_detail_icon"
+                android:layout_width="@dimen/_44sdp"
+                android:layout_height="@dimen/_44sdp"
+                android:background="@drawable/birlik_tile_icon_bg"
+                android:scaleType="centerCrop"
+                tools:ignore="ContentDescription" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/birlik_pack_detail_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="2"
+                    android:textColor="@color/primary_text"
+                    android:textSize="@dimen/_13ssp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/birlik_pack_detail_meta"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/birlik_gold_light"
+                    android:textSize="@dimen/_8ssp" />
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/birlik_pack_detail_close"
+                android:layout_width="@dimen/_28sdp"
+                android:layout_height="@dimen/_28sdp"
+                android:background="@drawable/birlik_round_button"
+                android:contentDescription="@string/birlik_back"
+                android:padding="@dimen/_7sdp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_clear_dark" />
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/birlik_pack_detail_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="@dimen/_2sdp"
+                android:textColor="#D9FFFFFF"
+                android:textSize="@dimen/_9ssp" />
+        </ScrollView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:letterSpacing="0.2"
+            android:text="@string/birlik_version_label"
+            android:textAllCaps="true"
+            android:textColor="@color/birlik_gold_light"
+            android:textSize="@dimen/_7ssp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/birlik_pack_detail_versions"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:background="@drawable/birlik_version_chip"
+            android:popupBackground="#F21A1C21" />
+
+        <com.kdt.mcgui.MineButton
+            android:id="@+id/birlik_pack_detail_install"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_36sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:fontFamily="@font/minecraft_ten"
+            android:text="@string/birlik_packs_install"
+            android:textAllCaps="true" />
+    </LinearLayout>
+</FrameLayout>

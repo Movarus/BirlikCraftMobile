@@ -320,6 +320,7 @@ public class LauncherActivity extends BaseActivity {
         net.kdt.pojavlaunch.birlik.BirlikLoginController.attach(this);
         net.kdt.pojavlaunch.birlik.BirlikSplashController.attach(this);
         net.kdt.pojavlaunch.birlik.BirlikHome.bindTopBar(this);
+        net.kdt.pojavlaunch.birlik.BirlikTypingPreview.attach(this);
         FragmentManager fragmentManager = getSupportFragmentManager();
         // If we don't have a back stack root yet...
         if(fragmentManager.getBackStackEntryCount() < 1) {

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Pack detail side panel: charcoal with a gold left edge -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item><shape android:shape="rectangle"><solid android:color="#FA16171B" /></shape></item>
+    <item android:gravity="start" android:width="@dimen/_1sdp">
+        <shape android:shape="rectangle"><solid android:color="@color/birlik_gold_face" /></shape>
+    </item>
+</layer-list>

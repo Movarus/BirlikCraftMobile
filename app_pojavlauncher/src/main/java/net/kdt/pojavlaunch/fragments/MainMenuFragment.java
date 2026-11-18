@@ -83,13 +83,14 @@ public class MainMenuFragment extends Fragment {
     }
 
     private void openPackSearch(String projectType) {
-        if (Tools.isDemoProfile(requireContext())) {
-            Toast.makeText(requireContext(), R.string.toast_not_available_demo, Toast.LENGTH_LONG).show();
-            return;
-        }
+        // BirlikCraft pack browser (category sidebar, detail panel, version filter)
         Bundle args = new Bundle();
-        args.putString(SearchModFragment.ARG_PROJECT_TYPE, projectType);
-        Tools.swapFragment(requireActivity(), SearchModFragment.class, SearchModFragment.TAG, args);
+        args.putString(net.kdt.pojavlaunch.birlik.BirlikPackBrowserFragment.ARG_PROJECT_TYPE,
+                ModrinthApi.TYPE_SHADER.equals(projectType)
+                        ? net.kdt.pojavlaunch.birlik.BirlikPackBrowserFragment.TYPE_SHADER
+                        : net.kdt.pojavlaunch.birlik.BirlikPackBrowserFragment.TYPE_RESOURCE_PACK);
+        Tools.swapFragment(requireActivity(), net.kdt.pojavlaunch.birlik.BirlikPackBrowserFragment.class,
+                net.kdt.pojavlaunch.birlik.BirlikPackBrowserFragment.TAG, args);
     }
 
     private File getCurrentProfileDirectory() {

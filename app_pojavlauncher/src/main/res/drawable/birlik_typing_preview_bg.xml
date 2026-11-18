@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Typing preview bar: charcoal with a gold top line -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item><shape android:shape="rectangle"><solid android:color="#F21A1C21" /></shape></item>
+    <item android:gravity="top" android:height="@dimen/_1sdp">
+        <shape android:shape="rectangle"><solid android:color="@color/birlik_gold_face" /></shape>
+    </item>
+</layer-list>

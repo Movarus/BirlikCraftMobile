@@ -597,4 +597,14 @@
     <string name="birlik_shaderpacks_card_summary">Lighting and shadow packs (needs a shader mod)</string>
     <string name="birlik_play_coming_soon">Coming soon</string>
     <string name="birlik_version_coming_soon">26.3 is coming soon! For now you can play with 26.2.</string>
+    <string name="birlik_packs_categories">CATEGORIES</string>
+    <string name="birlik_packs_install">Install</string>
+    <string name="birlik_packs_only_version">Only %s compatible</string>
+    <string name="birlik_packs_all_versions">All versions</string>
+    <string name="birlik_packs_empty">No packs found for this filter.</string>
+    <string name="birlik_packs_error">Could not load the list. Check your internet connection.</string>
+    <string name="birlik_packs_meta">%1$s · %2$s downloads</string>
+    <string name="birlik_packs_no_versions">No downloadable version for this filter</string>
+    <string name="birlik_packs_loading_versions">Loading versions…</string>
+    <string name="birlik_packs_installing">Installing %s…</string>
 </resources>

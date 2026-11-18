@@ -8,6 +8,9 @@
         <item name="android:statusBarColor">@color/background_status_bar</item>
         <item name="android:navigationBarColor">@color/background_app</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
+        <!-- BirlikCraft: never use the full-screen landscape keyboard editor -->
+        <item name="editTextStyle">@style/BirlikEditText</item>
+        <item name="android:editTextStyle">@style/BirlikEditText</item>
 
         <item name="android:textSize">@dimen/_12ssp</item>
 
@@ -183,5 +186,9 @@
         <item name="android:maxLines">2</item>
         <item name="android:textColor">#B3FFFFFF</item>
         <item name="android:textSize">@dimen/_8ssp</item>
+    </style>
+
+    <style name="BirlikEditText" parent="Widget.AppCompat.EditText">
+        <item name="android:imeOptions">flagNoExtractUi</item>
     </style>
 </resources>
