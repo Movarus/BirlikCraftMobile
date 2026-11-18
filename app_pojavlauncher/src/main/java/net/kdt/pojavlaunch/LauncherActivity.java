@@ -158,10 +158,10 @@ public class LauncherActivity extends BaseActivity {
         // Allow starting the add account only from the main menu, should it be moved to fragment itself ?
         if(!(fragment instanceof MainMenuFragment)) return false;
 
-        // BirlikCraft: Microsoft and offline logins are removed. The account bar only offers
-        // signing out of the BirlikCraft account (or signing in when there is no session).
-        if (BirlikAuth.isLoggedIn(this)) BirlikLoginController.confirmLogout(this);
-        else BirlikLoginController.show(this);
+        // BirlikCraft: Microsoft and offline logins are removed. Pojav's (hidden) account bar
+        // may still ask for a login; only show the BirlikCraft login when there is no session.
+        // Signing out is done with the logout button of the BirlikCraft top bar.
+        if (!BirlikAuth.isLoggedIn(this)) BirlikLoginController.show(this);
         return false;
     };
 
@@ -314,6 +314,7 @@ public class LauncherActivity extends BaseActivity {
         // BirlikCraft login screen until the player signs in, then the loading screen on top
         net.kdt.pojavlaunch.birlik.BirlikLoginController.attach(this);
         net.kdt.pojavlaunch.birlik.BirlikSplashController.attach(this);
+        net.kdt.pojavlaunch.birlik.BirlikHome.bindTopBar(this);
         FragmentManager fragmentManager = getSupportFragmentManager();
         // If we don't have a back stack root yet...
         if(fragmentManager.getBackStackEntryCount() < 1) {

@@ -23,6 +23,7 @@ import androidx.fragment.app.Fragment;
 
 import com.kdt.mcgui.mcVersionSpinner;
 
+import net.kdt.pojavlaunch.birlik.BirlikHome;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.ModrinthApi;
 import net.kdt.pojavlaunch.CustomControlsActivity;
 import net.kdt.pojavlaunch.R;
@@ -49,74 +50,39 @@ public class MainMenuFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        Button mNewsButton = view.findViewById(R.id.news_button);
-        Button mDiscordButton = view.findViewById(R.id.discord_button);
-        Button mCustomControlButton = view.findViewById(R.id.custom_control_button);
-        Button mInstallJarButton = view.findViewById(R.id.install_jar_button);
-        Button mShareLogsButton = view.findViewById(R.id.share_logs_button);
-        Button mOpenDirectoryButton = view.findViewById(R.id.open_files_button);
-        Button mServerIpButton = view.findViewById(R.id.server_ip_button);
-        Button mResourcePacksButton = view.findViewById(R.id.resource_packs_button);
-        Button mShaderPacksButton = view.findViewById(R.id.shader_packs_button);
-
-        ImageButton mEditProfileButton = view.findViewById(R.id.edit_profile_button);
-        Button mPlayButton = view.findViewById(R.id.play_button);
+        // BirlikCraft home: tiles and pills are plain Views (not Pojav buttons)
+        View mNewsButton = view.findViewById(R.id.news_button);
+        View mDiscordButton = view.findViewById(R.id.discord_button);
+        View mCustomControlButton = view.findViewById(R.id.custom_control_button);
+        View mShareLogsButton = view.findViewById(R.id.share_logs_button);
+        View mOpenDirectoryButton = view.findViewById(R.id.open_files_button);
+        View mServerIpButton = view.findViewById(R.id.server_ip_button);
+        View mResourcePacksButton = view.findViewById(R.id.resource_packs_button);
+        View mShaderPacksButton = view.findViewById(R.id.shader_packs_button);
+        View mGraphicsButton = view.findViewById(R.id.birlik_graphics_button);
+        View mPlayButton = view.findViewById(R.id.play_button);
         mVersionSpinner = view.findViewById(R.id.mc_version_spinner);
 
         mNewsButton.setOnClickListener(v -> Tools.openURL(requireActivity(), Tools.URL_HOME));
         mDiscordButton.setOnClickListener(v -> Tools.openURL(requireActivity(), getString(R.string.discord_invite)));
         mCustomControlButton.setOnClickListener(v -> startActivity(new Intent(requireContext(), CustomControlsActivity.class)));
-        if (hasOnlineProfile()) {
-            mInstallJarButton.setOnClickListener(v -> runInstallerWithConfirmation(false));
-            mInstallJarButton.setOnLongClickListener(v -> {
-                runInstallerWithConfirmation(true);
-                return true;
-            });
-        } else mInstallJarButton.setOnClickListener(v -> hasNoOnlineProfileDialog(requireActivity()));
-        // BirlikCraft: versions are fixed, so profile editing and custom installers are hidden
-        mEditProfileButton.setVisibility(View.GONE);
-        mInstallJarButton.setVisibility(View.GONE);
-
-        mPlayButton.setOnClickListener(v -> {
-            if (Tools.hasMods("sodium") && !(LauncherPreferences.DEFAULT_PREF.getBoolean("sodium_override", false))) {
-                AlertDialog sodiumWarningDialog = new AlertDialog.Builder(requireContext())
-                        .setTitle(R.string.sodium_warning_title)
-                        .setMessage(R.string.sodium_warning_message)
-                        .setNeutralButton(R.string.delete_sodium, (d,w)-> {
-                            Tools.deleteSodiumMods();
-                            ExtraCore.setValue(ExtraConstants.LAUNCH_GAME, true);
-                        })
-                        .create();
-                sodiumWarningDialog.show();
-            } else ExtraCore.setValue(ExtraConstants.LAUNCH_GAME, true);
-        });
-
         mShareLogsButton.setOnClickListener((v) -> shareLog(requireContext()));
+        mOpenDirectoryButton.setOnClickListener((v) -> openPath(v.getContext(), getCurrentProfileDirectory(), false));
 
-        mOpenDirectoryButton.setOnClickListener((v)-> {
-            if (Tools.isDemoProfile(v.getContext())){ // Say a different message when on demo profile since they might see the hidden demo folder
-                hasNoOnlineProfileDialog(getActivity(), getString(R.string.demo_unsupported), getString(R.string.change_account));
-            } else if (!hasOnlineProfile()) { // Otherwise display the generic pop-up to log in
-                hasNoOnlineProfileDialog(requireActivity());
-            } else openPath(v.getContext(), getCurrentProfileDirectory(), false);
-
+        mServerIpButton.setOnClickListener(v -> {
+            android.content.ClipboardManager clipboard = (android.content.ClipboardManager) requireContext().getSystemService(android.content.Context.CLIPBOARD_SERVICE);
+            String ip = getString(R.string.server_ip);
+            if (clipboard != null) clipboard.setPrimaryClip(android.content.ClipData.newPlainText("BirlikCraft", ip));
+            Toast.makeText(requireContext(), getString(R.string.birlik_ip_copied, ip), Toast.LENGTH_SHORT).show();
         });
 
-        if (mServerIpButton != null) {
-            mServerIpButton.setOnClickListener(v -> {
-                android.content.ClipboardManager clipboard = (android.content.ClipboardManager) requireContext().getSystemService(android.content.Context.CLIPBOARD_SERVICE);
-                String ip = getString(R.string.server_ip);
-                android.content.ClipData clip = android.content.ClipData.newPlainText("BirlikCraft", ip);
-                if (clipboard != null) clipboard.setPrimaryClip(clip);
-                Toast.makeText(requireContext(), ip + " kopyalandı!", Toast.LENGTH_SHORT).show();
-            });
-        }
+        mResourcePacksButton.setOnClickListener(v -> openPackSearch(ModrinthApi.TYPE_RESOURCE_PACK));
+        mShaderPacksButton.setOnClickListener(v -> openPackSearch(ModrinthApi.TYPE_SHADER));
+        mGraphicsButton.setOnClickListener(v -> BirlikHome.showRendererPicker(requireActivity()));
 
+        mPlayButton.setOnClickListener(v -> ExtraCore.setValue(ExtraConstants.LAUNCH_GAME, true));
 
-        if (mResourcePacksButton != null)
-            mResourcePacksButton.setOnClickListener(v -> openPackSearch(ModrinthApi.TYPE_RESOURCE_PACK));
-        if (mShaderPacksButton != null)
-            mShaderPacksButton.setOnClickListener(v -> openPackSearch(ModrinthApi.TYPE_SHADER));
+        BirlikHome.bindHome(view);
 
         mNewsButton.setOnLongClickListener((v)->{
             Tools.swapFragment(requireActivity(), GamepadMapperFragment.class, GamepadMapperFragment.TAG, null);

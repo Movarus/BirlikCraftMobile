@@ -563,4 +563,16 @@
     <string name="birlik_logout_title">Sign out</string>
     <string name="birlik_logout_message">Signed in as %s. Do you want to sign out?</string>
     <string name="birlik_logout_button">Sign out</string>
+    <string name="birlik_settings">Settings</string>
+    <string name="birlik_home_welcome">Welcome back</string>
+    <string name="birlik_server_card_title">BirlikCraft Server</string>
+    <string name="birlik_server_copy_hint">Tap to copy the address</string>
+    <string name="birlik_ip_copied">%s copied!</string>
+    <string name="birlik_menu_graphics">Graphics Engine</string>
+    <string name="birlik_version_263">26.3</string>
+    <string name="birlik_version_262">26.2</string>
+    <string name="birlik_credit">%s Credits</string>
+    <string name="birlik_graphics_title">Graphics engine for %s</string>
+    <string name="birlik_graphics_applied">Graphics engine: %s</string>
+    <string name="birlik_renderer_auto">Automatic (recommended)</string>
 </resources>

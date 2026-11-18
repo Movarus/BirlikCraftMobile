@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Round icon button of the top bar -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <shape android:shape="oval">
+            <solid android:color="@color/birlik_panel_pressed" />
+            <stroke android:width="@dimen/_1sdp" android:color="@color/birlik_gold_light" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="@color/birlik_panel" />
+            <stroke android:width="@dimen/_1sdp" android:color="#80D4A33B" />
+        </shape>
+    </item>
+</selector>

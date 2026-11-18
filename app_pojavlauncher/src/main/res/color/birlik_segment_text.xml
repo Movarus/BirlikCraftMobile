@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Version switch text: dark on the gold active option, white otherwise -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="#3B1A00" android:state_selected="true" />
+    <item android:color="#D9FFFFFF" />
+</selector>

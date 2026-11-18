@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Player avatar: gold circle holding the player's initial -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="oval">
+    <gradient android:angle="270" android:startColor="@color/birlik_gold_light" android:endColor="@color/birlik_gold_depth" />
+    <stroke android:width="@dimen/_1sdp" android:color="#FFE7A3" />
+</shape>

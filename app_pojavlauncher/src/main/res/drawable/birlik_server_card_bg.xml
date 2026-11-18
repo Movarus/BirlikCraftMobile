@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Server card on the home screen -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <corners android:radius="@dimen/_12sdp" />
+            <solid android:color="#F21E2026" />
+            <stroke android:width="@dimen/_1sdp" android:color="@color/birlik_gold_light" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="@dimen/_12sdp" />
+            <gradient android:angle="0" android:startColor="#D91E2026" android:endColor="#99141518" />
+            <stroke android:width="@dimen/_1sdp" android:color="#99D4A33B" />
+        </shape>
+    </item>
+</selector>

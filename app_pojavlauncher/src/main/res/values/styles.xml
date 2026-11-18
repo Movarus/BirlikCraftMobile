@@ -68,4 +68,76 @@
         <item name="android:textColorHint">#80FFFFFF</item>
         <item name="android:textSize">@dimen/_11ssp</item>
     </style>
+
+    <!-- BirlikCraft home: square tool tile -->
+    <style name="BirlikHomeTile">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">@dimen/_68sdp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_margin">@dimen/_4sdp</item>
+        <item name="android:background">@drawable/birlik_tile_bg</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:padding">@dimen/_4sdp</item>
+    </style>
+
+    <style name="BirlikHomeTileIcon">
+        <item name="android:layout_width">@dimen/_30sdp</item>
+        <item name="android:layout_height">@dimen/_30sdp</item>
+        <item name="android:background">@drawable/birlik_tile_icon_bg</item>
+        <item name="android:padding">@dimen/_6sdp</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:tint">@color/birlik_gold_light</item>
+    </style>
+
+    <style name="BirlikHomeTileLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/_4sdp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:textColor">@color/primary_text</item>
+        <item name="android:textSize">@dimen/_9ssp</item>
+    </style>
+
+    <!-- BirlikCraft home: Discord / website pill -->
+    <style name="BirlikLinkPill">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">@dimen/_30sdp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@drawable/birlik_server_chip</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="BirlikLinkPillIcon">
+        <item name="android:layout_width">@dimen/_14sdp</item>
+        <item name="android:layout_height">@dimen/_14sdp</item>
+        <item name="android:layout_marginEnd">@dimen/_6sdp</item>
+        <item name="android:scaleType">fitCenter</item>
+    </style>
+
+    <style name="BirlikLinkPillLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/primary_text</item>
+        <item name="android:textSize">@dimen/_9ssp</item>
+    </style>
+
+    <!-- BirlikCraft home: one option of the version switch -->
+    <style name="BirlikSegment">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@drawable/birlik_segment_bg</item>
+        <item name="android:fontFamily">@font/minecraft_ten</item>
+        <item name="android:gravity">center</item>
+        <item name="android:minWidth">@dimen/_56sdp</item>
+        <item name="android:paddingHorizontal">@dimen/_12sdp</item>
+        <item name="android:textColor">@color/birlik_segment_text</item>
+        <item name="android:textSize">@dimen/_11ssp</item>
+    </style>
 </resources>

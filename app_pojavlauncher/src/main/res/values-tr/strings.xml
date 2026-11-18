@@ -469,4 +469,16 @@
     <string name="birlik_logout_title">Çıkış yap</string>
     <string name="birlik_logout_message">%s olarak giriş yaptın. Çıkış yapmak istiyor musun?</string>
     <string name="birlik_logout_button">Çıkış yap</string>
+    <string name="birlik_settings">Ayarlar</string>
+    <string name="birlik_home_welcome">Tekrar hoş geldin</string>
+    <string name="birlik_server_card_title">BirlikCraft Sunucusu</string>
+    <string name="birlik_server_copy_hint">Adresi kopyalamak için dokun</string>
+    <string name="birlik_ip_copied">%s kopyalandı!</string>
+    <string name="birlik_menu_graphics">Grafik Motoru</string>
+    <string name="birlik_version_263">26.3</string>
+    <string name="birlik_version_262">26.2</string>
+    <string name="birlik_credit">%s Kredi</string>
+    <string name="birlik_graphics_title">%s için grafik motoru</string>
+    <string name="birlik_graphics_applied">Grafik motoru: %s</string>
+    <string name="birlik_renderer_auto">Otomatik (önerilen)</string>
 </resources>

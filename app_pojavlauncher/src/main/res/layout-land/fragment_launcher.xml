@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- BirlikCraft server launcher home (landscape). The wallpaper and scrim are drawn by
-     activity_pojav_launcher; this fragment is transparent on top of them. -->
+<!-- BirlikCraft home page (inside activity_pojav_launcher's container). -->
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -11,228 +10,294 @@
     android:background="@android:color/transparent">
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/birlik_column_split"
+        android:id="@+id/birlik_home_split"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.42" />
+        app:layout_constraintGuide_percent="0.46" />
 
-    <!-- ============ Left column: server identity ============ -->
+    <!-- ============ Left: welcome + server ============ -->
     <LinearLayout
-        android:id="@+id/birlik_brand_column"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:gravity="center"
+        android:gravity="center_vertical"
         android:orientation="vertical"
-        android:paddingHorizontal="@dimen/_12sdp"
+        android:paddingStart="@dimen/_16sdp"
+        android:paddingEnd="@dimen/_10sdp"
         app:layout_constraintBottom_toTopOf="@id/birlik_bottom_bar"
-        app:layout_constraintEnd_toStartOf="@id/birlik_column_split"
+        app:layout_constraintEnd_toStartOf="@id/birlik_home_split"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/birlikcraft_hero_logo"
-            android:layout_width="@dimen/_70sdp"
-            android:layout_height="@dimen/_70sdp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/birlikcraft_logo"
-            tools:ignore="ContentDescription" />
-
         <TextView
-            android:id="@+id/birlik_brand_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_4sdp"
-            android:fontFamily="@font/minecraft_ten"
-            android:letterSpacing="0.06"
-            android:shadowColor="#CC000000"
-            android:shadowDx="0"
-            android:shadowDy="4"
-            android:shadowRadius="6"
-            android:text="@string/birlik_brand_title"
-            android:textColor="@color/birlik_gold_light"
-            android:textSize="@dimen/_24ssp" />
-
-        <TextView
-            android:id="@+id/birlik_brand_subtitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:letterSpacing="0.3"
+            android:letterSpacing="0.2"
             android:shadowColor="#CC000000"
             android:shadowDy="2"
             android:shadowRadius="4"
-            android:text="@string/birlik_brand_subtitle"
+            android:text="@string/birlik_home_welcome"
+            android:textAllCaps="true"
             android:textColor="#D9FFFFFF"
-            android:textSize="@dimen/_8ssp" />
+            android:textSize="@dimen/_9ssp" />
 
-        <!-- Tap to copy the server address -->
-        <com.kdt.mcgui.LauncherMenuButton
+        <TextView
+            android:id="@+id/birlik_home_player"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/minecraft_ten"
+            android:shadowColor="#E6000000"
+            android:shadowDy="4"
+            android:shadowRadius="8"
+            android:singleLine="true"
+            android:textColor="@color/birlik_gold_light"
+            android:textSize="@dimen/_26ssp"
+            tools:text="Birlik" />
+
+        <!-- Server card: tap to copy the address -->
+        <LinearLayout
             android:id="@+id/server_ip_button"
-            style="@style/LauncherMenuButton"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_36sdp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
-            android:background="@drawable/birlik_server_chip"
-            android:drawableStart="@drawable/ic_menu_home"
-            android:text="@string/server_ip"
-            android:textColor="@color/birlik_gold_light" />
+            android:background="@drawable/birlik_server_card_bg"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/_10sdp">
+
+            <ImageView
+                android:layout_width="@dimen/_38sdp"
+                android:layout_height="@dimen/_38sdp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/birlikcraft_logo"
+                tools:ignore="ContentDescription" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/birlik_server_card_title"
+                    android:textColor="@color/primary_text"
+                    android:textSize="@dimen/_11ssp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/server_ip"
+                    android:textColor="@color/birlik_gold_light"
+                    android:textSize="@dimen/_10ssp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/birlik_server_copy_hint"
+                    android:textColor="#99FFFFFF"
+                    android:textSize="@dimen/_7ssp" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="@dimen/_16sdp"
+                android:layout_height="@dimen/_16sdp"
+                android:alpha="0.8"
+                android:src="@drawable/ic_birlik_copy"
+                tools:ignore="ContentDescription" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginTop="@dimen/_8sdp"
             android:orientation="horizontal">
 
-            <com.kdt.mcgui.LauncherMenuButton
+            <LinearLayout
                 android:id="@+id/discord_button"
-                style="@style/LauncherMenuButton"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/_34sdp"
-                android:layout_marginEnd="@dimen/_3sdp"
-                android:layout_weight="1"
-                android:drawableStart="@drawable/ic_discord"
-                android:text="@string/mcl_button_discord" />
+                style="@style/BirlikLinkPill"
+                android:layout_marginEnd="@dimen/_4sdp">
+                <ImageView style="@style/BirlikLinkPillIcon" android:src="@drawable/ic_discord" tools:ignore="ContentDescription" />
+                <TextView style="@style/BirlikLinkPillLabel" android:text="@string/mcl_button_discord" />
+            </LinearLayout>
 
-            <com.kdt.mcgui.LauncherMenuButton
+            <LinearLayout
                 android:id="@+id/news_button"
-                style="@style/LauncherMenuButton"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/_34sdp"
-                android:layout_marginStart="@dimen/_3sdp"
-                android:layout_weight="1"
-                android:drawableStart="@drawable/ic_menu_news"
-                android:text="@string/birlik_menu_website" />
+                style="@style/BirlikLinkPill"
+                android:layout_marginStart="@dimen/_4sdp">
+                <ImageView style="@style/BirlikLinkPillIcon" android:src="@drawable/ic_birlik_globe" tools:ignore="ContentDescription" />
+                <TextView style="@style/BirlikLinkPillLabel" android:text="@string/birlik_menu_website" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
-    <!-- ============ Right column: tools ============ -->
-    <ScrollView
-        android:id="@+id/birlik_tools_scroll"
+    <!-- ============ Right: tool tiles ============ -->
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:fillViewport="true"
-        android:paddingVertical="@dimen/_6sdp"
-        android:scrollbars="none"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/_6sdp"
+        android:paddingEnd="@dimen/_14sdp"
         app:layout_constraintBottom_toTopOf="@id/birlik_bottom_bar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/birlik_column_split"
+        app:layout_constraintStart_toEndOf="@id/birlik_home_split"
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="vertical"
-            android:paddingEnd="@dimen/_8sdp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_6sdp"
-                android:layout_marginBottom="@dimen/_2sdp"
-                android:letterSpacing="0.2"
-                android:text="@string/birlik_section_tools"
-                android:textColor="@color/birlik_gold_light"
-                android:textSize="@dimen/_8ssp"
-                android:textStyle="bold" />
-
-            <LinearLayout style="@style/BirlikTileRow">
-                <com.kdt.mcgui.LauncherMenuButton
-                    android:id="@+id/resource_packs_button"
-                    style="@style/BirlikTile"
-                    android:drawableStart="@drawable/ic_menu_resourcepacks"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:id="@+id/resource_packs_button"
+                style="@style/BirlikHomeTile">
+                <ImageView
+                    style="@style/BirlikHomeTileIcon"
+                    android:src="@drawable/ic_menu_resourcepacks"
+                    tools:ignore="ContentDescription" />
+                <TextView
+                    style="@style/BirlikHomeTileLabel"
                     android:text="@string/birlik_menu_resourcepacks" />
-                <com.kdt.mcgui.LauncherMenuButton
-                    android:id="@+id/shader_packs_button"
-                    style="@style/BirlikTile"
-                    android:drawableStart="@drawable/ic_menu_shaderpacks"
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/shader_packs_button"
+                style="@style/BirlikHomeTile">
+                <ImageView
+                    style="@style/BirlikHomeTileIcon"
+                    android:src="@drawable/ic_menu_shaderpacks"
+                    tools:ignore="ContentDescription" />
+                <TextView
+                    style="@style/BirlikHomeTileLabel"
                     android:text="@string/birlik_menu_shaderpacks" />
             </LinearLayout>
-
-            <LinearLayout style="@style/BirlikTileRow">
-                <com.kdt.mcgui.LauncherMenuButton
-                    android:id="@+id/custom_control_button"
-                    style="@style/BirlikTile"
-                    android:drawableStart="@drawable/ic_menu_custom_controls"
-                    android:text="@string/mcl_option_customcontrol" />
-                <com.kdt.mcgui.LauncherMenuButton
-                    android:id="@+id/open_files_button"
-                    style="@style/BirlikTile"
-                    android:drawableStart="@drawable/ic_folder"
-                    android:text="@string/mcl_button_open_directory" />
-            </LinearLayout>
-
-            <LinearLayout style="@style/BirlikTileRow">
-                <com.kdt.mcgui.LauncherMenuButton
-                    android:id="@+id/share_logs_button"
-                    style="@style/BirlikTile"
-                    android:drawableStart="@android:drawable/ic_menu_share"
-                    android:text="@string/main_share_logs" />
-                <!-- Hidden: BirlikCraft versions are fixed -->
-                <com.kdt.mcgui.LauncherMenuButton
-                    android:id="@+id/install_jar_button"
-                    style="@style/BirlikTile"
-                    android:drawableStart="@drawable/ic_menu_install_jar"
-                    android:text="@string/main_install_jar_file"
-                    android:visibility="invisible" />
+            <LinearLayout
+                android:id="@+id/birlik_graphics_button"
+                style="@style/BirlikHomeTile">
+                <ImageView
+                    style="@style/BirlikHomeTileIcon"
+                    android:src="@drawable/ic_birlik_graphics"
+                    tools:ignore="ContentDescription" />
+                <TextView
+                    style="@style/BirlikHomeTileLabel"
+                    android:text="@string/birlik_menu_graphics" />
             </LinearLayout>
         </LinearLayout>
-    </ScrollView>
 
-    <!-- ============ Bottom bar: version + play ============ -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:id="@+id/custom_control_button"
+                style="@style/BirlikHomeTile">
+                <ImageView
+                    style="@style/BirlikHomeTileIcon"
+                    android:src="@drawable/ic_menu_custom_controls"
+                    tools:ignore="ContentDescription" />
+                <TextView
+                    style="@style/BirlikHomeTileLabel"
+                    android:text="@string/mcl_option_customcontrol" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/open_files_button"
+                style="@style/BirlikHomeTile">
+                <ImageView
+                    style="@style/BirlikHomeTileIcon"
+                    android:src="@drawable/ic_folder"
+                    tools:ignore="ContentDescription" />
+                <TextView
+                    style="@style/BirlikHomeTileLabel"
+                    android:text="@string/mcl_button_open_directory" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/share_logs_button"
+                style="@style/BirlikHomeTile">
+                <ImageView
+                    style="@style/BirlikHomeTileIcon"
+                    android:src="@android:drawable/ic_menu_share"
+                    tools:ignore="ContentDescription" />
+                <TextView
+                    style="@style/BirlikHomeTileLabel"
+                    android:text="@string/main_share_logs" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- ============ Bottom: version switch + play ============ -->
     <LinearLayout
         android:id="@+id/birlik_bottom_bar"
         android:layout_width="0dp"
-        android:layout_height="@dimen/_52sdp"
+        android:layout_height="@dimen/_54sdp"
         android:background="@drawable/birlik_bottom_bar_bg"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingHorizontal="@dimen/_10sdp"
+        android:paddingHorizontal="@dimen/_14sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/_6sdp"
-            android:letterSpacing="0.2"
-            android:text="@string/birlik_version_label"
-            android:textAllCaps="true"
-            android:textColor="@color/birlik_gold_light"
-            android:textSize="@dimen/_8ssp"
-            android:textStyle="bold" />
+            android:orientation="vertical">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:letterSpacing="0.2"
+                android:text="@string/birlik_version_label"
+                android:textAllCaps="true"
+                android:textColor="@color/birlik_gold_light"
+                android:textSize="@dimen/_7ssp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:background="@drawable/birlik_segment_container_bg"
+                android:orientation="horizontal"
+                android:padding="@dimen/_2sdp">
+
+                <TextView
+                    android:id="@+id/birlik_version_263"
+                    style="@style/BirlikSegment"
+                    android:text="@string/birlik_version_263" />
+
+                <TextView
+                    android:id="@+id/birlik_version_262"
+                    style="@style/BirlikSegment"
+                    android:text="@string/birlik_version_262" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <!-- Kept for the launcher logic; versions are switched with the segment above -->
         <com.kdt.mcgui.mcVersionSpinner
             android:id="@+id/mc_version_spinner"
             android:layout_width="0dp"
-            android:layout_height="@dimen/_36sdp"
-            android:layout_weight="1"
-            android:background="@drawable/birlik_version_chip"
-            android:drawableEnd="@drawable/spinner_arrow"
-            app:drawableEndPadding="@dimen/_1sdp"
-            app:drawableEndSize="@dimen/_12sdp"
-            app:drawableStartIntegerScaling="true"
-            app:drawableStartSize="@dimen/_30sdp" />
-
-        <!-- Hidden: profiles cannot be edited -->
-        <ImageButton
-            android:id="@+id/edit_profile_button"
-            android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@null"
-            android:src="@drawable/ic_edit_profile"
-            android:visibility="gone"
-            tools:ignore="ContentDescription" />
+            android:visibility="gone" />
 
         <com.kdt.mcgui.MineButton
             android:id="@+id/play_button"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/_170sdp"
             android:layout_height="@dimen/_42sdp"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:layout_weight="1.1"
+            android:drawableStart="@drawable/ic_birlik_play"
+            android:drawableTint="#3B1A00"
             android:fontFamily="@font/minecraft_ten"
-            android:letterSpacing="0.1"
+            android:letterSpacing="0.12"
+            android:paddingHorizontal="@dimen/_16sdp"
             android:text="@string/main_play"
             android:textAllCaps="true" />
     </LinearLayout>

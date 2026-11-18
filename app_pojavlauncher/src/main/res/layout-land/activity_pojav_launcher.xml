@@ -1,3 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- BirlikCraft launcher shell (landscape): wallpaper, BirlikCraft top bar, page container. -->
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -6,14 +8,12 @@
     android:layout_height="match_parent"
     android:background="@color/background_app">
 
-    <!-- BirlikCraft Background Wallpaper in Landscape -->
     <ImageView
         android:id="@+id/global_birlik_wallpaper"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
         android:src="@drawable/birlikcraft_bg"
-        android:alpha="1.0"
         tools:ignore="ContentDescription" />
 
     <View
@@ -22,50 +22,136 @@
         android:layout_height="match_parent"
         android:background="@drawable/birlik_bg_scrim" />
 
+    <!-- Kept for the launcher logic (selected game account); never shown -->
     <com.kdt.mcgui.mcAccountSpinner
         android:id="@+id/account_spinner"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_42sdp"
-
-        android:dropDownWidth="wrap_content"
-        android:dropDownVerticalOffset="@dimen/_42sdp"
-
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
-
-    <ImageButton
-        android:id="@+id/setting_button"
-        android:layout_width="@dimen/_52sdp"
-        android:layout_height="@dimen/_42sdp"
-        android:background="?attr/selectableItemBackground"
-        android:src="@drawable/ic_menu_settings"
-        android:scaleType="fitCenter"
-
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- ============ BirlikCraft top bar ============ -->
+    <LinearLayout
+        android:id="@+id/birlik_top_bar"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_44sdp"
+        android:background="@drawable/birlik_top_bar_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/_10sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
+        <ImageView
+            android:layout_width="@dimen/_28sdp"
+            android:layout_height="@dimen/_28sdp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/birlikcraft_logo"
+            tools:ignore="ContentDescription" />
 
-    <!-- Holding most of the dynamic content -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:fontFamily="@font/minecraft_ten"
+            android:letterSpacing="0.06"
+            android:text="@string/birlik_brand_title"
+            android:textColor="@color/birlik_gold_light"
+            android:textSize="@dimen/_14ssp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <!-- Signed-in player -->
+        <LinearLayout
+            android:id="@+id/birlik_player_chip"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_32sdp"
+            android:background="@drawable/birlik_player_chip_bg"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/_3sdp"
+            android:paddingEnd="@dimen/_12sdp">
+
+            <TextView
+                android:id="@+id/birlik_player_avatar"
+                android:layout_width="@dimen/_26sdp"
+                android:layout_height="@dimen/_26sdp"
+                android:background="@drawable/birlik_avatar_bg"
+                android:fontFamily="@font/minecraft_ten"
+                android:gravity="center"
+                android:textColor="#3B1A00"
+                android:textSize="@dimen/_12ssp"
+                tools:text="B" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_6sdp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/birlik_player_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxWidth="@dimen/_110sdp"
+                    android:singleLine="true"
+                    android:textColor="@color/primary_text"
+                    android:textSize="@dimen/_10ssp"
+                    android:textStyle="bold"
+                    tools:text="Birlik" />
+
+                <TextView
+                    android:id="@+id/birlik_player_credit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:textColor="@color/birlik_gold_light"
+                    android:textSize="@dimen/_8ssp"
+                    tools:text="0 Kredi" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/setting_button"
+            android:layout_width="@dimen/_32sdp"
+            android:layout_height="@dimen/_32sdp"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:background="@drawable/birlik_round_button"
+            android:padding="@dimen/_7sdp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_menu_settings"
+            android:contentDescription="@string/birlik_settings" />
+
+        <ImageButton
+            android:id="@+id/birlik_logout_button"
+            android:layout_width="@dimen/_32sdp"
+            android:layout_height="@dimen/_32sdp"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:background="@drawable/birlik_round_button"
+            android:padding="@dimen/_8sdp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_birlik_logout"
+            android:contentDescription="@string/birlik_logout_button" />
+    </LinearLayout>
+
+    <!-- Holding the launcher pages -->
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/container_fragment"
-
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/progress_layout"
-        app:layout_constraintTop_toBottomOf="@+id/account_spinner" />
-
+        app:layout_constraintTop_toBottomOf="@+id/birlik_top_bar" />
 
     <com.kdt.mcgui.ProgressLayout
         android:id="@+id/progress_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         app:layout_constraintBottom_toBottomOf="parent" />
-
-
-
-
 
     <!-- BirlikCraft login screen: shown until the player logs in -->
     <include

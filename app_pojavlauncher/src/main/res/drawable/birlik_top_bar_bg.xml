@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Top bar: dark glass fading downwards with a thin gold bottom line -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <gradient android:angle="270" android:startColor="#F00E0F12" android:endColor="#991A1C21" />
+        </shape>
+    </item>
+    <item android:gravity="bottom" android:height="@dimen/_1sdp">
+        <shape android:shape="rectangle"><solid android:color="#80D4A33B" /></shape>
+    </item>
+</layer-list>
