@@ -119,7 +119,8 @@ public class ProgressLayout extends ConstraintLayout implements View.OnClickList
         post(()->{
             if(tc > 0) {
                 mTaskNumberDisplayer.setText(getContext().getString(R.string.progresslayout_tasks_in_progress, tc));
-                setVisibility(VISIBLE);
+                // BirlikCraft: progress is shown by the wave bar of the home screen instead
+                setVisibility(GONE);
             }else
                 setVisibility(GONE);
         });

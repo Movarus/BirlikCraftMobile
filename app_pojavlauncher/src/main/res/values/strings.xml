@@ -253,7 +253,7 @@
     <string name="use_global_default">(Use global default)</string>
     <string name="default_control">Default controlmap</string>
     <string name="progresslayout_tasks_in_progress">%d tasks in progress</string>
-    <string name="notification_terminate">Terminate</string>
+    <string name="notification_terminate">Close the game</string>
     <string name="notification_game_runs">The game is running!</string>
     <string name="folder_dialog_create">Create</string>
     <string name="folder_dialog_insert_name">Insert folder name</string>
@@ -617,4 +617,9 @@
     <string name="birlik_connection_closed">Could not connect to the BirlikCraft server. Returning to the launcher…</string>
     <string name="birlik_settings_shaders_title">Shader support (Sodium + Iris)</string>
     <string name="birlik_settings_shaders_summary">Faster rendering and shader packs. Turn off if the game crashes on your device.</string>
+    <string name="birlik_progress_starting">Starting…</string>
+    <string name="birlik_progress_installing">Installing the version…</string>
+    <string name="birlik_progress_preparing">Preparing…</string>
+    <string name="birlik_notification_game_title">You are playing on BirlikCraft ⚔️</string>
+    <string name="birlik_notification_game_text">oyna.birlikcraft.com · Have fun!</string>
 </resources>

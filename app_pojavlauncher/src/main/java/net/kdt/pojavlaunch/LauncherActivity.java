@@ -186,6 +186,7 @@ public class LauncherActivity extends BaseActivity {
 
         // BirlikCraft: the game cannot be launched without a BirlikCraft login
         if (!BirlikAuth.isLoggedIn(this)) {
+            net.kdt.pojavlaunch.birlik.BirlikLaunchProgress.cancelLaunch();
             BirlikLoginController.show(this);
             return false;
         }
@@ -210,6 +211,7 @@ public class LauncherActivity extends BaseActivity {
         // BirlikCraft: install Fabric + performance mods and check the mods folder before
         // every launch. prepareAsync() triggers LAUNCH_GAME again once it is done.
         if (BirlikSetup.isBirlikProfile(selectedProfile) && !BirlikSetup.isAvailable(selectedProfile)) {
+            net.kdt.pojavlaunch.birlik.BirlikLaunchProgress.cancelLaunch();
             Toast.makeText(this, R.string.birlik_version_coming_soon, Toast.LENGTH_LONG).show();
             return false;
         }

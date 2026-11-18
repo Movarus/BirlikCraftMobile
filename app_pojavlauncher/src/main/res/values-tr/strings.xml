@@ -214,7 +214,7 @@
     <string name="use_global_default">(Genel varsayılanı kullan)</string>
     <string name="default_control">Varsayılan kontroller</string>
     <string name="progresslayout_tasks_in_progress">%d tane görev devam etmekte</string>
-    <string name="notification_terminate">Sonlandır</string>
+    <string name="notification_terminate">Oyunu kapat</string>
     <string name="notification_game_runs">Oyun şu anda çalışıyor!</string>
     <string name="folder_dialog_create">Oluştur</string>
     <string name="folder_dialog_insert_name">Dosya ismini girin</string>
@@ -567,4 +567,9 @@
     <string name="birlik_connection_closed">BirlikCraft sunucusuna bağlanılamadı. Ana menüye dönülüyor…</string>
     <string name="birlik_settings_shaders_title">Shader desteği (Sodium + Iris)</string>
     <string name="birlik_settings_shaders_summary">Daha hızlı görüntü ve shader paketleri. Cihazında oyun çökerse kapat.</string>
+    <string name="birlik_progress_starting">Başlatılıyor…</string>
+    <string name="birlik_progress_installing">Sürüm yükleniyor…</string>
+    <string name="birlik_progress_preparing">Hazırlanıyor…</string>
+    <string name="birlik_notification_game_title">BirlikCraft\'ta oyundasın ⚔️</string>
+    <string name="birlik_notification_game_text">oyna.birlikcraft.com · İyi eğlenceler!</string>
 </resources>

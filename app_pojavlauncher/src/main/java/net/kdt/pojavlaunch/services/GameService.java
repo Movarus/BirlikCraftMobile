@@ -44,12 +44,12 @@ public class GameService extends Service {
                 new Intent(this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT),
                  PendingIntent.FLAG_IMMUTABLE);
 
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, "channel_id")
-                .setContentTitle(getString(R.string.lazy_service_default_title))
-                .setContentText(getString(R.string.notification_game_runs))
+        NotificationCompat.Builder notificationBuilder = net.kdt.pojavlaunch.birlik.BirlikNotifications.style(this,
+                new NotificationCompat.Builder(this, "channel_id"))
+                .setContentTitle(getString(R.string.birlik_notification_game_title))
+                .setContentText(getString(R.string.birlik_notification_game_text))
                 .setContentIntent(contentIntent)
                 .addAction(android.R.drawable.ic_menu_close_clear_cancel,  getString(R.string.notification_terminate), pendingKillIntent)
-                .setSmallIcon(R.drawable.notif_icon)
                 .setNotificationSilent();
 
         Notification notification = notificationBuilder.build();

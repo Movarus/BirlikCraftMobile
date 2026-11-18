@@ -43,6 +43,13 @@ public class MainMenuFragment extends Fragment {
     public static final String TAG = "MainMenuFragment";
 
     private mcVersionSpinner mVersionSpinner;
+    private net.kdt.pojavlaunch.birlik.BirlikLaunchProgress mLaunchProgress;
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (mLaunchProgress != null) mLaunchProgress.detach();
+    }
 
     public MainMenuFragment(){
         super(R.layout.fragment_launcher);
@@ -72,7 +79,12 @@ public class MainMenuFragment extends Fragment {
         mResourcePacksButton.setOnClickListener(v -> openPackSearch(ModrinthApi.TYPE_RESOURCE_PACK));
         mShaderPacksButton.setOnClickListener(v -> openPackSearch(ModrinthApi.TYPE_SHADER));
 
-        mPlayButton.setOnClickListener(v -> ExtraCore.setValue(ExtraConstants.LAUNCH_GAME, true));
+        mLaunchProgress = net.kdt.pojavlaunch.birlik.BirlikLaunchProgress.attach(view);
+        mPlayButton.setOnClickListener(v -> {
+            net.kdt.pojavlaunch.birlik.BirlikLaunchProgress.onPlayPressed();
+            ExtraCore.setValue(ExtraConstants.LAUNCH_GAME, true);
+            mLaunchProgress.refresh();
+        });
 
         BirlikHome.bindHome(view);
 

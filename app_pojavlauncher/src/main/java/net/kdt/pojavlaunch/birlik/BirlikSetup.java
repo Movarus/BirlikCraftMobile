@@ -250,8 +250,10 @@ public final class BirlikSetup {
                 prepare(activity, profileKey);
                 success = true;
             } catch (ModGuardException e) {
+                BirlikLaunchProgress.cancelLaunch();
                 Tools.runOnUiThread(() -> showModGuardDialog(activity, e.getForbiddenMods()));
             } catch (Exception e) {
+                BirlikLaunchProgress.cancelLaunch();
                 Log.e(TAG, "BirlikCraft setup failed", e);
                 Tools.showErrorRemote(activity, R.string.birlik_setup_failed, e);
             } finally {

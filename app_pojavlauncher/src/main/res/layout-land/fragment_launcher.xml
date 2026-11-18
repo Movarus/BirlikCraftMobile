@@ -248,17 +248,49 @@
             android:layout_height="0dp"
             android:visibility="gone" />
 
-        <com.kdt.mcgui.MineButton
-            android:id="@+id/play_button"
+        <!-- PLAY button, replaced by the wave progress bar while the game is being prepared -->
+        <FrameLayout
             android:layout_width="@dimen/_170sdp"
-            android:layout_height="@dimen/_42sdp"
-            android:drawableStart="@drawable/ic_birlik_play"
-            android:drawableTint="#3B1A00"
-            android:fontFamily="@font/minecraft_ten"
-            android:letterSpacing="0.12"
-            android:paddingHorizontal="@dimen/_16sdp"
-            android:text="@string/main_play"
-            android:textAllCaps="true" />
+            android:layout_height="@dimen/_42sdp">
+
+            <com.kdt.mcgui.MineButton
+                android:id="@+id/play_button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:drawableStart="@drawable/ic_birlik_play"
+                android:drawableTint="#3B1A00"
+                android:fontFamily="@font/minecraft_ten"
+                android:letterSpacing="0.12"
+                android:paddingHorizontal="@dimen/_16sdp"
+                android:text="@string/main_play"
+                android:textAllCaps="true" />
+
+            <LinearLayout
+                android:id="@+id/birlik_launch_progress"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/birlik_launch_progress_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_4sdp"
+                    android:gravity="center"
+                    android:letterSpacing="0.1"
+                    android:singleLine="true"
+                    android:textColor="@color/birlik_gold_light"
+                    android:textSize="@dimen/_9ssp"
+                    android:textStyle="bold" />
+
+                <net.kdt.pojavlaunch.birlik.BirlikWaveProgressView
+                    android:id="@+id/birlik_launch_progress_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_14sdp" />
+            </LinearLayout>
+        </FrameLayout>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
