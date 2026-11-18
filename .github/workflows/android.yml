@@ -43,6 +43,19 @@ jobs:
           cp "$(ls build/libs/birlikcraft-core-*.jar | grep -v sources | head -1)" ../app_pojavlauncher/src/main/assets/birlikcraft/birlikcraft-core.jar
           ls -l ../app_pojavlauncher/src/main/assets/birlikcraft/
 
+      - name: Inspect Minecraft jar (pack format / GUI textures)
+        continue-on-error: true
+        run: |
+          JAR=$(find ~/.gradle birlikcraft-mod/.gradle -name "*.jar" 2>/dev/null | grep -iE "minecraft-(client|merged|common)" | grep -v sources | head -1)
+          [ -z "$JAR" ] && JAR=$(find ~/.gradle birlikcraft-mod/.gradle -name "*.jar" 2>/dev/null | xargs -I{} sh -c 'unzip -l "{}" 2>/dev/null | grep -q "version.json" && echo "{}"' | head -1)
+          echo "JAR=$JAR"
+          find ~/.gradle birlikcraft-mod/.gradle -name "*.jar" 2>/dev/null | grep -i minecraft | head -20
+          unzip -p "$JAR" version.json || true
+          echo "=== GUI FILES ==="
+          unzip -l "$JAR" | grep -E "assets/minecraft/textures/gui/" | awk '{print $4}' | grep -vE "/(container|advancements|hud|recipe_book|toasts)/" | head -300
+          echo "=== pack.mcmeta ==="
+          unzip -p "$JAR" pack.mcmeta || true
+
       - name: Set up JDK 21
         uses: actions/setup-java@v3
         with:
