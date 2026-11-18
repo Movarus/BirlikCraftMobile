@@ -157,24 +157,33 @@ public final class BirlikAuth {
         connection.setRequestProperty("X-Launcher-Signature", sign(body + ":" + timestamp));
 
         String responseText;
+        int code;
         try {
             try (OutputStream out = connection.getOutputStream()) {
                 out.write(body.getBytes(StandardCharsets.UTF_8));
             }
-            int code = connection.getResponseCode();
+            code = connection.getResponseCode();
             InputStream in = code >= 400 ? connection.getErrorStream() : connection.getInputStream();
             responseText = in == null ? "" : readFully(in);
+        } catch (IOException e) {
+            // DNS, TLS, timeout or refused connection: the server was not reached
+            Log.w(TAG, "Login request failed", e);
+            throw new IOException(e.getClass().getSimpleName() + ": " + e.getMessage(), e);
         } finally {
             connection.disconnect();
         }
 
-        JsonObject response;
+        // The server answered: anything that is not our JSON is reported with its HTTP code so
+        // problems like a wrong URL (404), a firewall/Cloudflare page (403) or a PHP error (500)
+        // can be told apart from a network problem.
+        JsonObject response = null;
         try {
             response = Tools.GLOBAL_GSON.fromJson(responseText, JsonObject.class);
-        } catch (RuntimeException e) {
-            throw new IOException("Unexpected answer from the login server", e);
+        } catch (RuntimeException ignored) {}
+        if (response == null) {
+            Log.w(TAG, "Unexpected login answer (HTTP " + code + "): " + responseText);
+            throw new AuthException("Sunucu beklenmeyen bir yanıt verdi (HTTP " + code + "): " + preview(responseText));
         }
-        if (response == null) throw new IOException("Empty answer from the login server");
 
         JsonElement success = response.get("success");
         if (success == null || !success.isJsonPrimitive() || !success.getAsBoolean()) {
@@ -223,6 +232,14 @@ public final class BirlikAuth {
         if (element == null || element.isJsonNull()) return null;
         String value = element.getAsString();
         return value.isEmpty() ? null : value;
+    }
+
+    /** First characters of a server answer, without HTML tags, for error messages. */
+    private static String preview(String text) {
+        String plain = text.replaceAll("(?s)<(script|style)[^>]*>.*?</\\1>", " ")
+                .replaceAll("<[^>]+>", " ").replaceAll("\\s+", " ").trim();
+        if (plain.isEmpty()) return "boş yanıt";
+        return plain.length() > 120 ? plain.substring(0, 120) + "…" : plain;
     }
 
     private static String readFully(InputStream in) throws IOException {

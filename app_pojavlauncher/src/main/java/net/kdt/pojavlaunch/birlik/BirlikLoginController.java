@@ -112,7 +112,7 @@ public final class BirlikLoginController {
             } catch (IOException e) {
                 Tools.runOnUiThread(() -> {
                     setBusy(false);
-                    showError(mActivity.getString(R.string.birlik_login_network_error));
+                    showError(mActivity.getString(R.string.birlik_login_network_error) + "\n(" + e.getMessage() + ")");
                 });
             }
         });
