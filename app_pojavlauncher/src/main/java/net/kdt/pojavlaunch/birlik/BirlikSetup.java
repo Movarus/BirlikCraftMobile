@@ -96,6 +96,36 @@ public final class BirlikSetup {
     private static final String[] SHADER_MODS = {"sodium", "iris"};
     public static final String PREF_SHADERS_ENABLED = "birlik_shaders_enabled";
 
+    /**
+     * Test mode (Settings > Developer): the game opens on Minecraft's own title screen instead of
+     * joining the server, and is never closed by BirlikCraft, so it can be tested offline.
+     */
+    public static final String PREF_TEST_MODE = "birlik_test_mode";
+
+    public static boolean isTestMode() {
+        return LauncherPreferences.DEFAULT_PREF != null
+                && LauncherPreferences.DEFAULT_PREF.getBoolean(PREF_TEST_MODE, false);
+    }
+
+    /** Left by the game process when joining the server failed; read by the launcher. */
+    private static File connectionFailedFlag() {
+        return new File(Tools.DIR_DATA, "birlik_connection_failed");
+    }
+
+    public static void markConnectionFailed() {
+        try {
+            if (!connectionFailedFlag().createNewFile()) Log.d(TAG, "Connection failure already marked");
+        } catch (IOException e) {
+            Log.w(TAG, "Could not mark the connection failure", e);
+        }
+    }
+
+    /** @return true once after the game closed because joining the server failed */
+    public static boolean consumeConnectionFailed() {
+        File flag = connectionFailedFlag();
+        return flag.exists() && flag.delete();
+    }
+
     public static boolean isShaderSupportEnabled() {
         return LauncherPreferences.DEFAULT_PREF == null
                 || LauncherPreferences.DEFAULT_PREF.getBoolean(PREF_SHADERS_ENABLED, true);

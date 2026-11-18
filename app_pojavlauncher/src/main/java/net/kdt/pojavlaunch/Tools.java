@@ -519,6 +519,8 @@ public final class Tools {
             javaArgList.add("-Djna.boot.library.path="+dirPath);
         }
         javaArgList.add("-Djava.library.path="+javaLibraryPath);
+        // BirlikCraft mod: in test mode the game is never closed by BirlikCraft
+        if (net.kdt.pojavlaunch.birlik.BirlikSetup.isTestMode()) javaArgList.add("-Dbirlikcraft.testMode=true");
 
         javaArgList.addAll(Arrays.asList(getMinecraftJVMArgs(versionId, gamedir)));
         javaArgList.add("-cp"); javaArgList.add(launchClasspath);
@@ -883,7 +885,8 @@ public final class Tools {
         // BirlikCraft: skip Minecraft's title screen and join the server right away
         String birlikProfile = LauncherPreferences.DEFAULT_PREF == null ? null
                 : LauncherPreferences.DEFAULT_PREF.getString(LauncherPreferences.PREF_KEY_CURRENT_PROFILE, null);
-        if (net.kdt.pojavlaunch.birlik.BirlikSetup.isBirlikProfile(birlikProfile)) {
+        if (net.kdt.pojavlaunch.birlik.BirlikSetup.isBirlikProfile(birlikProfile)
+                && !net.kdt.pojavlaunch.birlik.BirlikSetup.isTestMode()) {
             mcArguments += " --quickPlayMultiplayer " + net.kdt.pojavlaunch.birlik.BirlikSetup.SERVER_ADDRESS;
         }
 

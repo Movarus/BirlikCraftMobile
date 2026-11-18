@@ -23,6 +23,7 @@ public final class BirlikConnectionWatcher {
     private static final String[] FAILURE_MARKERS = {
             "Couldn't connect to server",
             "Failed to connect to server",
+            "BirlikCraft: closing the game (could not join the server)",
     };
     private static final long EXIT_DELAY_MS = 1500;
 
@@ -31,11 +32,13 @@ public final class BirlikConnectionWatcher {
     private BirlikConnectionWatcher() {}
 
     public static void attach(@NonNull Activity activity) {
+        if (BirlikSetup.isTestMode()) return; // test mode: never close the game
         Logger.addLogListener(text -> {
             if (sExiting || text == null) return;
             for (String marker : FAILURE_MARKERS) {
                 if (text.contains(marker)) {
                     sExiting = true;
+                    BirlikSetup.markConnectionFailed(); // the launcher shows a notice
                     Tools.runOnUiThread(() -> {
                         Toast.makeText(activity, R.string.birlik_connection_closed, Toast.LENGTH_LONG).show();
                         Tools.MAIN_HANDLER.postDelayed(() -> {

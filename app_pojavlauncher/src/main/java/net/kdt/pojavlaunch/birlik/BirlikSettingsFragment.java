@@ -173,6 +173,7 @@ public class BirlikSettingsFragment extends Fragment {
 
     private void buildDeveloper() {
         header(R.string.birlik_pref_category_developer);
+        toggle(R.string.birlik_test_mode_title, R.string.birlik_test_mode_summary, BirlikSetup.PREF_TEST_MODE, false);
         action(android.R.drawable.ic_menu_share, getString(R.string.main_share_logs),
                 getString(R.string.birlik_share_logs_summary), v -> Tools.shareLog(requireContext()));
         action(R.drawable.ic_folder, getString(R.string.mcl_button_open_directory),

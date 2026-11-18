@@ -622,4 +622,8 @@
     <string name="birlik_progress_preparing">Preparing…</string>
     <string name="birlik_notification_game_title">You are playing on BirlikCraft ⚔️</string>
     <string name="birlik_notification_game_text">oyna.birlikcraft.com · Have fun!</string>
+    <string name="birlik_server_offline_title">Could not connect to the server</string>
+    <string name="birlik_server_offline_message">The BirlikCraft server is closed or under maintenance right now. Please try again later.</string>
+    <string name="birlik_test_mode_title">Test mode</string>
+    <string name="birlik_test_mode_summary">Opens the game on the Minecraft main menu without joining the server and never closes it. For testing only.</string>
 </resources>

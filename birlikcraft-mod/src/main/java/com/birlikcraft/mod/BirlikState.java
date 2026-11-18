@@ -18,7 +18,14 @@ public final class BirlikState {
 
 	private BirlikState() {}
 
+	/** Set by the launcher's test mode (-Dbirlikcraft.testMode=true): never close the game. */
+	public static final boolean TEST_MODE = Boolean.getBoolean("birlikcraft.testMode");
+
 	public static void closeGame(String reason) {
+		if (TEST_MODE) {
+			BirlikCraftClient.LOGGER.info("BirlikCraft test mode: not closing the game ({})", reason);
+			return;
+		}
 		if (closing) return;
 		closing = true;
 		BirlikCraftClient.LOGGER.info("BirlikCraft: closing the game ({})", reason);

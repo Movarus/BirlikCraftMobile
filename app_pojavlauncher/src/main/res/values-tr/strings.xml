@@ -572,4 +572,8 @@
     <string name="birlik_progress_preparing">Hazırlanıyor…</string>
     <string name="birlik_notification_game_title">BirlikCraft\'ta oyundasın ⚔️</string>
     <string name="birlik_notification_game_text">oyna.birlikcraft.com · İyi eğlenceler!</string>
+    <string name="birlik_server_offline_title">Sunucuya bağlanılamadı</string>
+    <string name="birlik_server_offline_message">BirlikCraft sunucusu şu anda kapalı ya da bakımda. Lütfen daha sonra tekrar dene.</string>
+    <string name="birlik_test_mode_title">Test modu</string>
+    <string name="birlik_test_mode_summary">Oyunu sunucuya bağlanmadan Minecraft ana menüsüyle açar ve kapatmaz. Sadece test içindir.</string>
 </resources>
