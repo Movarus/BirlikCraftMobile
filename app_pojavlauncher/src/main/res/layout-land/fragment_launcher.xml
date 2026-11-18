@@ -214,17 +214,6 @@
                     style="@style/BirlikHomeTileLabel"
                     android:text="@string/mcl_button_open_directory" />
             </LinearLayout>
-            <LinearLayout
-                android:id="@+id/share_logs_button"
-                style="@style/BirlikHomeTile">
-                <ImageView
-                    style="@style/BirlikHomeTileIcon"
-                    android:src="@android:drawable/ic_menu_share"
-                    tools:ignore="ContentDescription" />
-                <TextView
-                    style="@style/BirlikHomeTileLabel"
-                    android:text="@string/main_share_logs" />
-            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 

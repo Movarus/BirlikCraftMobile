@@ -481,4 +481,9 @@
     <string name="birlik_graphics_title">%s için grafik motoru</string>
     <string name="birlik_graphics_applied">Grafik motoru: %s</string>
     <string name="birlik_renderer_auto">Otomatik (önerilen)</string>
+    <string name="birlik_pref_category_game">Oyun</string>
+    <string name="birlik_pref_category_permissions">İzinler</string>
+    <string name="birlik_pref_category_developer">Geliştirici seçenekleri</string>
+    <string name="birlik_share_logs_summary">Bir sorun bildirirken son oyun kaydını paylaş</string>
+    <string name="birlik_renderer_recommended">Önerilen (%s)</string>
 </resources>

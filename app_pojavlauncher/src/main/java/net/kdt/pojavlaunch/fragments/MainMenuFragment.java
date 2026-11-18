@@ -54,7 +54,6 @@ public class MainMenuFragment extends Fragment {
         View mNewsButton = view.findViewById(R.id.news_button);
         View mDiscordButton = view.findViewById(R.id.discord_button);
         View mCustomControlButton = view.findViewById(R.id.custom_control_button);
-        View mShareLogsButton = view.findViewById(R.id.share_logs_button);
         View mOpenDirectoryButton = view.findViewById(R.id.open_files_button);
         View mServerIpButton = view.findViewById(R.id.server_ip_button);
         View mResourcePacksButton = view.findViewById(R.id.resource_packs_button);
@@ -66,7 +65,6 @@ public class MainMenuFragment extends Fragment {
         mNewsButton.setOnClickListener(v -> Tools.openURL(requireActivity(), Tools.URL_HOME));
         mDiscordButton.setOnClickListener(v -> Tools.openURL(requireActivity(), getString(R.string.discord_invite)));
         mCustomControlButton.setOnClickListener(v -> startActivity(new Intent(requireContext(), CustomControlsActivity.class)));
-        mShareLogsButton.setOnClickListener((v) -> shareLog(requireContext()));
         mOpenDirectoryButton.setOnClickListener((v) -> openPath(v.getContext(), getCurrentProfileDirectory(), false));
 
         mServerIpButton.setOnClickListener(v -> {

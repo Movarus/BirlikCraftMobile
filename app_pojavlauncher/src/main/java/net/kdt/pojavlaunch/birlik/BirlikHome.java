@@ -79,12 +79,16 @@ public final class BirlikHome {
         if (profile == null) return;
 
         Tools.RenderersList renderers = Tools.getCompatibleRenderers(activity);
+        String recommended = BirlikSetup.getRecommendedRenderer(activity);
         int count = renderers.rendererIds.size();
         String[] names = new String[count + 1];
-        names[0] = activity.getString(R.string.birlik_renderer_auto);
+        int recommendedIndex = recommended == null ? -1 : renderers.rendererIds.indexOf(recommended);
+        names[0] = recommendedIndex >= 0
+                ? activity.getString(R.string.birlik_renderer_recommended, renderers.rendererDisplayNames[recommendedIndex])
+                : activity.getString(R.string.birlik_renderer_auto);
         System.arraycopy(renderers.rendererDisplayNames, 0, names, 1, count);
         int checked = 0;
-        if (profile.pojavRendererName != null) {
+        if (profile.pojavRendererName != null && !profile.pojavRendererName.equals(recommended)) {
             int index = renderers.rendererIds.indexOf(profile.pojavRendererName);
             if (index >= 0) checked = index + 1;
         }
@@ -96,8 +100,9 @@ public final class BirlikHome {
                     LauncherProfiles.load();
                     MinecraftProfile p = LauncherProfiles.mainProfileJson.profiles.get(profileKey);
                     if (p != null) {
-                        p.pojavRendererName = which == 0 ? null : renderers.rendererIds.get(which - 1);
+                        p.pojavRendererName = which == 0 ? recommended : renderers.rendererIds.get(which - 1);
                         LauncherProfiles.write();
+                        BirlikSetup.markRendererChosen(profileKey);
                     }
                     Toast.makeText(activity, activity.getString(R.string.birlik_graphics_applied, names[which]),
                             Toast.LENGTH_SHORT).show();

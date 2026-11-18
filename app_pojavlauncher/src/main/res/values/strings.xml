@@ -575,4 +575,9 @@
     <string name="birlik_graphics_title">Graphics engine for %s</string>
     <string name="birlik_graphics_applied">Graphics engine: %s</string>
     <string name="birlik_renderer_auto">Automatic (recommended)</string>
+    <string name="birlik_pref_category_game">Game</string>
+    <string name="birlik_pref_category_permissions">Permissions</string>
+    <string name="birlik_pref_category_developer">Developer options</string>
+    <string name="birlik_share_logs_summary">Share the latest game log when reporting a problem</string>
+    <string name="birlik_renderer_recommended">Recommended (%s)</string>
 </resources>

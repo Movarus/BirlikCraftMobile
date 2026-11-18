@@ -19,6 +19,7 @@ import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.extra.ExtraConstants;
 import net.kdt.pojavlaunch.extra.ExtraCore;
+import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 import net.kdt.pojavlaunch.utils.DownloadUtils;
 import net.kdt.pojavlaunch.utils.FileUtils;
 import net.kdt.pojavlaunch.utils.MCOptionUtils;
@@ -76,6 +77,14 @@ public final class BirlikSetup {
             "entityculling",  // skip rendering hidden entities and block entities
             "immediatelyfast" // faster immediate-mode rendering (HUD, text, items)
     };
+
+    /**
+     * Renderer BirlikCraft uses by default. Amethyst's release notes name Kopper Zink as the
+     * renderer that runs Minecraft 26.2+, while MobileGlues (Amethyst's automatic choice)
+     * crashes on 26.3. Players can still pick another one from the Graphics Engine tile.
+     */
+    public static final String RECOMMENDED_RENDERER = "opengles3_desktopgl_zink_kopper";
+    private static final String RENDERER_DEFAULT_FLAG = "birlik_renderer_default_v1_";
 
     private static final String MODRINTH_API = "https://api.modrinth.com/v2";
     private static final String FABRIC_META = "https://meta.fabricmc.net/v2";
@@ -141,6 +150,19 @@ public final class BirlikSetup {
             }
         }
         return modified;
+    }
+
+    /** Remember that the renderer of this version was chosen, so the default is not applied over it. */
+    public static void markRendererChosen(@NonNull String profileKey) {
+        if (LauncherPreferences.DEFAULT_PREF != null) {
+            LauncherPreferences.DEFAULT_PREF.edit().putBoolean(RENDERER_DEFAULT_FLAG + profileKey, true).apply();
+        }
+    }
+
+    /** @return the recommended renderer if this device supports it, else null (automatic). */
+    @Nullable
+    public static String getRecommendedRenderer(@NonNull android.content.Context context) {
+        return Tools.checkRendererCompatible(context, RECOMMENDED_RENDERER) ? RECOMMENDED_RENDERER : null;
     }
 
     private static boolean isFabricVersionOf(String versionId, String mcVersion) {
@@ -220,6 +242,14 @@ public final class BirlikSetup {
         if (profile == null) throw new IllegalStateException("Missing profile " + profileKey);
         File gameDir = Tools.getGameDirPath(profile);
         FileUtils.ensureDirectory(gameDir);
+
+        // 0. Default renderer, applied once per version so the player's own choice is kept
+        SharedPreferences prefs = LauncherPreferences.DEFAULT_PREF;
+        if (prefs != null && !prefs.getBoolean(RENDERER_DEFAULT_FLAG + profileKey, false)) {
+            profile.pojavRendererName = getRecommendedRenderer(activity);
+            LauncherProfiles.write();
+            prefs.edit().putBoolean(RENDERER_DEFAULT_FLAG + profileKey, true).apply();
+        }
 
         // 1. Fabric loader
         if (!isFabricVersionOf(profile.lastVersionId, mcVersion) || !isVersionInstalled(profile.lastVersionId)) {

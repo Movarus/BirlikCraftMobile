@@ -11,9 +11,11 @@ import androidx.annotation.Nullable;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
+import net.kdt.pojavlaunch.Architecture;
 import net.kdt.pojavlaunch.LauncherActivity;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
+import net.kdt.pojavlaunch.prefs.CustomSeekBarPreference;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 
 /**
@@ -33,6 +35,36 @@ public class LauncherPreferenceFragment extends PreferenceFragmentCompat impleme
         addPreferencesFromResource(R.xml.pref_main);
         setupNotificationRequestPreference();
         setupAboutPreferences();
+        setupBirlikPreferences();
+    }
+
+    /** BirlikCraft's limited settings: resolution, RAM and the developer log export. */
+    private void setupBirlikPreferences() {
+        CustomSeekBarPreference resolution = findPreference("resolutionRatio");
+        if (resolution != null) {
+            int value = (int) (LauncherPreferences.PREF_SCALE_FACTOR * 100);
+            resolution.setSuffix(" %");
+            resolution.setValue(value < 25 ? 100 : value);
+        }
+
+        CustomSeekBarPreference memory = findPreference("allocation");
+        if (memory != null) {
+            int deviceRam = Tools.getTotalDeviceMemory(memory.getContext());
+            int maxRam;
+            if (Architecture.is32BitsDevice() || deviceRam < 2048) maxRam = Math.min(1024, deviceRam);
+            else maxRam = deviceRam - (deviceRam < 3064 ? 800 : 1024); // leave memory for Android
+            memory.setMaxKeepIncrement(maxRam);
+            memory.setValue(LauncherPreferences.PREF_RAM_ALLOCATION);
+            memory.setSuffix(" MB");
+        }
+
+        Preference shareLogs = findPreference("birlik_share_logs");
+        if (shareLogs != null) {
+            shareLogs.setOnPreferenceClickListener(p -> {
+                Tools.shareLog(requireContext());
+                return true;
+            });
+        }
     }
 
     private void setupAboutPreferences() {
