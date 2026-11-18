@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <!-- App name part -->
-    <string name="app_name">BirlikCraft Mobile (Android için Minecraft)</string>
+    <string name="app_name">BirlikCraft Mobile</string>
     <string name="app_short_name">BirlikCraft</string>
     <!-- Action bar part -->
     <!-- Languages list part -->
@@ -209,7 +209,7 @@
     <string name="arc_capes_title">Cosmetica Pelerinleri</string>
     <string name="arc_capes_desc">Cosmetica\'nın (eskiden Arc olarak biliniyordu) Pelerinlerini etkinleştirir. Daha fazla bilgi için lütfen https://cosmetica.cc\'u ziyaret edin. OptiFine gerektirir.</string>
     <string name="notif_channel_name">Genel</string>
-    <string name="lazy_service_default_title">BirlikCraft Önplan Hizmeti</string>
+    <string name="lazy_service_default_title">BirlikCraft</string>
     <string name="mcl_setting_veroption_installed">Kuruldu</string>
     <string name="use_global_default">(Genel varsayılanı kullan)</string>
     <string name="default_control">Varsayılan kontroller</string>
@@ -545,4 +545,6 @@
     <string name="birlik_section_content">İÇERİK</string>
     <string name="birlik_resourcepacks_card_summary">Doku paketlerine göz at ve yükle</string>
     <string name="birlik_shaderpacks_card_summary">Işık ve gölge paketleri (shader modu gerekir)</string>
+    <string name="birlik_play_coming_soon">Yakında</string>
+    <string name="birlik_version_coming_soon">26.3 yakında geliyor! Şimdilik 26.2 ile oynayabilirsin.</string>
 </resources>

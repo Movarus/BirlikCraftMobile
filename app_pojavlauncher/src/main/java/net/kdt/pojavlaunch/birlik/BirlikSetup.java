@@ -56,7 +56,9 @@ public final class BirlikSetup {
 
     public static final String PROFILE_26_2 = "birlikcraft-26-2";
     public static final String PROFILE_26_3 = "birlikcraft-26-3";
-    public static final String DEFAULT_PROFILE = PROFILE_26_3;
+    public static final String DEFAULT_PROFILE = PROFILE_26_2;
+    public static final String SERVER_ADDRESS = "oyna.birlikcraft.com";
+    private static final String DEFAULT_262_MIGRATION_FLAG = "birlik_default_262_v1";
 
     /** Profile key -> Minecraft version. Order is the order shown to the player. */
     private static final Map<String, String> GAME_VERSIONS = new LinkedHashMap<>();
@@ -96,6 +98,23 @@ public final class BirlikSetup {
     private static volatile boolean sRunning;
 
     private BirlikSetup() {}
+
+    /**
+     * Whether this version can be played yet. 26.3 does not start on Adreno GPUs with Amethyst's
+     * current renderers, so it is shown as "coming soon" for now.
+     */
+    public static boolean isAvailable(@Nullable String profileKey) {
+        return PROFILE_26_2.equals(profileKey);
+    }
+
+    /** Once: move players who were on 26.3 (the old default) to 26.2. */
+    public static void migrateDefaultProfile(@NonNull SharedPreferences prefs) {
+        if (prefs.getBoolean(DEFAULT_262_MIGRATION_FLAG, false)) return;
+        prefs.edit()
+                .putString(LauncherPreferences.PREF_KEY_CURRENT_PROFILE, PROFILE_26_2)
+                .putBoolean(DEFAULT_262_MIGRATION_FLAG, true)
+                .apply();
+    }
 
     public static boolean isBirlikProfile(@Nullable String profileKey) {
         return profileKey != null && GAME_VERSIONS.containsKey(profileKey);

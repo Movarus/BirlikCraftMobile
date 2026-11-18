@@ -39,6 +39,7 @@ public class LauncherProfiles {
 
         // Always select one of the BirlikCraft profiles
         if (LauncherPreferences.DEFAULT_PREF != null) {
+            BirlikSetup.migrateDefaultProfile(LauncherPreferences.DEFAULT_PREF);
             String current = LauncherPreferences.DEFAULT_PREF.getString(LauncherPreferences.PREF_KEY_CURRENT_PROFILE, "");
             if (!BirlikSetup.isBirlikProfile(current)) {
                 LauncherPreferences.DEFAULT_PREF.edit()

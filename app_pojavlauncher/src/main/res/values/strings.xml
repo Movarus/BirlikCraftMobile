@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <!-- App name part -->
-    <string name="app_name">BirlikCraft Mobile (Minecraft: Java Edition)</string>
+    <string name="app_name">BirlikCraft Mobile</string>
     <string name="app_short_name">BirlikCraft</string>
     <string name="server_ip" translatable="false">oyna.birlikcraft.com</string>
     <string name="author_name" translatable="false">Movarus &amp; TaislaGroup</string>
@@ -248,7 +248,7 @@
     <string name="color_default_hex" translatable="false">FFFF0000</string>
     <string name="notif_channel_name">General</string>
     <string name="notif_channel_id" translatable="false">channel_id</string>
-    <string name="lazy_service_default_title">BirlikCraft Foreground Service</string>
+    <string name="lazy_service_default_title">BirlikCraft</string>
     <string name="mcl_setting_veroption_installed">Installed</string>
     <string name="use_global_default">(Use global default)</string>
     <string name="default_control">Default controlmap</string>
@@ -595,4 +595,6 @@
     <string name="birlik_section_content">CONTENT</string>
     <string name="birlik_resourcepacks_card_summary">Browse and install texture packs</string>
     <string name="birlik_shaderpacks_card_summary">Lighting and shadow packs (needs a shader mod)</string>
+    <string name="birlik_play_coming_soon">Coming soon</string>
+    <string name="birlik_version_coming_soon">26.3 is coming soon! For now you can play with 26.2.</string>
 </resources>

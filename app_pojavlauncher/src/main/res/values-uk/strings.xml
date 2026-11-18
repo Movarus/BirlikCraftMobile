@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <!-- App name part -->
-    <string name="app_name">BirlikCraft</string>
+    <string name="app_name">BirlikCraft Mobile</string>
     <!-- Action bar part -->
     <!-- Languages list part -->
     <!-- Login strings -->
@@ -210,7 +210,7 @@
     <string name="arc_capes_title">Плащі Cosmetica</string>
     <string name="arc_capes_desc">Умикає плащі від Cosmetica (раніше Arc). Для більш детальної інформації, будь ласка, відвідайте https://cosmetica.cc. Потребує OptiFine.</string>
     <string name="notif_channel_name">Загальне</string>
-    <string name="lazy_service_default_title">Служба BirlikCraft</string>
+    <string name="lazy_service_default_title">BirlikCraft</string>
     <string name="mcl_setting_veroption_installed">Установлено</string>
     <string name="use_global_default">(Використовувати усталено)</string>
     <string name="default_control">Усталене керування</string>

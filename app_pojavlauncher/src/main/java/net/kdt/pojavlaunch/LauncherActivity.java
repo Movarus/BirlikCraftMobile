@@ -208,6 +208,10 @@ public class LauncherActivity extends BaseActivity {
 
         // BirlikCraft: install Fabric + performance mods and check the mods folder before
         // every launch. prepareAsync() triggers LAUNCH_GAME again once it is done.
+        if (BirlikSetup.isBirlikProfile(selectedProfile) && !BirlikSetup.isAvailable(selectedProfile)) {
+            Toast.makeText(this, R.string.birlik_version_coming_soon, Toast.LENGTH_LONG).show();
+            return false;
+        }
         if (BirlikSetup.isBirlikProfile(selectedProfile) && !BirlikSetup.consumeReady(selectedProfile)) {
             BirlikSetup.prepareAsync(this, selectedProfile);
             return false;

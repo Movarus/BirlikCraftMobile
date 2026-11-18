@@ -103,6 +103,17 @@ public final class BirlikHome {
                     LauncherPreferences.PREF_KEY_CURRENT_PROFILE, BirlikSetup.DEFAULT_PROFILE);
             v263.setSelected(!BirlikSetup.PROFILE_26_2.equals(current));
             v262.setSelected(BirlikSetup.PROFILE_26_2.equals(current));
+            // 26.3 is not playable yet: grey "COMING SOON" play button
+            TextView play = root.findViewById(R.id.play_button);
+            if (play != null) {
+                boolean available = BirlikSetup.isAvailable(current);
+                play.setEnabled(available);
+                play.setText(available ? R.string.main_play : R.string.birlik_play_coming_soon);
+                play.setTextColor(available ? 0xFF3B1A00 : 0xFFBDBDBD);
+                for (android.graphics.drawable.Drawable d : play.getCompoundDrawablesRelative()) {
+                    if (d != null) d.setAlpha(available ? 255 : 0);
+                }
+            }
         };
         v263.setOnClickListener(v -> { selectProfile(BirlikSetup.PROFILE_26_3); refresh.run(); });
         v262.setOnClickListener(v -> { selectProfile(BirlikSetup.PROFILE_26_2); refresh.run(); });

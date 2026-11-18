@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <!-- App name part -->
-    <string name="app_name">Ametiszt</string>
+    <string name="app_name">BirlikCraft Mobile</string>
     <!-- Action bar part -->
     <!-- Languages list part -->
     <!-- Login strings -->
@@ -210,7 +210,7 @@ mcl_indítás_letöltés_folyamatban"</string>
     <string name="arc_capes_title">Cosmetica köpenyek</string>
     <string name="arc_capes_desc">Engedélyezi a köpenyeket a Cosmetica-ról (régebben Arc). További információért látogasd meg a https://cosmatica.cc oldalát. OptiFine-t igényel.</string>
     <string name="notif_channel_name">Általános</string>
-    <string name="lazy_service_default_title">Ametiszt \"Foreground\" szolgáltatás</string>
+    <string name="lazy_service_default_title">BirlikCraft</string>
     <string name="mcl_setting_veroption_installed">Telepítve</string>
     <string name="use_global_default">(Globális beállítások használata)</string>
     <string name="default_control">Alapértelmezett kezelőszerv</string>

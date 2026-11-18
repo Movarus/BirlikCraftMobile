@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <!-- App name part -->
-    <string name="app_name">BirlikCraft</string>
+    <string name="app_name">BirlikCraft Mobile</string>
     <!-- Action bar part -->
     <!-- Languages list part -->
     <!-- Login strings -->
@@ -199,7 +199,7 @@
     <string name="pedit_renderer">רינדור</string>
     <string name="arc_capes_desc">מאפשר שכמיות מאת Cosmetica (לשעבר Arc). לקבלת מידע נוסף, בקרו ב- https://cosmetica.cc. דורש OptiFine.</string>
     <string name="notif_channel_name">כללי</string>
-    <string name="lazy_service_default_title">שירות הרקע של BirlikCraft</string>
+    <string name="lazy_service_default_title">BirlikCraft</string>
     <string name="mcl_setting_veroption_installed">מותקן</string>
     <string name="use_global_default">(השתמש בהגדרות ברירת המחדל הגלובליות)</string>
     <string name="default_control">מפת בקר ברירת מחדל</string>

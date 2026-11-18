@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <!-- App name part -->
-    <string name="app_name">BirlikCraft</string>
+    <string name="app_name">BirlikCraft Mobile</string>
     <!-- Action bar part -->
     <!-- Languages list part -->
     <!-- Login strings -->
@@ -208,7 +208,7 @@
     <string name="arc_capes_title">Áo choàng Cosmetica</string>
     <string name="arc_capes_desc">Sử dụng áo choàng từ Cosmetica (trước đây gọi là Arc). Để biết thêm thông tin, hãy truy cập https://cosmetica.cc. Yêu cầu sử dụng OptiFine.</string>
     <string name="notif_channel_name">Chung</string>
-    <string name="lazy_service_default_title">Dịch vụ tiền cảnh BirlikCraft</string>
+    <string name="lazy_service_default_title">BirlikCraft</string>
     <string name="mcl_setting_veroption_installed">Đã cài đặt</string>
     <string name="use_global_default">(Sử dụng mặc định chung)</string>
     <string name="default_control">Bố cục điều khiển mặc định</string>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <!-- App name part -->
-    <string name="app_name">BirlikCraft</string>
+    <string name="app_name">BirlikCraft Mobile</string>
     <!-- Action bar part -->
     <!-- Languages list part -->
     <!-- Login strings -->
@@ -208,7 +208,7 @@
     <string name="arc_capes_title">Kápě Cosmetica</string>
     <string name="arc_capes_desc">Zapne kápě z Cosmeticy (dříve Arc) Pro více informací navštivte https://cosmetica.cc. Vyžaduje OptiFine.</string>
     <string name="notif_channel_name">Všeobecné</string>
-    <string name="lazy_service_default_title">BirlikCraft služba na popředí</string>
+    <string name="lazy_service_default_title">BirlikCraft</string>
     <string name="mcl_setting_veroption_installed">Nainstalováno</string>
     <string name="use_global_default">(Užít globální výchozí nastavení)</string>
     <string name="default_control">Výchozí ovládání</string>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <!-- App name part -->
-    <string name="app_name">BirlikCraft</string>
+    <string name="app_name">BirlikCraft Mobile</string>
     <!-- Action bar part -->
     <!-- Languages list part -->
     <!-- Login strings -->
@@ -202,7 +202,7 @@
     <string name="arc_capes_title">Capes Cosmetica</string>
     <string name="arc_capes_desc">Active les capes Cosmetica. Pour plus d\'informations visitez https://cosmetica.cc. Nécessite OptiFine.</string>
     <string name="notif_channel_name">Général</string>
-    <string name="lazy_service_default_title">Service de premier plan de BirlikCraft</string>
+    <string name="lazy_service_default_title">BirlikCraft</string>
     <string name="mcl_setting_veroption_installed">Installés</string>
     <string name="use_global_default">(Utiliser la valeur globale par défaut)</string>
     <string name="default_control">Contrôles par défaut</string>

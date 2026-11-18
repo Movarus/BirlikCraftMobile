@@ -359,10 +359,11 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         if (mBirlikSplashOverlay != null) {
             setupBirlikIntro();
         }
-        mBirlikLunarOverlay = findViewById(R.id.birlik_lunar_overlay);
-        if (mBirlikLunarOverlay != null) {
-            setupBirlikLunarMenu();
-        }
+        // BirlikCraft: the in-game overlay menu is retired. It was drawn over Minecraft's own
+        // title screen; the game now joins the server directly (--quickPlayMultiplayer).
+        View birlikLunarOverlay = findViewById(R.id.birlik_lunar_overlay);
+        if (birlikLunarOverlay != null) birlikLunarOverlay.setVisibility(View.GONE);
+        mBirlikLunarOverlay = null;
     }
 
     private android.widget.VideoView mBirlikSplashVideo;

@@ -154,7 +154,7 @@
     <string name="pedit_java_runtime">Java runtime</string>
     <string name="arc_capes_desc">Enablez capez from cosmetica (previously arc). For more informashun pleez visit https://cosmetica.cc. Requirez optifine.</string>
     <string name="notif_channel_name">Geneal</string>
-    <string name="lazy_service_default_title">BirlikCraft background police</string>
+    <string name="lazy_service_default_title">BirlikCraft</string>
     <string name="use_global_default">(Use Base Normal)</string>
     <string name="progresslayout_tasks_in_progress">%d taskz in progress</string>
     <string name="notification_terminate">Get rid of it</string>

@@ -873,6 +873,13 @@ public final class Tools {
 
         if(profile.isDemo()) mcArguments += " --demo";
 
+        // BirlikCraft: skip Minecraft's title screen and join the server right away
+        String birlikProfile = LauncherPreferences.DEFAULT_PREF == null ? null
+                : LauncherPreferences.DEFAULT_PREF.getString(LauncherPreferences.PREF_KEY_CURRENT_PROFILE, null);
+        if (net.kdt.pojavlaunch.birlik.BirlikSetup.isBirlikProfile(birlikProfile)) {
+            mcArguments += " --quickPlayMultiplayer " + net.kdt.pojavlaunch.birlik.BirlikSetup.SERVER_ADDRESS;
+        }
+
         return JSONUtils.insertJSONValueList(splitAndFilterEmpty(mcArguments), varArgMap);
     }
 
