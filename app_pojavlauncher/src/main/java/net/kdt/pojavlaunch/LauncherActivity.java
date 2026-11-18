@@ -32,6 +32,8 @@ import androidx.fragment.app.FragmentManager;
 import com.kdt.mcgui.ProgressLayout;
 import com.kdt.mcgui.mcAccountSpinner;
 
+import net.kdt.pojavlaunch.birlik.BirlikAuth;
+import net.kdt.pojavlaunch.birlik.BirlikLoginController;
 import net.kdt.pojavlaunch.birlik.BirlikSetup;
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension;
 import net.kdt.pojavlaunch.extra.ExtraConstants;
@@ -156,7 +158,10 @@ public class LauncherActivity extends BaseActivity {
         // Allow starting the add account only from the main menu, should it be moved to fragment itself ?
         if(!(fragment instanceof MainMenuFragment)) return false;
 
-        Tools.swapFragment(this, SelectAuthFragment.class, SelectAuthFragment.TAG, null);
+        // BirlikCraft: Microsoft and offline logins are removed. The account bar only offers
+        // signing out of the BirlikCraft account (or signing in when there is no session).
+        if (BirlikAuth.isLoggedIn(this)) BirlikLoginController.confirmLogout(this);
+        else BirlikLoginController.show(this);
         return false;
     };
 
@@ -174,6 +179,12 @@ public class LauncherActivity extends BaseActivity {
     private final ExtraListener<Boolean> mLaunchGameListener = (key, value) -> {
         if(ProgressLayout.hasProcesses()){
             Toast.makeText(this, R.string.tasks_ongoing, Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        // BirlikCraft: the game cannot be launched without a BirlikCraft login
+        if (!BirlikAuth.isLoggedIn(this)) {
+            BirlikLoginController.show(this);
             return false;
         }
 
@@ -300,7 +311,8 @@ public class LauncherActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pojav_launcher);
-        // BirlikCraft loading screen while the launcher prepares its components
+        // BirlikCraft login screen until the player signs in, then the loading screen on top
+        net.kdt.pojavlaunch.birlik.BirlikLoginController.attach(this);
         net.kdt.pojavlaunch.birlik.BirlikSplashController.attach(this);
         FragmentManager fragmentManager = getSupportFragmentManager();
         // If we don't have a back stack root yet...

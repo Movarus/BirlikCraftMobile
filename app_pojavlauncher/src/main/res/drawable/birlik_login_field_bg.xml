@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Login text field: gold border when focused -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_focused="true">
+        <shape android:shape="rectangle">
+            <corners android:radius="@dimen/_6sdp" />
+            <solid android:color="#E61E2026" />
+            <stroke android:width="@dimen/_1sdp" android:color="@color/birlik_gold_light" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="@dimen/_6sdp" />
+            <solid android:color="#CC1E2026" />
+            <stroke android:width="@dimen/_1sdp" android:color="#4DFFFFFF" />
+        </shape>
+    </item>
+</selector>

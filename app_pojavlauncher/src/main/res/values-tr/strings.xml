@@ -458,4 +458,15 @@
     <string name="birlik_splash_status_preparing">Oyun dosyaları hazırlanıyor…</string>
     <string name="birlik_splash_status_ready">Hazır!</string>
     <string name="birlik_splash_tagline">BirlikCraft deneyimi yükleniyor</string>
+    <string name="birlik_login_subtitle">BirlikCraft hesabınla giriş yap</string>
+    <string name="birlik_login_username">Kullanıcı adı</string>
+    <string name="birlik_login_password">Şifre</string>
+    <string name="birlik_login_button">Giriş yap</string>
+    <string name="birlik_login_register">Hesabın yok mu? movarus.info\'dan kayıt ol</string>
+    <string name="birlik_login_empty">Kullanıcı adını ve şifreni gir.</string>
+    <string name="birlik_login_network_error">Giriş sunucusuna ulaşılamadı. İnternet bağlantını kontrol et.</string>
+    <string name="birlik_login_welcome">Hoş geldin, %s!</string>
+    <string name="birlik_logout_title">Çıkış yap</string>
+    <string name="birlik_logout_message">%s olarak giriş yaptın. Çıkış yapmak istiyor musun?</string>
+    <string name="birlik_logout_button">Çıkış yap</string>
 </resources>

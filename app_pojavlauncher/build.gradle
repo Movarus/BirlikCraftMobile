@@ -54,6 +54,18 @@ def getVersionName = {
     }
 }
 
+// BirlikCraft launcher login: HMAC secret shared with movarus.info/launcher_auth.php.
+// Read from the BIRLIK_AUTH_SECRET environment variable (GitHub secret in CI) or from the
+// git-ignored birlik_auth_secret.txt file; it is never committed to the repository.
+def getBirlikAuthSecret = {
+    String key = System.getenv("BIRLIK_AUTH_SECRET");
+    if(key != null && !key.isEmpty()) return key.trim();
+    File keyFile = new File("$projectDir/birlik_auth_secret.txt");
+    if(keyFile.canRead() && keyFile.isFile()) return keyFile.text.trim();
+    logger.warn('BUILD: BIRLIK_AUTH_SECRET is not set, BirlikCraft login will be rejected by the server!');
+    return "";
+}
+
 def getCFApiKey = {
     String key = System.getenv("CURSEFORGE_API_KEY");
     if(key != null) return key;
@@ -108,6 +120,7 @@ android {
         versionName getVersionName()
         multiDexEnabled true //important
         resValue 'string', 'curseforge_api_key', getCFApiKey()
+        buildConfigField 'String', 'BIRLIK_AUTH_SECRET', '"' + getBirlikAuthSecret().replace('\\', '\\\\').replace('"', '\\"') + '"'
         externalNativeBuild {
             ndkBuild {
                 // Fix for Windows command line length limit

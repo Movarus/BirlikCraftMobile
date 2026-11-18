@@ -67,6 +67,12 @@
 
 
 
+    <!-- BirlikCraft login screen: shown until the player logs in -->
+    <include
+        layout="@layout/birlik_login_overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
     <!-- BirlikCraft loading screen, drawn above everything else -->
     <include
         layout="@layout/birlik_launch_splash"

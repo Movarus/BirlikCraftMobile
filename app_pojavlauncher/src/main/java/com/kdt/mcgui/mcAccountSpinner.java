@@ -253,7 +253,8 @@ public class mcAccountSpinner extends AppCompatSpinner implements AdapterView.On
         if(fromFiles){
             mAccountList.clear();
 
-            mAccountList.add(getContext().getString(R.string.main_add_account));
+            // BirlikCraft: the first entry signs out of the BirlikCraft account
+            mAccountList.add(getContext().getString(R.string.birlik_logout_button));
             File accountFolder = new File(Tools.DIR_ACCOUNT_NEW);
             if(accountFolder.exists()){
                 for (String fileName : accountFolder.list()) {

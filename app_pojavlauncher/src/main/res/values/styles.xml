@@ -56,4 +56,16 @@
         <item name="android:layout_weight">1</item>
         <item name="android:layout_margin">@dimen/_3sdp</item>
     </style>
+
+    <!-- BirlikCraft login text field -->
+    <style name="BirlikLoginField">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/_34sdp</item>
+        <item name="android:background">@drawable/birlik_login_field_bg</item>
+        <item name="android:paddingHorizontal">@dimen/_10sdp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">@color/primary_text</item>
+        <item name="android:textColorHint">#80FFFFFF</item>
+        <item name="android:textSize">@dimen/_11ssp</item>
+    </style>
 </resources>
