@@ -1,0 +1,23 @@
+{
+	"schemaVersion": 1,
+	"id": "birlikcraft",
+	"version": "${version}",
+	"name": "BirlikCraft",
+	"description": "BirlikCraft Mobile client mod: server-only flow and BirlikCraft menus.",
+	"authors": ["Movarus & TaislaGroup"],
+	"contact": {
+		"homepage": "https://movarus.info"
+	},
+	"license": "LGPL-3.0-only",
+	"icon": "assets/birlikcraft/icon.png",
+	"environment": "client",
+	"entrypoints": {
+		"client": ["com.birlikcraft.mod.BirlikCraftClient"]
+	},
+	"mixins": ["birlikcraft.mixins.json"],
+	"depends": {
+		"fabricloader": ">=0.20.1",
+		"minecraft": ">=26.2",
+		"java": ">=25"
+	}
+}

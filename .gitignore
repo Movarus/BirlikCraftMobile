@@ -19,3 +19,8 @@ app_pojavlauncher/.cxx/
 
 # BirlikCraft login secret (local builds only)
 /app_pojavlauncher/birlik_auth_secret.txt
+
+# BirlikCraft mod build output (the jar is bundled by CI)
+/birlikcraft-mod/build/
+/birlikcraft-mod/.gradle/
+/app_pojavlauncher/src/main/assets/birlikcraft/

@@ -320,7 +320,7 @@ public final class BirlikSetup {
             // Remove BirlikCraft mods that were replaced by a newer version
             if (allowed != null) {
                 for (Map.Entry<String, String> old : allowed.entrySet()) {
-                    if (fresh.containsKey(old.getKey())) continue;
+                    if (fresh.containsKey(old.getKey()) || BUNDLED_MOD_FILE.equals(old.getKey())) continue;
                     File oldFile = new File(modsDir, old.getKey());
                     if (oldFile.isFile() && Tools.compareSHA1(oldFile, old.getValue()) && !oldFile.delete()) {
                         Log.w(TAG, "Could not delete outdated mod " + oldFile);
@@ -335,9 +335,54 @@ public final class BirlikSetup {
             Log.w(TAG, "Could not update performance mods, using the installed ones", e);
         }
 
+        // 3b. The BirlikCraft mod shipped inside the launcher (required)
+        String bundledSha1 = installBundledMod(activity, modsDir);
+        if (bundledSha1 != null) {
+            allowed.put(BUNDLED_MOD_FILE, bundledSha1);
+            writeState(stateFile, allowed);
+        }
+
         // 4. Refuse to launch with any other mod
         progress(activity, 95, R.string.birlik_setup_step_check);
         verifyMods(modsDir, allowed);
+    }
+
+    private static final String BUNDLED_MOD_ASSET = "birlikcraft/birlikcraft-core.jar";
+    private static final String BUNDLED_MOD_FILE = "birlikcraft-core.jar";
+
+    /**
+     * Copy the BirlikCraft mod bundled in the APK into the mods folder (when it changed).
+     * @return its SHA-1, or null when this build has no bundled mod
+     */
+    @Nullable
+    private static String installBundledMod(Activity activity, File modsDir) throws IOException {
+        File cached = new File(Tools.DIR_CACHE, BUNDLED_MOD_FILE);
+        try (java.io.InputStream in = activity.getAssets().open(BUNDLED_MOD_ASSET)) {
+            org.apache.commons.io.FileUtils.copyInputStreamToFile(in, cached);
+        } catch (java.io.FileNotFoundException e) {
+            Log.w(TAG, "This build has no bundled BirlikCraft mod");
+            return null;
+        }
+        String sha1 = sha1Hex(cached);
+        File target = new File(modsDir, BUNDLED_MOD_FILE);
+        if (!target.isFile() || !Tools.compareSHA1(target, sha1)) {
+            org.apache.commons.io.FileUtils.copyFile(cached, target);
+        }
+        return sha1;
+    }
+
+    private static String sha1Hex(File file) throws IOException {
+        try (java.io.InputStream in = new java.io.FileInputStream(file)) {
+            java.security.MessageDigest digest = java.security.MessageDigest.getInstance("SHA-1");
+            byte[] buffer = new byte[8192];
+            int read;
+            while ((read = in.read(buffer)) != -1) digest.update(buffer, 0, read);
+            StringBuilder hex = new StringBuilder();
+            for (byte b : digest.digest()) hex.append(String.format(Locale.ROOT, "%02x", b));
+            return hex.toString();
+        } catch (java.security.NoSuchAlgorithmException e) {
+            throw new IOException(e);
+        }
     }
 
     /** Double check right before the JVM starts. */

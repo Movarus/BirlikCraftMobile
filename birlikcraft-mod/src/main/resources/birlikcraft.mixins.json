@@ -1,0 +1,14 @@
+{
+	"required": false,
+	"package": "com.birlikcraft.mod.mixin",
+	"compatibilityLevel": "JAVA_25",
+	"client": [
+		"ClientPacketListenerMixin",
+		"ConnectScreenMixin",
+		"DisconnectedScreenMixin",
+		"TitleScreenMixin"
+	],
+	"injectors": {
+		"defaultRequire": 0
+	}
+}
